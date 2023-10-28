@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "nexusutils:block/frozen_lava_3"
+  }
+}

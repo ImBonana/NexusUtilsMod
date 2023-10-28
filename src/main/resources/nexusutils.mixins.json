@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "me.imbanana.nexusutils.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AnvilScreenMixin",
+    "BoneMealMixin",
+    "PlayerVoidTotemMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "WorldMixin",
+    "enchantments.EnchantmentBlockMixin",
+    "enchantments.EnchantmentHelperMixin",
+    "enchantments.EnchantmentLivingEntityMixin",
+    "enchantments.EnchantmentMilkBucketItemMixin",
+    "enchantments.EnchantmentTridentEntityMixin",
+    "sit.SitLivingEntityAccessor",
+    "sit.SitLivingEntityDismountMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "AnvilScreenHandlerMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "WorldRenderMixin"
+  ]
+}
