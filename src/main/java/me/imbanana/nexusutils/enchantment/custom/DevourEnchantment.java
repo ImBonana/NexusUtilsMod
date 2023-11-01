@@ -1,12 +1,13 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 
-public class DevourEnchantment extends Enchantment {
+public class DevourEnchantment extends Enchantment implements TradableEnchantment {
     public DevourEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -29,5 +30,20 @@ public class DevourEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 40;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 25;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

@@ -1,10 +1,11 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 
-public class ExtraHealthEnchantment extends Enchantment {
+public class ExtraHealthEnchantment extends Enchantment implements TradableEnchantment {
     public ExtraHealthEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -22,5 +23,20 @@ public class ExtraHealthEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 50;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 40;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel()-1;
     }
 }

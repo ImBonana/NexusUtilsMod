@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.Enchantments;
@@ -11,7 +12,7 @@ import net.minecraft.entity.effect.StatusEffects;
 
 import java.util.Random;
 
-public class IceAspectEnchantment extends Enchantment {
+public class IceAspectEnchantment extends Enchantment implements TradableEnchantment {
     public IceAspectEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -47,5 +48,20 @@ public class IceAspectEnchantment extends Enchantment {
     @Override
     protected boolean canAccept(Enchantment other) {
         return super.canAccept(other) && other != Enchantments.FIRE_ASPECT;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 50;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 30;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

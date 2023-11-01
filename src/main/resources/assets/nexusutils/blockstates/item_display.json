@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "nexusutils:block/item_display"
+    }
+  }
+}

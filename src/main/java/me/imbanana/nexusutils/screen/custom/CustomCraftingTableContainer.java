@@ -1,4 +1,4 @@
-package me.imbanana.nexusutils.screen;
+package me.imbanana.nexusutils.screen.custom;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

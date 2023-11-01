@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.Random;
 
-public class VoodooEnchantment extends Enchantment {
+public class VoodooEnchantment extends Enchantment implements TradableEnchantment {
     public VoodooEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -38,5 +39,20 @@ public class VoodooEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 35;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 25;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

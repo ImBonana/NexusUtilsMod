@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.item;
 
 import me.imbanana.nexusutils.NexusUtils;
+import me.imbanana.nexusutils.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,11 @@ public class ModItemGroups {
                         entries.add(ModItems.CRAFTING_ON_A_STICK);
                         entries.add(ModItems.MOB_GRABBER);
                         entries.add(ModItems.VOID_TOTEM);
+
+
+                        entries.add(ModBlocks.ITEM_DISPLAY);
+
+
                         entries.add(ModItems.MOD_TEST);
                     }).build());
 

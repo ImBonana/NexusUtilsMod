@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "R": {
+      "item": "minecraft:lead"
+    }
+  },
+  "pattern": [
+    "L L",
+    "LRL",
+    "CCC"
+  ],
+  "result": {
+    "item": "nexusutils:mob_grabber"
+  },
+  "show_notification": true
+}

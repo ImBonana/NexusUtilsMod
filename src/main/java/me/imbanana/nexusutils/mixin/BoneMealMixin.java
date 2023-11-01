@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.mixin;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemUsageContext;
@@ -21,12 +22,16 @@ public abstract class BoneMealMixin {
     protected void InjectBoneMealUse(ItemUsageContext context, CallbackInfoReturnable<ActionResult> info) {
         World world = context.getWorld();
         BlockPos blockPos = context.getBlockPos();
+        BlockState blockState = world.getBlockState(blockPos);
 
         if (canUse(world, blockPos)) {
             if (!world.isClient) {
-                world.setBlockState(getHighestBlockFromType(world, blockPos), world.getBlockState(blockPos).getBlock().getDefaultState());
+                BlockPos newPos = getHighestBlockFromType(world, blockPos);
+                if(!world.getBlockState(newPos).isAir()) return;
+                world.setBlockState(newPos, blockState.getBlock().getDefaultState());
                 context.getPlayer().emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
                 world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
+                world.updateNeighborsAlways(blockPos, blockState.getBlock());
             }
             info.setReturnValue(ActionResult.success(world.isClient));
         }

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "nexusutils:frozen_lava",
+    "nexusutils:item_display"
+  ]
+}

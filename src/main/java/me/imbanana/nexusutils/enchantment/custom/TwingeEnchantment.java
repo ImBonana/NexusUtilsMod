@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.effect.ModEffects;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,7 @@ import net.minecraft.item.BowItem;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 
-public class TwingeEnchantment extends Enchantment {
+public class TwingeEnchantment extends Enchantment implements TradableEnchantment {
     public TwingeEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -42,5 +43,20 @@ public class TwingeEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 45;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 25;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

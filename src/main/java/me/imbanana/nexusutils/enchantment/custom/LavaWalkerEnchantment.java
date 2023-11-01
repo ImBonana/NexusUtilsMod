@@ -3,6 +3,7 @@ package me.imbanana.nexusutils.enchantment.custom;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.block.custom.FrozenLavaBlock;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FrostedIceBlock;
@@ -15,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class LavaWalkerEnchantment extends Enchantment {
+public class LavaWalkerEnchantment extends Enchantment implements TradableEnchantment {
     public LavaWalkerEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -51,5 +52,20 @@ public class LavaWalkerEnchantment extends Enchantment {
             world.setBlockState(blockPos2, blockState);
             world.scheduleBlockTick(blockPos2, ModBlocks.FROZEN_LAVA, MathHelper.nextInt(entity.getRandom(), 60, 120));
         }
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 55;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 35;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

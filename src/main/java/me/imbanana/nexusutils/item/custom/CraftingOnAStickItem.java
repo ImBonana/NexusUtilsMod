@@ -1,6 +1,6 @@
 package me.imbanana.nexusutils.item.custom;
 
-import me.imbanana.nexusutils.screen.CustomCraftingTableContainer;
+import me.imbanana.nexusutils.screen.custom.CustomCraftingTableContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,13 +1,14 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.MultipleTargetsEnchantment;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.*;
 
 import java.util.Random;
 
-public class LightningEnchantment extends MultipleTargetsEnchantment {
+public class LightningEnchantment extends MultipleTargetsEnchantment implements TradableEnchantment {
     public LightningEnchantment(Rarity rarity, EnchantmentTarget[] target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -40,5 +41,20 @@ public class LightningEnchantment extends MultipleTargetsEnchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 45;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 33;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

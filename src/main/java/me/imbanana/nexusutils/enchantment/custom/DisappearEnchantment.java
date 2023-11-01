@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.Random;
 
-public class DisappearEnchantment extends Enchantment {
+public class DisappearEnchantment extends Enchantment implements TradableEnchantment {
     public DisappearEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -42,5 +43,20 @@ public class DisappearEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 50;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 35;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

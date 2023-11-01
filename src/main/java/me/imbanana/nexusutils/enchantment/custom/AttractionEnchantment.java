@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.MultipleTargetsEnchantment;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.enchantment.Enchantments;
@@ -9,7 +10,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
-public class AttractionEnchantment extends MultipleTargetsEnchantment {
+public class AttractionEnchantment extends MultipleTargetsEnchantment implements TradableEnchantment {
     public AttractionEnchantment(Rarity rarity, EnchantmentTarget[] targets, EquipmentSlot... slotTypes) {
         super(rarity, targets, slotTypes);
     }
@@ -38,5 +39,20 @@ public class AttractionEnchantment extends MultipleTargetsEnchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 30;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 15;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

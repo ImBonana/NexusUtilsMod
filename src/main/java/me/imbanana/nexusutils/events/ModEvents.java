@@ -1,8 +1,7 @@
 package me.imbanana.nexusutils.events;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
-import me.imbanana.nexusutils.screen.CustomShulkerBoxInventory;
+import me.imbanana.nexusutils.screen.custom.CustomShulkerBoxInventory;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.block.CropBlock;

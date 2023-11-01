@@ -1,4 +1,4 @@
-package me.imbanana.nexusutils.screen;
+package me.imbanana.nexusutils.screen.custom;
 
 import me.imbanana.nexusutils.NexusUtils;
 import net.minecraft.entity.player.PlayerEntity;

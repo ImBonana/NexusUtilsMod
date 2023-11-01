@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,7 @@ import net.minecraft.entity.effect.StatusEffects;
 
 import java.util.Random;
 
-public class ChaosEnchantment extends Enchantment {
+public class ChaosEnchantment extends Enchantment implements TradableEnchantment {
     public ChaosEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -41,5 +42,20 @@ public class ChaosEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 50;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 25;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

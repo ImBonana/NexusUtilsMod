@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
@@ -12,7 +13,7 @@ import net.minecraft.item.PickaxeItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OreExcavationEnchantment extends Enchantment {
+public class OreExcavationEnchantment extends Enchantment implements TradableEnchantment {
     public OreExcavationEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -40,6 +41,21 @@ public class OreExcavationEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 64;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 45;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 
     static List<Block> whitelistedBlocks = new ArrayList<>(){{

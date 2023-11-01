@@ -2,6 +2,7 @@ package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.enchantment.MultipleTargetsEnchantment;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -12,7 +13,7 @@ import net.minecraft.entity.effect.StatusEffects;
 
 import java.util.Random;
 
-public class PerishEnchantment extends MultipleTargetsEnchantment {
+public class PerishEnchantment extends MultipleTargetsEnchantment implements TradableEnchantment {
     public PerishEnchantment(Rarity rarity, EnchantmentTarget[] targets, EquipmentSlot... slotTypes) {
         super(rarity, targets, slotTypes);
     }
@@ -45,5 +46,20 @@ public class PerishEnchantment extends MultipleTargetsEnchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 50;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 35;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

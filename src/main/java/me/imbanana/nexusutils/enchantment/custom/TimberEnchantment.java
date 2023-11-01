@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
@@ -12,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimberEnchantment extends Enchantment {
+public class TimberEnchantment extends Enchantment implements TradableEnchantment {
     public TimberEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -64,5 +65,20 @@ public class TimberEnchantment extends Enchantment {
 
     public static boolean canBreak(Block block) {
         return whitelistedBlocks.contains(block);
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 55;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 40;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

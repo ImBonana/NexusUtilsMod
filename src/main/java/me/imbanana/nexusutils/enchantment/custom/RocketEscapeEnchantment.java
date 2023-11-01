@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
+import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -9,7 +10,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.Vec3d;
 
-public class RocketEscapeEnchantment extends Enchantment {
+public class RocketEscapeEnchantment extends Enchantment implements TradableEnchantment {
     public RocketEscapeEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
         super(rarity, target, slotTypes);
     }
@@ -40,5 +41,20 @@ public class RocketEscapeEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
         return false;
+    }
+
+    @Override
+    public int getMaxPrice() {
+        return 35;
+    }
+
+    @Override
+    public int getMinPrice() {
+        return 25;
+    }
+
+    @Override
+    public int getMaxLevelToGet() {
+        return this.getMaxLevel();
     }
 }

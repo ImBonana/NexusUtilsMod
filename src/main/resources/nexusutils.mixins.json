@@ -5,6 +5,7 @@
   "mixins": [
     "AnvilScreenMixin",
     "BoneMealMixin",
+    "MinecartMixin",
     "PlayerVoidTotemMixin",
     "ServerPlayerInteractionManagerMixin",
     "WorldMixin",

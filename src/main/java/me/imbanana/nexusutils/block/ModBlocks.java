@@ -2,6 +2,7 @@ package me.imbanana.nexusutils.block;
 
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.custom.FrozenLavaBlock;
+import me.imbanana.nexusutils.block.custom.ItemDisplayBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
@@ -28,6 +29,13 @@ public class ModBlocks {
                     .instrument(Instrument.BASEDRUM)
     ), false);
 
+
+    public static final Block ITEM_DISPLAY = registerBlock("item_display", new ItemDisplayBlock(FabricBlockSettings.copyOf(Blocks.GLASS).nonOpaque()));
+
+    
+    private static Block registerBlock(String name, Block block) {
+        return registerBlock(name, block, true);
+    }
 
     private static Block registerBlock(String name, Block block, boolean hasItem) {
         if(hasItem) registerBlockItem(name, block);

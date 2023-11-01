@@ -9,7 +9,12 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModEnchantments {
+    private static List<TradableEnchantment> tradableEnchantments = new ArrayList<>();
+
     public static Enchantment ICE_ASPECT = register("ice_aspect",
             new IceAspectEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
 
@@ -91,10 +96,8 @@ public class ModEnchantments {
     public static Enchantment DISAPPEAR = register("disappear",
             new DisappearEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_LEGS, EquipmentSlot.LEGS));
 
-
     public static Enchantment DIMINISH = register("diminish",
             new DiminishEnchantment(Enchantment.Rarity.UNCOMMON, null, EquipmentSlot.MAINHAND));
-
 
     public static Enchantment AEGIS = register("aegis",
             new AegisEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_FEET, EquipmentSlot.FEET));
@@ -130,8 +133,15 @@ public class ModEnchantments {
             new ExperienceEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
 
 
+    public static List<TradableEnchantment> getTradableEnchantments() {
+        return tradableEnchantments;
+    }
+
     private static Enchantment register(String name, Enchantment enchantment) {
-        return Registry.register(Registries.ENCHANTMENT, new Identifier(NexusUtils.MOD_ID, name), enchantment);
+//        if(tradableEnchantments == null) tradableEnchantments = new ArrayList<>();
+        Enchantment enchant = Registry.register(Registries.ENCHANTMENT, new Identifier(NexusUtils.MOD_ID, name), enchantment);
+        if(enchant instanceof TradableEnchantment tradableEnchantment) tradableEnchantments.add(tradableEnchantment);
+        return enchant;
     }
 
     public static void registerModEnchantments() {

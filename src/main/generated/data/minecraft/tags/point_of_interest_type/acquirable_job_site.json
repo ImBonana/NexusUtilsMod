@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "nexusutils:enchanting_table_poi",
+      "required": false
+    }
+  ]
+}
