@@ -64,5 +64,12 @@
   "death.attack.bleed.player": "%1$s bled to death",
   "death.attack.bleed": "%1$s bled to death",
 
-  "entity.minecraft.villager.enchanter": "Enchanter"
+  "entity.minecraft.villager.enchanter": "Enchanter",
+
+  "nexusutils.button.sort_player": "Sort inventory",
+  "nexusutils.button.sort_container": "Sort container",
+  "nexusutils.button.autostack_into": "Stack into container",
+  "nexusutils.button.autostack_from": "Stack from container",
+  "nexusutils.button.transfer_place": "Place all",
+  "nexusutils.button.transfer_take": "Take all"
 }

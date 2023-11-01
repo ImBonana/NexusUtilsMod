@@ -8,6 +8,7 @@
     "MinecartMixin",
     "PlayerVoidTotemMixin",
     "ServerPlayerInteractionManagerMixin",
+    "ShulkerBoxScreenHandlerMixin",
     "WorldMixin",
     "enchantments.EnchantmentBlockMixin",
     "enchantments.EnchantmentHelperMixin",
@@ -23,6 +24,7 @@
   "client": [
     "AnvilScreenHandlerMixin",
     "ClientPlayerInteractionManagerMixin",
+    "HandledScreenAccessor",
     "WorldRenderMixin"
   ]
 }

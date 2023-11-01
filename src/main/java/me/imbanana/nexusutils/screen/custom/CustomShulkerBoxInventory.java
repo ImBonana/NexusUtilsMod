@@ -94,7 +94,6 @@ public class CustomShulkerBoxInventory implements NamedScreenHandlerFactory, Inv
 
     @Override
     public void markDirty() {
-        NexusUtils.LOGGER.info(this.itemStack.toString());
         NbtCompound nbt = this.itemStack.getOrCreateNbt();
         if (nbt == null) return;
         NbtCompound blockEntityTag = nbt.getCompound("BlockEntityTag");
