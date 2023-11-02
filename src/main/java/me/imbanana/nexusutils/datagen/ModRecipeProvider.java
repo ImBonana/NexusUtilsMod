@@ -7,8 +7,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
@@ -66,5 +69,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.GLASS), conditionsFromItem(Items.GLASS))
                 .criterion(hasItem(Items.SMOOTH_STONE), conditionsFromItem(Items.SMOOTH_STONE))
                 .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "item_display_recipe"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.STRING, 4)
+                .input(ItemTags.WOOL)
+                .criterion("has_wool_nx", conditionsFromTag(ItemTags.WOOL))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "wool_to_string_recipe"));
     }
 }
