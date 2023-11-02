@@ -1,19 +1,16 @@
 package me.imbanana.nexusutils.mixin;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.enchantment.custom.OreExcavationEnchantment;
 import me.imbanana.nexusutils.enchantment.custom.TimberEnchantment;
 import me.imbanana.nexusutils.util.BlockBreaker;
 import me.imbanana.nexusutils.util.BlockFinder;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,8 +21,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 @Mixin(value = ServerPlayerInteractionManager.class)
 public class ServerPlayerInteractionManagerMixin {

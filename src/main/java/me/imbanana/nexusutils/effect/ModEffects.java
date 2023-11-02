@@ -2,7 +2,6 @@ package me.imbanana.nexusutils.effect;
 
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.effect.custom.BleedStatusEffect;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;

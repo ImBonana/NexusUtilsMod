@@ -23,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.stream.Stream;
 
 public class ItemDisplayBlock extends BlockWithEntity implements BlockEntityProvider {
-//    private static final VoxelShape SHAPE = VoxelShapes.fullCube();
     private static final VoxelShape SHAPE = Stream.of(
         Stream.of(
                 Block.createCuboidShape(6.5, 14, 6.5, 9.5, 14.75, 9.5),

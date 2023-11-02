@@ -21,20 +21,6 @@ import java.util.List;
 
 @Mixin(EnchantmentHelper.class)
 public abstract class EnchantmentHelperMixin {
-//    @Redirect(
-//            method = "getPossibleEntries",
-//            at = @At(value = "FIELD", target = "Lnet/minecraft/enchantment/Enchantment;target:Lnet/minecraft/enchantment/EnchantmentTarget;", opcode = Opcodes.GETFIELD)
-//    )
-//    private static EnchantmentTarget redirectIsAcceptableItem(Enchantment instance, int power, ItemStack stack, boolean treasureAllowed) {
-//        if(!(instance instanceof MultipleTargetsEnchantment)) return instance.target;
-//        MultipleTargetsEnchantment targets = (MultipleTargetsEnchantment) instance;
-//
-//        for(EnchantmentTarget t : targets.getEnchantmentTargets()) {
-//            if(t.isAcceptableItem(stack.getItem())) return t;
-//        }
-//
-//        return instance.target;
-//    }
 
     /**
      * @author idk

@@ -17,15 +17,12 @@ public class ModTestItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient()) {
-//            MinerUtils.breakAllBlocks(world, user.getBlockPos(), Blocks.GLASS, 15);
         }
         return TypedActionResult.pass(user.getStackInHand(hand));
     }
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-//        NexusUtils.LOGGER.info("Using");
-//        MinerUtils.breakAllBlocks(context.getWorld(), context.getBlockPos(), context.getWorld().getBlockState(context.getBlockPos()).getBlock(), context.getPlayer(), 30, true);
         return ActionResult.PASS;
     }
 }

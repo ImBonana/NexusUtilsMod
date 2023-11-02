@@ -26,7 +26,7 @@ public abstract class ClientPlayerInteractionManagerMixin {
             at = @At("HEAD"),
             cancellable = true)
     private void onBreakBlockClient(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        // If the player is holding a Magna tool, we want to let the server handle breaking mechanics.
+        // If the player is holding the tool, we want to let the server handle breaking mechanics.
         // This prevents a small quirk where the middle block in a 3x3 grid would break before the other blocks.
         int blastEnchantmentTarget = EnchantmentHelper.getLevel(ModEnchantments.BLAST, client.player.getMainHandStack());
         int timberEnchantmentTarget = EnchantmentHelper.getLevel(ModEnchantments.TIMBER, client.player.getMainHandStack());

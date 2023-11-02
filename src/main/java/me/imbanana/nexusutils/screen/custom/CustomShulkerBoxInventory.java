@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.screen.custom;
 
-import me.imbanana.nexusutils.NexusUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -11,7 +10,6 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 

@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.MultipleTargetsEnchantment;
 import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;

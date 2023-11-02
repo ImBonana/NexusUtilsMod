@@ -1,13 +1,10 @@
 package me.imbanana.nexusutils.networking.packets;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.mixin.sit.SitLivingEntityAccessor;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
-import net.minecraft.block.enums.SlabType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.DisplayEntity;

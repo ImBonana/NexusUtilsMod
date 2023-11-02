@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.networking.packets;
 
-import me.imbanana.nexusutils.NexusUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;

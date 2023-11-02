@@ -1,12 +1,10 @@
 package me.imbanana.nexusutils.mixin.sit;
 
-import me.imbanana.nexusutils.NexusUtils;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.DisplayEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

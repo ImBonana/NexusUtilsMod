@@ -3,7 +3,6 @@ package me.imbanana.nexusutils.enchantment.custom;
 import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EquipmentSlot;
 
 public class NightOwlEnchantment extends Enchantment implements TradableEnchantment {

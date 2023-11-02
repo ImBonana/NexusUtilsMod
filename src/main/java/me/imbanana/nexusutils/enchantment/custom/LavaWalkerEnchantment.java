@@ -1,12 +1,9 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.block.custom.FrozenLavaBlock;
 import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FrostedIceBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;

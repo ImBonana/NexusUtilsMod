@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.item.custom;
 
-import net.minecraft.enchantment.KnockbackEnchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

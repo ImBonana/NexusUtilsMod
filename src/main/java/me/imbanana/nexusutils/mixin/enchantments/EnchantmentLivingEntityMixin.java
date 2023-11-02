@@ -38,7 +38,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionTypes;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -76,15 +75,10 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
 
     @Shadow protected abstract boolean shouldDropLoot();
 
-    @Shadow protected abstract void dropLoot(DamageSource damageSource, boolean causedByPlayer);
-
     @Shadow protected abstract void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops);
 
     @Shadow protected abstract void dropInventory();
 
-    @Shadow protected abstract void dropXp();
-
-    @Shadow public float bodyYaw;
 
     @Shadow public abstract Identifier getLootTable();
 

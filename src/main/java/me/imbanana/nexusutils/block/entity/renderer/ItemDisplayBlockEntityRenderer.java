@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.block.entity.renderer;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.entity.ItemDisplayBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;

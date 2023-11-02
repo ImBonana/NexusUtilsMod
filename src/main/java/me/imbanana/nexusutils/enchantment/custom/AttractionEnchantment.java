@@ -8,7 +8,6 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
 
 public class AttractionEnchantment extends MultipleTargetsEnchantment implements TradableEnchantment {
     public AttractionEnchantment(Rarity rarity, EnchantmentTarget[] targets, EquipmentSlot... slotTypes) {

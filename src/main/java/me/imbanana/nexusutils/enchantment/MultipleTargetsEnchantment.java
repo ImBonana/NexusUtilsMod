@@ -5,8 +5,6 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
 public abstract class MultipleTargetsEnchantment extends Enchantment {
     EnchantmentTarget[] enchantmentTargets;
     public MultipleTargetsEnchantment(Rarity rarity, EnchantmentTarget[] targets, EquipmentSlot... slotTypes) {
