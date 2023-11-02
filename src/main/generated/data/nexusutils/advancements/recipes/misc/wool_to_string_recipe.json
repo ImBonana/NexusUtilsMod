@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nexusutils:wool_to_string_recipe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wool_nx": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wool_nx"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nexusutils:wool_to_string_recipe"
+    ]
+  },
+  "sends_telemetry_event": false
+}
