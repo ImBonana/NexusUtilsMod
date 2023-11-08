@@ -14,17 +14,7 @@ public class ModItemGroups {
     public static final ItemGroup NexusGroup = Registry.register(Registries.ITEM_GROUP,
             new Identifier(NexusUtils.MOD_ID, "nexus"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.nexus"))
-                    .icon(() -> new ItemStack(ModItems.CRAFTING_ON_A_STICK)).entries((displayContext, entries) -> {
-                        entries.add(ModItems.CRAFTING_ON_A_STICK);
-                        entries.add(ModItems.MOB_GRABBER);
-                        entries.add(ModItems.VOID_TOTEM);
-
-
-                        entries.add(ModBlocks.ITEM_DISPLAY);
-
-
-                        entries.add(ModItems.MOD_TEST);
-                    }).build());
+                    .icon(() -> new ItemStack(ModItems.CRAFTING_ON_A_STICK)).entries(ModItems::addItemsToIngredientTabItemGroup).build());
 
     public static void registerItemGroups() {
         NexusUtils.LOGGER.info("Registering Item Groups for " + NexusUtils.MOD_ID);
