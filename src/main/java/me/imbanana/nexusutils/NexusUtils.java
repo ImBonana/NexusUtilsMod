@@ -30,12 +30,12 @@ public class NexusUtils implements ModInitializer {
 		ModPackets.registerC2SPackets();
 
 		ModItems.registerModItems();
-		ModItemGroups.registerItemGroups();
 
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.registerBlockEntities();
 
 		ModWorldGen.generateWorldGen();
+		ModItemGroups.registerItemGroups();
 
 		ModEnchantments.registerModEnchantments();
 		ModEffects.registerEffects();

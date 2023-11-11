@@ -11,10 +11,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
-    public static final ItemGroup NexusGroup = Registry.register(Registries.ITEM_GROUP,
+    public static final ItemGroup NEXUS_GROUP = Registry.register(Registries.ITEM_GROUP,
             new Identifier(NexusUtils.MOD_ID, "nexus"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.nexus"))
-                    .icon(() -> new ItemStack(ModItems.CRAFTING_ON_A_STICK)).entries(ModItems::addItemsToIngredientTabItemGroup).build());
+                    .icon(() -> new ItemStack(ModItems.SNAIL_ITEM)).entries(ModItems::addItemsToIngredientTabItemGroup).build());
 
     public static void registerItemGroups() {
         NexusUtils.LOGGER.info("Registering Item Groups for " + NexusUtils.MOD_ID);

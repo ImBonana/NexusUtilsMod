@@ -13,6 +13,10 @@ public class ModBlockEntities {
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "item_display_be"),
                     FabricBlockEntityTypeBuilder.create(ItemDisplayBlockEntity::new, ModBlocks.ITEM_DISPLAY).build());
 
+    public static final BlockEntityType<CopperHopperBlockEntity> COPPER_HOPPER_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "copper_hopper_be"),
+                    FabricBlockEntityTypeBuilder.create(CopperHopperBlockEntity::new, ModBlocks.COPPER_HOPPER).build());
+
 
     public static void registerBlockEntities() {
         NexusUtils.LOGGER.info("Registering Block Entities for " + NexusUtils.MOD_ID);

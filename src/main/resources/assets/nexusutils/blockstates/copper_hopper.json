@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "nexusutils:block/copper_hopper"
+    }
+  }
+}

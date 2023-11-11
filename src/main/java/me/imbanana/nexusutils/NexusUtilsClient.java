@@ -10,6 +10,8 @@ import me.imbanana.nexusutils.entity.client.models.SnailModel;
 import me.imbanana.nexusutils.events.KeyInputHandler;
 import me.imbanana.nexusutils.networking.ModPackets;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
+import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreen;
+import me.imbanana.nexusutils.screen.hopperfilter.HopperFilterScreen;
 import me.imbanana.nexusutils.screen.itemdisplay.ItemDisplayScreen;
 import me.imbanana.nexusutils.util.inventorySortUtils.client.InventoryButtonsManager;
 import net.fabricmc.api.ClientModInitializer;
@@ -36,6 +38,8 @@ public class NexusUtilsClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
 
         HandledScreens.register(ModScreenHandlers.ITEM_DISPLAY_SCREEN_HANDLER, ItemDisplayScreen::new);
+        HandledScreens.register(ModScreenHandlers.COPPER_HOPPER_SCREEN_HANDLER, CopperHopperScreen::new);
+        HandledScreens.register(ModScreenHandlers.HOPPER_FILTER_SCREEN_HANDLER, HopperFilterScreen::new);
         InventoryButtonsManager.INSTANCE.init();
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ITEM_DISPLAY, RenderLayer.getCutout());

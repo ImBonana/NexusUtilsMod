@@ -17,7 +17,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.FROZEN_LAVA)
-                .add(ModBlocks.ITEM_DISPLAY);
+                .add(ModBlocks.ITEM_DISPLAY)
+                .add(ModBlocks.COPPER_HOPPER);
 
         getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(ModBlocks.FROZEN_LAVA);

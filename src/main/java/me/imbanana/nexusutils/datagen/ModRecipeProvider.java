@@ -10,6 +10,7 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -74,5 +75,45 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input(ItemTags.WOOL)
                 .criterion("has_wool_nx", conditionsFromTag(ItemTags.WOOL))
                 .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "wool_to_string_recipe"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.COPPER_HOPPER, 1)
+                .pattern("C C")
+                .pattern("CSC")
+                .pattern(" C ")
+                .input('C', Items.COPPER_INGOT)
+                .input('S', Items.CHEST)
+                .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
+                .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "copper_hopper_recipe"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.COPPER_HOPPER, 1)
+                .pattern("CWC")
+                .pattern("CWC")
+                .pattern(" C ")
+                .input('C', Items.COPPER_INGOT)
+                .input('W', ItemTags.LOGS)
+                .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
+                .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "copper_hopper_recipe_2"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.HOPPER, 1)
+                .pattern("CWC")
+                .pattern("CWC")
+                .pattern(" C ")
+                .input('C', Items.IRON_INGOT)
+                .input('W', ItemTags.LOGS)
+                .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
+                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "hopper_recipe_2"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.HOPPER_FILTER, 4)
+                .pattern("CSC")
+                .pattern("SSS")
+                .pattern("CSC")
+                .input('S', Items.STRING)
+                .input('C', Items.COPPER_INGOT)
+                .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
+                .criterion(hasItem(Items.STRING), conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "hopper_filter_recipe"));
     }
 }
