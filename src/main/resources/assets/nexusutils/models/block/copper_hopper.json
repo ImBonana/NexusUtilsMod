@@ -1,7 +1,8 @@
 {
 	"ambientocclusion": false,
 	"textures": {
-		"0": "nexusutils:block/copper_hopper"
+		"0": "nexusutils:block/copper_hopper",
+		"particle": "nexusutils:block/copper_hopper"
 	},
 	"elements": [
 		{

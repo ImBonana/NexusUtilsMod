@@ -24,6 +24,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.screen.HopperScreenHandler;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -44,6 +45,10 @@ import java.util.stream.IntStream;
 
 public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, Hopper {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(6, ItemStack.EMPTY);
+
+    protected final PropertyDelegate propertyDelegate;
+
+    private boolean whitelist = true;
 
     private static final int FILTER_SLOT = 0;
     private static final int[] INVENTORY_SLOTS = new int[]{1,2,3,4,5};
@@ -69,6 +74,32 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
 
     public CopperHopperBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.COPPER_HOPPER_BLOCK_ENTITY, pos, state);
+        this.propertyDelegate = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                if(index == 0) {
+                    return CopperHopperBlockEntity.this.whitelist ? 1 : 0;
+                }
+
+                return CopperHopperBlockEntity.this.whitelist ? 1 : 0;
+            }
+
+            @Override
+            public void set(int index, int value) {
+                if (index == 0) {
+                    CopperHopperBlockEntity.this.whitelist = (value == 1);
+                }
+            }
+
+            @Override
+            public int size() {
+                return 1;
+            }
+        };
+    }
+
+    public void setWhitelist(boolean value) {
+        this.whitelist = value;
     }
 
     @Override
@@ -97,6 +128,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
         nbt.putInt("TransferCooldown", this.transferCooldown);
+        nbt.putBoolean("IsWhitelist", this.whitelist);
     }
 
     @Override
@@ -104,12 +136,13 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
         this.transferCooldown = nbt.getInt("TransferCooldown");
+        this.whitelist = nbt.getBoolean("IsWhitelist");
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new CopperHopperScreenHandler(syncId, playerInventory, this);
+        return new CopperHopperScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     @Nullable
@@ -289,17 +322,16 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     private static ItemStack transfer(@Nullable Inventory from, Inventory to, ItemStack stack, int slot, @Nullable Direction side) {
         // my inject
         if(to instanceof CopperHopperBlockEntity && slot == FILTER_SLOT) return stack;
-        // TODO make the filter item work!
-        if(to instanceof CopperHopperBlockEntity) {
-            ItemStack filterItem = ((CopperHopperBlockEntity) to).inventory.get(0);
+        if(to instanceof CopperHopperBlockEntity copperHopperBlockEntity) {
+            ItemStack filterItem = copperHopperBlockEntity.inventory.get(0);
 
             if(filterItem.getItem() == ModItems.HOPPER_FILTER) {
                 NbtCompound filterNbt = filterItem.getOrCreateNbt();
                 DefaultedList<ItemStack> itemsToFilter = DefaultedList.ofSize(HopperFilterItem.INVENTORY_SIZE, ItemStack.EMPTY);
                 Inventories.readNbt(filterNbt, itemsToFilter);
-                if(!filterHasItem(itemsToFilter, stack)) return stack;
+                if(shouldInvert(copperHopperBlockEntity.whitelist, filterHasItem(itemsToFilter, stack))) return stack;
 
-            } else if(!filterItem.isEmpty() && filterItem.getItem() != stack.getItem()) return stack;
+            } else if(!filterItem.isEmpty() && shouldInvert(copperHopperBlockEntity.whitelist, filterItem.getItem() == stack.getItem())) return stack;
         }
         // end
         ItemStack itemStack = to.getStack(slot);
@@ -407,5 +439,10 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         }
 
         return false;
+    }
+
+    private static boolean shouldInvert(boolean invert, boolean expr) {
+        if(invert) return !expr;
+        return expr;
     }
 }
