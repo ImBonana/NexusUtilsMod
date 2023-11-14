@@ -29,6 +29,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class NexusUtilsClient implements ClientModInitializer {
+    public static final Identifier DARK_UI_RESOURCE_PACK_ID = new Identifier(NexusUtils.MOD_ID, "dark-ui");
+
     @Override
     public void onInitializeClient() {
         KeyInputHandler.register();
@@ -48,9 +50,7 @@ public class NexusUtilsClient implements ClientModInitializer {
 
         FabricLoader.getInstance()
                 .getModContainer(NexusUtils.MOD_ID)
-                .ifPresent((container) -> ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(
-                                NexusUtils.MOD_ID,
-                                "nexusutils-dark-ui"),
+                .ifPresent((container) -> ResourceManagerHelper.registerBuiltinResourcePack(NexusUtilsClient.DARK_UI_RESOURCE_PACK_ID,
                         container,
                         Text.literal("Nexus Utils Dark UI"),
                         ResourcePackActivationType.NORMAL));

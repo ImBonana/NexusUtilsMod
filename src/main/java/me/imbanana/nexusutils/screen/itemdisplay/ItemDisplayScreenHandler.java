@@ -26,7 +26,7 @@ public class ItemDisplayScreenHandler extends ScreenHandler {
         inventory.onOpen(playerInventory.player);
         this.blockEntity = (ItemDisplayBlockEntity) blockEntity;
 
-        this.addSlot(new Slot(inventory, 0, 80, 14));
+        this.addSlot(new DisplaySlot(inventory, 0, 80, 14));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -74,6 +74,23 @@ public class ItemDisplayScreenHandler extends ScreenHandler {
     private void addPlayerHotbar(PlayerInventory playerInventory) {
         for (int i = 0; i < 9; i++) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 109));
+        }
+    }
+
+    class DisplaySlot extends Slot {
+
+        public DisplaySlot(Inventory inventory, int index, int x, int y) {
+            super(inventory, index, x, y);
+        }
+
+        @Override
+        public int getMaxItemCount() {
+            return 1;
+        }
+
+        @Override
+        public int getMaxItemCount(ItemStack stack) {
+            return 1;
         }
     }
 }

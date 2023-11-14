@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.events;
 
+import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.screen.custom.CustomShulkerBoxInventory;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -75,8 +76,10 @@ public class ModEvents {
                     );
                     return TypedActionResult.success(itemStack, true);
                 }
-            } else if (itemStack.getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.LAUNCH, itemStack) > 0 && player.getItemCooldownManager().isCoolingDown(itemStack.getItem())) { // sword with the launch enchantment
+            } else if (itemStack.getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.LAUNCH, itemStack) > 0 && !player.getItemCooldownManager().isCoolingDown(itemStack.getItem())) { // sword with the launch enchantment
+//                NexusUtils.LOGGER.info("Launching!");
                 player.setVelocity(player.getRotationVector().multiply(EnchantmentHelper.getLevel(ModEnchantments.LAUNCH, itemStack) * 0.5f));
+//                player.velocityModified = true;
                 player.getItemCooldownManager().set(itemStack.getItem(), 200);
                 return TypedActionResult.success(itemStack, true);
             }

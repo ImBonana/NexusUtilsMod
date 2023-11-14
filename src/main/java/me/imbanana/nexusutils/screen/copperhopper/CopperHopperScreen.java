@@ -2,9 +2,14 @@ package me.imbanana.nexusutils.screen.copperhopper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.imbanana.nexusutils.NexusUtils;
+import me.imbanana.nexusutils.NexusUtilsClient;
 import me.imbanana.nexusutils.screen.itemdisplay.ItemDisplayScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.impl.resource.loader.BuiltinModResourcePackSource;
+import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.BeaconScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -15,6 +20,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.UpdateBeaconC2SPacket;
+import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.screen.BeaconScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerListener;
@@ -58,6 +64,23 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
 
     }
 
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        int darkTextColor = 0xAAAAAA;
+        int lightTextColor = 0x404040;
+
+        context.drawText(this.textRenderer, this.title, this.titleX, this.titleY, isDarkUiEnabled() ? darkTextColor : lightTextColor, false);
+        context.drawText(this.textRenderer, this.playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY, isDarkUiEnabled() ? darkTextColor : lightTextColor, false);
+    }
+
+    private boolean isDarkUiEnabled() {
+        for (ResourcePackProfile profile : MinecraftClient.getInstance().getResourcePackManager().getEnabledProfiles()) {
+            if(profile.getName().equalsIgnoreCase(NexusUtilsClient.DARK_UI_RESOURCE_PACK_ID.toString())) return true;
+        }
+
+        return false;
+    }
+
     private void renderSortIcon(DrawContext context) {
         context.drawTexture(TEXTURE, x + 16, y + 20, backgroundWidth, 0, 16, 16);
     }
@@ -72,14 +95,18 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
 
     @Environment(value= EnvType.CLIENT)
     class ToggleWhitelistButtonWidget extends PressableWidget {
+        boolean firstRender = true;
 
         public ToggleWhitelistButtonWidget(int x, int y) {
             super(x, y, 22, 22, ScreenTexts.EMPTY);
-            this.setTooltip(Tooltip.of(Text.literal("Change to " + (CopperHopperScreen.this.handler.isWhitelist() ? "Blacklist" : "Whitelist"))));
         }
 
         @Override
         public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+            if(firstRender) {
+                firstRender = false;
+                updateTooltip();
+            }
             if(this.isHovered()) context.drawTexture(TEXTURE, this.getX(), this.getY(), CopperHopperScreen.this.backgroundWidth, 38, this.width, this.height);
             else context.drawTexture(TEXTURE, this.getX(), this.getY(), CopperHopperScreen.this.backgroundWidth, 16, this.width, this.height);
 
@@ -94,12 +121,16 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
         @Override
         public void onPress() {
             CopperHopperScreen.this.handler.toggleWhitelist();
-            this.setTooltip(Tooltip.of(Text.literal("Change to " + (CopperHopperScreen.this.handler.isWhitelist() ? "Blacklist" : "Whitelist"))));
+            updateTooltip();
         }
 
         @Override
         protected void appendClickableNarrations(NarrationMessageBuilder builder) {
             this.appendDefaultNarrations(builder);
+        }
+
+        private void updateTooltip() {
+            this.setTooltip(Tooltip.of(Text.literal("Change to " + (CopperHopperScreen.this.handler.isWhitelist() ? "Blacklist" : "Whitelist"))));
         }
     }
 }

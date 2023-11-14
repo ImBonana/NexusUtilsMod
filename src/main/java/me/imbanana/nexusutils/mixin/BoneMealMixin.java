@@ -1,12 +1,12 @@
 package me.imbanana.nexusutils.mixin;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import net.minecraft.world.event.GameEvent;
@@ -27,11 +27,18 @@ public abstract class BoneMealMixin {
         if (canUse(world, blockPos)) {
             if (!world.isClient) {
                 BlockPos newPos = getHighestBlockFromType(world, blockPos);
+
                 if(!world.getBlockState(newPos).isAir()) return;
-                world.setBlockState(newPos, blockState.getBlock().getDefaultState());
+                world.setBlockState(newPos, blockState.getBlock().getDefaultState(), Block.NOTIFY_LISTENERS);
+
+                if(world.getBlockState(blockPos).getBlock() instanceof CactusBlock cactusBlock) {
+                    if(!cactusBlock.canPlaceAt(blockState, world, newPos)) {
+                        world.breakBlock(newPos, true);
+                    }
+                }
+
                 context.getPlayer().emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
                 world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
-                world.updateNeighborsAlways(blockPos, blockState.getBlock());
             }
             info.setReturnValue(ActionResult.success(world.isClient));
         }
