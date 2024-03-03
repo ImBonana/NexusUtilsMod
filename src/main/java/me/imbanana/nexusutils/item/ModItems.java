@@ -2,6 +2,7 @@ package me.imbanana.nexusutils.item;
 
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.ModBlocks;
+import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.item.custom.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -9,6 +10,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -25,6 +27,8 @@ public class ModItems {
     public static final Item MOD_TEST = registerItem("mod_test", new ModTestItem(new FabricItemSettings().maxCount(1)));
     public static final Item SNAIL_ITEM = registerItem("snail_item", new SnailItem(new FabricItemSettings().maxCount(1)));
     public static final Item HOPPER_FILTER = registerItem("hopper_filter", new HopperFilterItem(new FabricItemSettings().maxCount(64)));
+
+//    public static final Item NETHER_BAT_SPAWN_EGG = registerItem("nether_bat_spawn_egg", new SpawnEggItem(ModEntities.NETHER_BAT, 0x701B1B, 0xFFB700, new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
         return registerItem(name, item, true);

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:white_dye"
+    },
+    {
+      "tag": "nexusutils:sleeping_bags"
+    }
+  ],
+  "result": {
+    "item": "nexusutils:white_sleeping_bag"
+  }
+}

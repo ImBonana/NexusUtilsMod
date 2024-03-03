@@ -3,6 +3,7 @@ package me.imbanana.nexusutils;
 import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
 import me.imbanana.nexusutils.block.entity.renderer.ItemDisplayBlockEntityRenderer;
+import me.imbanana.nexusutils.block.entity.renderer.SleepingBagBlockEntityRenderer;
 import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.entity.client.ModModelLayers;
 import me.imbanana.nexusutils.entity.client.SnailRenderer;
@@ -24,7 +25,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -39,14 +39,20 @@ public class NexusUtilsClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SNAIL, SnailModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SNAIL, SnailRenderer::new);
 
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SLEEPING_BAG_HEAD, SleepingBagBlockEntityRenderer::getHeadTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SLEEPING_BAG_FOOT, SleepingBagBlockEntityRenderer::getFootTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SLEEPING_BAG_FULL, SleepingBagBlockEntityRenderer::getFullTexturedModelData);
+
+
+//        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.NETHER_BAT, NetherBatModel::getTexturedModelData);
+//        EntityRendererRegistry.register(ModEntities.NETHER_BAT, NetherBatRenderer::new);
+
         HandledScreens.register(ModScreenHandlers.ITEM_DISPLAY_SCREEN_HANDLER, ItemDisplayScreen::new);
         HandledScreens.register(ModScreenHandlers.COPPER_HOPPER_SCREEN_HANDLER, CopperHopperScreen::new);
         HandledScreens.register(ModScreenHandlers.HOPPER_FILTER_SCREEN_HANDLER, HopperFilterScreen::new);
         InventoryButtonsManager.INSTANCE.init();
 
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ITEM_DISPLAY, RenderLayer.getCutout());
-
-        BlockEntityRendererFactories.register(ModBlockEntities.ITEM_DISPLAY_BLOCK_ENTITY, ItemDisplayBlockEntityRenderer::new);
+        ModBlocks.registerClientRender();
 
         FabricLoader.getInstance()
                 .getModContainer(NexusUtils.MOD_ID)

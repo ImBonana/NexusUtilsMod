@@ -10,6 +10,25 @@
   "block.nexusutils.item_display": "Item Display",
   "block.nexusutils.copper_hopper": "Copper Hopper",
 
+  "block.nexusutils.black_sleeping_bag": "Black Sleeping Bag",
+  "block.nexusutils.blue_sleeping_bag": "Blue Sleeping Bag",
+  "block.nexusutils.brown_sleeping_bag": "Brown Sleeping Bag",
+  "block.nexusutils.cyan_sleeping_bag": "Cyan Sleeping Bag",
+  "block.nexusutils.gray_sleeping_bag": "Gray Sleeping Bag",
+  "block.nexusutils.green_sleeping_bag": "Green Sleeping Bag",
+  "block.nexusutils.light_blue_sleeping_bag": "Light Blue Sleeping Bag",
+  "block.nexusutils.light_gray_sleeping_bag": "Gray Sleeping Bag",
+  "block.nexusutils.lime_sleeping_bag": "Lime Sleeping Bag",
+  "block.nexusutils.magenta_sleeping_bag": "Magenta Sleeping Bag",
+  "block.nexusutils.orange_sleeping_bag": "Orange Sleeping Bag",
+  "block.nexusutils.pink_sleeping_bag": "Pink Sleeping Bag",
+  "block.nexusutils.purple_sleeping_bag": "Purple Sleeping Bag",
+  "block.nexusutils.red_sleeping_bag": "Red Sleeping Bag",
+  "block.nexusutils.white_sleeping_bag": "White Sleeping Bag",
+  "block.nexusutils.yellow_sleeping_bag": "Yellow Sleeping Bag",
+
+  "block.nexusutils.sleeping_bag.occupied": "This sleeping_bag is occupied",
+
   "gui.nexusutils.item_display": "Item Display",
   "gui.nexusutils.copper_hopper": "Copper Hopper",
   "gui.nexusutils.hopper_filter": "Hopper Filter",
@@ -17,6 +36,7 @@
   "itemgroup.nexus": "Nexus",
 
   "entity.nexusutils.snail": "Snail",
+  "entity.nexusutils.nether_bat": "Nether Bat",
 
   "key.category.nexusutils.main": "Nexus",
   "key.nexusutils.sit": "Sit",

@@ -5,9 +5,11 @@
   "mixins": [
     "AnvilScreenMixin",
     "BoneMealMixin",
+    "LivingEntityMixin",
     "MinecartMixin",
     "PlayerVoidTotemMixin",
     "ScreenHandlerMixin",
+    "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
     "ShulkerBoxScreenHandlerMixin",
     "WorldMixin",
@@ -24,6 +26,7 @@
   },
   "client": [
     "AnvilScreenHandlerMixin",
+    "BuiltinModelItemRendererMixin",
     "ClientPlayerInteractionManagerMixin",
     "HandledScreenAccessor",
     "WorldRenderMixin"
