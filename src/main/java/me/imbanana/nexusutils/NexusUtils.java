@@ -5,7 +5,6 @@ import me.imbanana.nexusutils.block.entity.ModBlockEntities;
 import me.imbanana.nexusutils.effect.ModEffects;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.entity.ModEntities;
-import me.imbanana.nexusutils.entity.custom.NetherBatEntity;
 import me.imbanana.nexusutils.entity.custom.SnailEntity;
 import me.imbanana.nexusutils.events.ModEvents;
 import me.imbanana.nexusutils.item.ModItemGroups;
@@ -47,7 +46,6 @@ public class NexusUtils implements ModInitializer {
 		ModScreenHandlers.registerScreenHandlers();
 
 		FabricDefaultAttributeRegistry.register(ModEntities.SNAIL, SnailEntity.createSnailAttributes());
-//		FabricDefaultAttributeRegistry.register(ModEntities.NETHER_BAT, NetherBatEntity.createNetherBatAttributes());
 //		FabricDefaultAttributeRegistry.register(ModEntities.TRIDENT_OF_FIRE, TridentOfFireEntity);
 	}
 

@@ -6,7 +6,6 @@ import net.minecraft.util.Identifier;
 
 public class ModModelLayers {
     public static final EntityModelLayer SNAIL = new EntityModelLayer(new Identifier(NexusUtils.MOD_ID, "snail"), "main");
-    public static final EntityModelLayer NETHER_BAT = new EntityModelLayer(new Identifier(NexusUtils.MOD_ID, "nether_bat"), "main");
     public static final EntityModelLayer TRIDENT_OF_FIRE = new EntityModelLayer(new Identifier(NexusUtils.MOD_ID, "trident_of_fire"), "main");
     public static final EntityModelLayer SLEEPING_BAG_HEAD = new EntityModelLayer(new Identifier(NexusUtils.MOD_ID, "sleeping_bag_head"), "main");
     public static final EntityModelLayer SLEEPING_BAG_FOOT = new EntityModelLayer(new Identifier(NexusUtils.MOD_ID, "sleeping_bag_foot"), "main");

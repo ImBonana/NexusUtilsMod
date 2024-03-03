@@ -44,9 +44,6 @@ public class NexusUtilsClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SLEEPING_BAG_FULL, SleepingBagBlockEntityRenderer::getFullTexturedModelData);
 
 
-//        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.NETHER_BAT, NetherBatModel::getTexturedModelData);
-//        EntityRendererRegistry.register(ModEntities.NETHER_BAT, NetherBatRenderer::new);
-
         HandledScreens.register(ModScreenHandlers.ITEM_DISPLAY_SCREEN_HANDLER, ItemDisplayScreen::new);
         HandledScreens.register(ModScreenHandlers.COPPER_HOPPER_SCREEN_HANDLER, CopperHopperScreen::new);
         HandledScreens.register(ModScreenHandlers.HOPPER_FILTER_SCREEN_HANDLER, HopperFilterScreen::new);
