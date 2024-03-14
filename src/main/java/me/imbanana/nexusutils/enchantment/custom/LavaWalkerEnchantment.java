@@ -41,11 +41,10 @@ public class LavaWalkerEnchantment extends Enchantment implements TradableEnchan
         int i = Math.min(16, 2 + level);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         for (BlockPos blockPos2 : BlockPos.iterate(blockPos.add(-i, -1, -i), blockPos.add(i, -1, i))) {
-            BlockState blockState3;
-            if (!blockPos2.isWithinDistance(entity.getPos(), (double)i)) continue;
+            if (!blockPos2.isWithinDistance(entity.getPos(), i)) continue;
             mutable.set(blockPos2.getX(), blockPos2.getY() + 1, blockPos2.getZ());
             BlockState blockState2 = world.getBlockState(mutable);
-            if (!blockState2.isAir() || (blockState3 = world.getBlockState(blockPos2)) != FrozenLavaBlock.getMeltedState() || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
+            if (!blockState2.isAir() || world.getBlockState(blockPos2) != FrozenLavaBlock.getMeltedState() || !blockState.canPlaceAt(world, blockPos2) || !world.canPlace(blockState, blockPos2, ShapeContext.absent())) continue;
             world.setBlockState(blockPos2, blockState);
             world.scheduleBlockTick(blockPos2, ModBlocks.FROZEN_LAVA, MathHelper.nextInt(entity.getRandom(), 60, 120));
         }

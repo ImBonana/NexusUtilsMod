@@ -13,7 +13,6 @@ import net.minecraft.screen.slot.Slot;
 
 public class ItemDisplayScreenHandler extends ScreenHandler {
     private final Inventory inventory;
-    public final ItemDisplayBlockEntity blockEntity;
 
     public ItemDisplayScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()));
@@ -24,7 +23,6 @@ public class ItemDisplayScreenHandler extends ScreenHandler {
         checkSize((Inventory) blockEntity, 1);
         this.inventory = (Inventory) blockEntity;
         inventory.onOpen(playerInventory.player);
-        this.blockEntity = (ItemDisplayBlockEntity) blockEntity;
 
         this.addSlot(new DisplaySlot(inventory, 0, 80, 14));
 
@@ -77,7 +75,7 @@ public class ItemDisplayScreenHandler extends ScreenHandler {
         }
     }
 
-    class DisplaySlot extends Slot {
+    private static class DisplaySlot extends Slot {
 
         public DisplaySlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);

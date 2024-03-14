@@ -43,7 +43,7 @@ public class TimberEnchantment extends Enchantment implements TradableEnchantmen
         return false;
     }
 
-    static List<Block> whitelistedBlocks = new ArrayList<>(){{
+    private final static List<Block> whitelistedBlocks = new ArrayList<>(){{
         add(Blocks.ACACIA_LOG);
         add(Blocks.STRIPPED_ACACIA_LOG);
         add(Blocks.BIRCH_LOG);

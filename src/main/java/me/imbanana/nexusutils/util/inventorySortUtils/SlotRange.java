@@ -3,13 +3,14 @@ package me.imbanana.nexusutils.util.inventorySortUtils;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 
-public class SlotRange {
-    public int min;
-    public int max;
+public record SlotRange(int min, int max) {
 
-    public SlotRange(int min, int max) {
-        this.min = min;
-        this.max = max;
+    public int getMin() {
+        return this.min;
+    }
+
+    public int getMax() {
+        return this.max;
     }
 
     public static SlotRange fullRange(Inventory inventory) {

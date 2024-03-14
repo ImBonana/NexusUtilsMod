@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.events;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.screen.custom.CustomShulkerBoxInventory;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModEvents {
-     static List<Item> shulkerBoxes = new ArrayList<>(){{
+     private final static List<Item> shulkerBoxes = new ArrayList<>(){{
         add(Items.SHULKER_BOX);
         add(Items.BLACK_SHULKER_BOX);
         add(Items.BLUE_SHULKER_BOX);

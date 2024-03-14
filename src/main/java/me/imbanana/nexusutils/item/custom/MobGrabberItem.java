@@ -39,11 +39,9 @@ public class MobGrabberItem extends Item {
     }
 
     void removePassengers(PlayerEntity player) {
-        List<Entity> toRemove = new ArrayList<>();
 
         if(player.hasPassengers()) {
-            for(Entity entity : player.getPassengerList())
-                toRemove.add(entity);
+            List<Entity> toRemove = new ArrayList<>(player.getPassengerList());
 
             player.removeAllPassengers();
 

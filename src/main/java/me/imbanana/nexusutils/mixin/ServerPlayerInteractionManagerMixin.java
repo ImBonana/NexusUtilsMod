@@ -81,7 +81,7 @@ public class ServerPlayerInteractionManagerMixin {
     }
 
     @Unique
-        private boolean serverBreakBlocks(List<BlockPos> posList, BlockPos pos, ItemStack heldStack) {
+    private boolean serverBreakBlocks(List<BlockPos> posList, BlockPos pos, ItemStack heldStack) {
         this.nexusutils$isMining = true;
 
         BlockBreaker.breakBlocks(world, pos, posList, player, heldStack);

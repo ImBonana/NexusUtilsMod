@@ -1,10 +1,7 @@
 package me.imbanana.nexusutils.item.custom;
 
 import me.imbanana.nexusutils.entity.ModEntities;
-import me.imbanana.nexusutils.entity.custom.SnailEntity;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.Equipment;
@@ -36,7 +33,7 @@ public class SnailItem extends Item implements Equipment {
 
             if(ModEntities.SNAIL.spawnFromItemStack((ServerWorld) context.getWorld(), itemStack, context.getPlayer(), blockPos2, SpawnReason.SPAWN_EGG, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
                 itemStack.decrement(1);
-                context.getWorld().emitGameEvent((Entity)context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
+                context.getWorld().emitGameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
             }
         }
         return ActionResult.PASS;

@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.item;
 
-import me.imbanana.nexusutils.item.custom.HopperFilterItem;
 import me.imbanana.nexusutils.util.ISimpleInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;

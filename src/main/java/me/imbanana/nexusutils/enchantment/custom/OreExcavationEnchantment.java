@@ -58,7 +58,7 @@ public class OreExcavationEnchantment extends Enchantment implements TradableEnc
         return this.getMaxLevel();
     }
 
-    static List<Block> whitelistedBlocks = new ArrayList<>(){{
+    private final static List<Block> whitelistedBlocks = new ArrayList<>(){{
         add(Blocks.IRON_ORE);
         add(Blocks.DEEPSLATE_IRON_ORE);
         add(Blocks.COAL_ORE);

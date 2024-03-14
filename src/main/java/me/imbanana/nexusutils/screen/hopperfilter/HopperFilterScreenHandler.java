@@ -1,22 +1,14 @@
 package me.imbanana.nexusutils.screen.hopperfilter;
 
-import me.imbanana.nexusutils.block.entity.CopperHopperBlockEntity;
 import me.imbanana.nexusutils.item.ModItems;
-import me.imbanana.nexusutils.item.custom.HopperFilterItem;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.util.collection.DefaultedList;
 
 public class HopperFilterScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -32,7 +24,7 @@ public class HopperFilterScreenHandler extends ScreenHandler {
 
         for(int i = 0; i < 2; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlot(new HopperFilterSlot(inventory, j + i * 9 , 8 + j * 18, i*18+18));
+                this.addSlot(new HopperFilterSlot(inventory, j + i * 9, 8 + j * 18, i * 18 + 18));
             }
         }
 
@@ -85,20 +77,7 @@ public class HopperFilterScreenHandler extends ScreenHandler {
         }
     }
 
-//    @Override
-//    public void onSlotClick(int slotId, int clickData, SlotActionType actionType, PlayerEntity player) {
-//        if (slotId >= 0) {
-//            ItemStack stack = getSlot(slotId).getStack();
-//
-//            if(stack.getItem() instanceof HopperFilterItem) {
-//                return;
-//            }
-//        }
-//
-//        super.onSlotClick(slotId, clickData, actionType, player);
-//    }
-
-    class HopperFilterSlot extends Slot {
+    private static class HopperFilterSlot extends Slot {
 
         public HopperFilterSlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);

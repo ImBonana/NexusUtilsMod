@@ -27,7 +27,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class SitC2SPacket {
-    static Map<UUID, Long> cooldowns = new HashMap<>();
+    private final static Map<UUID, Long> cooldowns = new HashMap<>();
+
     public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
         if(cooldowns.getOrDefault(player.getUuid(), System.currentTimeMillis()) > System.currentTimeMillis()) return;
 

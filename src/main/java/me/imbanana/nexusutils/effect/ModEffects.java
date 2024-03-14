@@ -11,12 +11,12 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModEffects {
-    public static StatusEffect MORE_HEALTH = registerStatusEffect("more_health",
+    public static final StatusEffect MORE_HEALTH = registerStatusEffect("more_health",
             new ModSimpleStatusEffect(StatusEffectCategory.BENEFICIAL, 0xff0000)
                     .addAttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH, "44EA7A26-9E76-4C6D-B43F-C1E6DBA731E9",
                             1, EntityAttributeModifier.Operation.ADDITION));
 
-    public static StatusEffect BLEED = registerStatusEffect("bleed", new BleedStatusEffect(StatusEffectCategory.HARMFUL, 10027008));
+    public static final StatusEffect BLEED = registerStatusEffect("bleed", new BleedStatusEffect(StatusEffectCategory.HARMFUL, 10027008));
 
     public static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(NexusUtils.MOD_ID, name), statusEffect);

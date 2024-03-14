@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.screen.backpack;
 
-import me.imbanana.nexusutils.block.custom.SleepingBagBlock;
 import me.imbanana.nexusutils.fluids.ModFluids;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.backpack.BackpackItem;
@@ -227,7 +226,7 @@ public class BackpackScreenHandler extends ScreenHandler {
         }
     }
 
-    public class BackpackSleepingBagSlot extends Slot {
+    public static class BackpackSleepingBagSlot extends Slot {
 
         public BackpackSleepingBagSlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);

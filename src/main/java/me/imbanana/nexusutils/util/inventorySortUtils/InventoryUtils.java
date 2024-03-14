@@ -45,8 +45,8 @@ public class InventoryUtils {
             ScreenHandler fromScreenHandler,
             ScreenHandler toScreenHandler,
             PlayerEntity player) {
-        for (int toIdx = toRange.min; toIdx < toRange.max; toIdx++) {
-            for (int fromIdx = fromRange.min; fromIdx < fromRange.max; fromIdx++) {
+        for (int toIdx = toRange.getMin(); toIdx < toRange.getMax(); toIdx++) {
+            for (int fromIdx = fromRange.getMin(); fromIdx < fromRange.getMax(); fromIdx++) {
                 ItemStack fromStack = from.getStack(fromIdx).copy();
                 ItemStack toStack = to.getStack(toIdx).copy();
 

@@ -24,9 +24,7 @@ public class TransferAllButton extends InventoryManagementButton {
                 offset,
                 new Position2(fromPlayerInventory ? 4 : 3, 0),
                 fromPlayerInventory,
-                (button) -> {
-                    ClientPlayNetworking.send(ModPackets.TRANSFER_ALL_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory));
-                },
+                (button) -> ClientPlayNetworking.send(ModPackets.TRANSFER_ALL_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory)),
                 getTooltip(fromPlayerInventory));
     }
 
@@ -43,9 +41,7 @@ public class TransferAllButton extends InventoryManagementButton {
                 offset,
                 new Position2(fromPlayerInventory ? 4 : 3, 0),
                 fromPlayerInventory,
-                (button) -> {
-                    ClientPlayNetworking.send(ModPackets.TRANSFER_ALL_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory));
-                },
+                (button) -> ClientPlayNetworking.send(ModPackets.TRANSFER_ALL_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory)),
                 getTooltip(fromPlayerInventory));
     }
 

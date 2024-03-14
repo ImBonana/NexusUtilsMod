@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.networking.packets;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.custom.SleepingBagBlock;
 import me.imbanana.nexusutils.block.enums.SleepingBagPart;
 import me.imbanana.nexusutils.item.backpack.BackpackItem;
@@ -34,11 +33,9 @@ public class PlaceSleepingBagBackpackC2SPacket {
                 if(sleepingBagItem == null || sleepingBagItem.isEmpty()) {
                     player.sendMessage(Text.translatable("message.nexusutils.place_sleeping_bag.no_bag").fillStyle(Style.EMPTY.withColor(Formatting.RED)), true);
                     return;
-                };
+                }
 
-                if(!(sleepingBagItem.getItem() instanceof BlockItem)) return;
-
-                BlockItem blockItem = (BlockItem) sleepingBagItem.getItem();
+                if(!(sleepingBagItem.getItem() instanceof BlockItem blockItem)) return;
 
                 AutomaticItemPlacementContext placementContext = new AutomaticItemPlacementContext(
                         player.getWorld(),

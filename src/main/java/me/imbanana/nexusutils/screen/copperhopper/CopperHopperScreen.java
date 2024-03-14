@@ -3,32 +3,20 @@ package me.imbanana.nexusutils.screen.copperhopper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.NexusUtilsClient;
-import me.imbanana.nexusutils.screen.itemdisplay.ItemDisplayScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.impl.resource.loader.BuiltinModResourcePackSource;
-import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.BeaconScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.c2s.play.UpdateBeaconC2SPacket;
 import net.minecraft.resource.ResourcePackProfile;
-import net.minecraft.screen.BeaconScreenHandler;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-
-import java.util.Optional;
 
 public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/gui/container/copper_hopper.png");

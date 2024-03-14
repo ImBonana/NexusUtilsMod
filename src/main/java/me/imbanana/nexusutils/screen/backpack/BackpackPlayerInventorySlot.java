@@ -3,7 +3,6 @@ package me.imbanana.nexusutils.screen.backpack;
 import com.mojang.datafixers.util.Pair;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.item.ModItems;
-import me.imbanana.nexusutils.util.accessors.ILivingEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,7 +37,7 @@ public class BackpackPlayerInventorySlot extends Slot {
 
     @Override
     public void setStack(ItemStack stack, ItemStack previousStack) {
-        ((ILivingEntity) this.owner).nexusutils$onEquipBackpack(stack, previousStack);
+        this.owner.nexusutils$onEquipBackpack(stack, previousStack);
         super.setStack(stack, previousStack);
     }
 

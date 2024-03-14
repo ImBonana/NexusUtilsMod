@@ -8,7 +8,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import org.jetbrains.annotations.Nullable;
 
 public class HopperFilterScreenHandlerFactory implements ExtendedScreenHandlerFactory {

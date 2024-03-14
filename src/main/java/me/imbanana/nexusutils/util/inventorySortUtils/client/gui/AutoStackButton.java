@@ -24,9 +24,7 @@ public class AutoStackButton extends InventoryManagementButton {
                 offset,
                 new Position2(fromPlayerInventory ? 2 : 1, 0),
                 fromPlayerInventory,
-                (button) -> {
-                    ClientPlayNetworking.send(ModPackets.AUTO_STACK_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory));
-                },
+                (button) -> ClientPlayNetworking.send(ModPackets.AUTO_STACK_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory)),
                 getTooltip(fromPlayerInventory));
     }
 
@@ -43,9 +41,7 @@ public class AutoStackButton extends InventoryManagementButton {
                 offset,
                 new Position2(fromPlayerInventory ? 2 : 1, 0),
                 fromPlayerInventory,
-                (button) -> {
-                    ClientPlayNetworking.send(ModPackets.AUTO_STACK_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory));
-                },
+                (button) -> ClientPlayNetworking.send(ModPackets.AUTO_STACK_INVENTORY, PacketByteBufs.create().writeBoolean(fromPlayerInventory)),
                 getTooltip(fromPlayerInventory));
     }
 

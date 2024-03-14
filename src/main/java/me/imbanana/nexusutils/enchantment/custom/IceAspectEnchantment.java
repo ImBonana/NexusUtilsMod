@@ -19,9 +19,7 @@ public class IceAspectEnchantment extends Enchantment implements TradableEnchant
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(!(target instanceof LivingEntity)) return;
-
-        LivingEntity livingTarget = (LivingEntity) target;
+        if(!(target instanceof LivingEntity livingTarget)) return;
 
         if(new Random().nextInt(1, 6) <= level) {
             livingTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 30 + (level * 30), level-1));

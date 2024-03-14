@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class ShulkerBoxScreenHandlerMixin implements IShulkerBoxScreenHandler {
     @Shadow @Final private Inventory inventory;
 
-    public Inventory getInventory() {
+    public Inventory nexusUtils$getInventory() {
         return this.inventory;
     }
 }

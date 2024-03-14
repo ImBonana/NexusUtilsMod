@@ -3,13 +3,10 @@ package me.imbanana.nexusutils.screen.hopperfilter;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.NexusUtilsClient;
-import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreenHandler;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -20,11 +17,6 @@ public class HopperFilterScreen extends HandledScreen<HopperFilterScreenHandler>
         super(handler, inventory, title);
         this.backgroundHeight = 148;
         this.playerInventoryTitleY = this.backgroundHeight - 94;
-    }
-
-    @Override
-    protected void init() {
-        super.init();
     }
 
     @Override

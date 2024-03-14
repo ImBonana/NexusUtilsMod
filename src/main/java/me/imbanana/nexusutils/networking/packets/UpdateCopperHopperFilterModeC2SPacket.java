@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.networking.packets;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.entity.CopperHopperBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;

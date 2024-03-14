@@ -2,7 +2,6 @@ package me.imbanana.nexusutils.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import me.imbanana.nexusutils.block.entity.CopperHopperBlockEntity;
-import me.imbanana.nexusutils.block.entity.ItemDisplayBlockEntity;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,7 +15,6 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -24,7 +22,6 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -50,7 +47,7 @@ public class CopperHopperBlock extends BlockWithEntity implements BlockEntityPro
 
     public CopperHopperBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState())).with(ENABLED, true));
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENABLED, true));
     }
 
     @Override
@@ -85,6 +82,8 @@ public class CopperHopperBlock extends BlockWithEntity implements BlockEntityPro
             super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
+
+
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -150,9 +149,9 @@ public class CopperHopperBlock extends BlockWithEntity implements BlockEntityPro
 
     private void updateEnabled(World world, BlockPos pos, BlockState state) {
         boolean bl;
-        boolean bl2 = bl = !world.isReceivingRedstonePower(pos);
+        bl = !world.isReceivingRedstonePower(pos);
         if (bl != state.get(ENABLED)) {
-            world.setBlockState(pos, (BlockState)state.with(ENABLED, bl), Block.NOTIFY_LISTENERS);
+            world.setBlockState(pos, state.with(ENABLED, bl), Block.NOTIFY_LISTENERS);
         }
     }
 }

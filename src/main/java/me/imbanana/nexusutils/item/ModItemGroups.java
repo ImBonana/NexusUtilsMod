@@ -1,7 +1,6 @@
 package me.imbanana.nexusutils.item;
 
 import me.imbanana.nexusutils.NexusUtils;
-import me.imbanana.nexusutils.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

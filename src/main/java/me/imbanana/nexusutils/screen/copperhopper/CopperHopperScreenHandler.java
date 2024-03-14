@@ -1,13 +1,10 @@
 package me.imbanana.nexusutils.screen.copperhopper;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.entity.CopperHopperBlockEntity;
-import me.imbanana.nexusutils.block.entity.ItemDisplayBlockEntity;
 import me.imbanana.nexusutils.networking.ModPackets;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -15,13 +12,9 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.BeaconScreenHandler;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 
 public class CopperHopperScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -110,7 +103,7 @@ public class CopperHopperScreenHandler extends ScreenHandler {
         }
     }
 
-    class FilterSlot extends Slot {
+    private static class FilterSlot extends Slot {
 
         public FilterSlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);

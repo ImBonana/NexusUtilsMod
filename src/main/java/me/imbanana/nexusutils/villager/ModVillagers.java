@@ -16,7 +16,6 @@ import net.minecraft.world.poi.PointOfInterestType;
 
 public class ModVillagers {
     public static final  RegistryKey<PointOfInterestType> ENCHANTING_TABLE_POI_KEY = poiKey("enchanting_table_poi");
-    public static final PointOfInterestType ENCHANTING_TABLE_POI = registerPoi("enchanting_table_poi", Blocks.ENCHANTING_TABLE);
 
     public static final VillagerProfession ENCHANTER = registerProfession("enchanter", ENCHANTING_TABLE_POI_KEY);
 

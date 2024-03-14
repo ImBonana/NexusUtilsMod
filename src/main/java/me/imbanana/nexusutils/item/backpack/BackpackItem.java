@@ -1,10 +1,8 @@
 package me.imbanana.nexusutils.item.backpack;
 
-import me.imbanana.nexusutils.util.accessors.ILivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -38,7 +36,7 @@ public class BackpackItem extends Item {
 
         if(previousStack.isEmpty()) {
             ItemStack newStack = stack.copy();
-            ((ILivingEntity) user).nexusutils$onEquipBackpack(newStack, previousStack);
+            user.nexusutils$onEquipBackpack(newStack, previousStack);
             user.getInventory().setStack(SLOT_ID, newStack.copy());
 
             stack.setCount(0);

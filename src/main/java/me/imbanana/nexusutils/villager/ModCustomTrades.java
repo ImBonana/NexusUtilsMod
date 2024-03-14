@@ -20,9 +20,7 @@ public class ModCustomTrades {
 
         for (int i = 1; i <= 5; i++) {
             int finalI = i * i * 5;
-            TradeOfferHelper.registerVillagerOffers(ModVillagers.ENCHANTER, i, factories -> {
-                factories.add((entity, random) -> getBookTradeOffer(3, finalI, 0.05f));
-            });
+            TradeOfferHelper.registerVillagerOffers(ModVillagers.ENCHANTER, i, factories -> factories.add((entity, random) -> getBookTradeOffer(3, finalI, 0.05f)));
         }
     }
 

@@ -1,10 +1,8 @@
 package me.imbanana.nexusutils.entity.custom;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.tags.ModEntitySpawnTags;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
@@ -17,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;

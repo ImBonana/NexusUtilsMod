@@ -1,8 +1,6 @@
 package me.imbanana.nexusutils;
 
 import me.imbanana.nexusutils.block.ModBlocks;
-import me.imbanana.nexusutils.block.entity.ModBlockEntities;
-import me.imbanana.nexusutils.block.entity.renderer.ItemDisplayBlockEntityRenderer;
 import me.imbanana.nexusutils.block.entity.renderer.SleepingBagBlockEntityRenderer;
 import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.entity.client.ModModelLayers;
@@ -11,7 +9,6 @@ import me.imbanana.nexusutils.entity.client.models.SnailModel;
 import me.imbanana.nexusutils.events.KeyInputHandler;
 import me.imbanana.nexusutils.fluids.ModFluids;
 import me.imbanana.nexusutils.fluids.custom.milk.MilkFluidVariantAttributeHandler;
-import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.backpack.BackpackEntityModel;
 import me.imbanana.nexusutils.item.backpack.PlayerBackpackFeatureRenderer;
 import me.imbanana.nexusutils.networking.ModPackets;
@@ -27,7 +24,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
-import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
@@ -38,14 +34,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
 
 public class NexusUtilsClient implements ClientModInitializer {
     public static final Identifier DARK_UI_RESOURCE_PACK_ID = new Identifier(NexusUtils.MOD_ID, "dark-ui");

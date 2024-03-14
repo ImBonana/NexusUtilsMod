@@ -44,7 +44,7 @@ public class InventoryButtonsManager {
     private final LinkedHashSet<InventoryManagementButton> playerButtons = new LinkedHashSet<>();
     private final LinkedHashSet<InventoryManagementButton> containerButtons = new LinkedHashSet<>();
     private final HashSet<Class<? extends Inventory>> sortableInventories = new HashSet<>();
-    private final HashSet<Class<? extends Inventory>> transerableInventories = new HashSet<>();
+    private final HashSet<Class<? extends Inventory>> transferableInventories = new HashSet<>();
     private final HashSet<Class<? extends ScreenHandler>> sortableScreenHandlers = new HashSet<>();
     private final HashSet<Class<? extends ScreenHandler>> transferableScreenHandlers =
             new HashSet<>();
@@ -79,7 +79,7 @@ public class InventoryButtonsManager {
     }
 
     public void registerTransferableContainer(Class<? extends Inventory> clazz) {
-        transerableInventories.add(clazz);
+        transferableInventories.add(clazz);
     }
 
     public void registerSimpleInventorySortableHandler(Class<? extends ScreenHandler> clazz) {
@@ -96,14 +96,12 @@ public class InventoryButtonsManager {
 
     private void onScreenAfterInit(
             MinecraftClient client, Screen screen, float scaledWidth, float scaledHeight) {
-        if (!(screen instanceof HandledScreen)) {
+        if (!(screen instanceof HandledScreen<?> handledScreen)) {
             return;
         }
 
         playerButtons.clear();
         containerButtons.clear();
-
-        HandledScreen<?> handledScreen = ((HandledScreen<?>) screen);
 
         // Container side
         generateSortButton(handledScreen, false);
@@ -187,7 +185,7 @@ public class InventoryButtonsManager {
                 return;
             }
         } else {
-            if (transerableInventories.stream().noneMatch(clazz -> clazz.isInstance(fromInventory))) {
+            if (transferableInventories.stream().noneMatch(clazz -> clazz.isInstance(fromInventory))) {
                 return;
             }
         }
@@ -198,7 +196,7 @@ public class InventoryButtonsManager {
                 return;
             }
         } else {
-            if (transerableInventories.stream().noneMatch(clazz -> clazz.isInstance(toInventory))) {
+            if (transferableInventories.stream().noneMatch(clazz -> clazz.isInstance(toInventory))) {
                 return;
             }
         }
@@ -242,7 +240,7 @@ public class InventoryButtonsManager {
                 return;
             }
         } else {
-            if (transerableInventories.stream().noneMatch(clazz -> clazz.isInstance(fromInventory))) {
+            if (transferableInventories.stream().noneMatch(clazz -> clazz.isInstance(fromInventory))) {
                 return;
             }
         }
@@ -253,7 +251,7 @@ public class InventoryButtonsManager {
                 return;
             }
         } else {
-            if (transerableInventories.stream().noneMatch(clazz -> clazz.isInstance(toInventory))) {
+            if (transferableInventories.stream().noneMatch(clazz -> clazz.isInstance(toInventory))) {
                 return;
             }
         }
@@ -305,9 +303,9 @@ public class InventoryButtonsManager {
 
     public Position2 getButtonPosition(int index, Position2 offset) {
         int x =
-                offset.getX() + BUTTON_SHIFT_X * (InventoryManagementButton.WIDTH + BUTTON_SPACING) * index;
+                offset.x() + BUTTON_SHIFT_X * (InventoryManagementButton.WIDTH + BUTTON_SPACING) * index;
         int y =
-                offset.getY() + BUTTON_SHIFT_Y * (InventoryManagementButton.HEIGHT + BUTTON_SPACING) * index;
+                offset.y() + BUTTON_SHIFT_Y * (InventoryManagementButton.HEIGHT + BUTTON_SPACING) * index;
 
         return new Position2(x, y);
     }

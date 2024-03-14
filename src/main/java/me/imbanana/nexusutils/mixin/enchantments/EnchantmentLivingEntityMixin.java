@@ -112,8 +112,7 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
 
     @ModifyVariable(method = "damage", at = @At(value = "HEAD"), ordinal = 0, argsOnly = true)
     protected float ModifyDamage(float amount, DamageSource source) {
-        if(!(source.getAttacker() instanceof LivingEntity)) return amount;
-        LivingEntity attacker = (LivingEntity) source.getAttacker();
+        if(!(source.getAttacker() instanceof LivingEntity attacker)) return amount;
         ItemStack chestplate = attacker.getEquippedStack(EquipmentSlot.CHEST);
         ItemStack mainHandItem = attacker.getStackInHand(Hand.MAIN_HAND);
 
@@ -147,9 +146,9 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
 
         // Impact Enchantment
         if((mainHandItem != null || source.getSource() instanceof TridentEntity) && !this.getWorld().isClient()) {
-            int impactEnchantmentLevel = 0;
+            int impactEnchantmentLevel;
             if(source.getSource() instanceof TridentEntity) {
-                ITridentEntity tridentEntity = (ITridentEntity) (TridentEntity) source.getSource();
+                ITridentEntity tridentEntity = (ITridentEntity) source.getSource();
                 ItemStack itemStack = tridentEntity.nexusUtils$getTridentItemStack();
                 impactEnchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.IMPACT, itemStack);
             } else {
@@ -165,7 +164,7 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
                 packet.writeString(Blocks.REDSTONE_BLOCK.getRegistryEntry().getKey().get().getValue().toString());
 
                 for(ServerPlayerEntity playerEntity : this.getServer().getPlayerManager().getPlayerList()) {
-                    if (playerEntity.getWorld() == ((ServerWorld) this.getWorld())) {
+                    if (playerEntity.getWorld() == this.getWorld()) {
                         BlockPos blockPos = playerEntity.getBlockPos();
                         if (blockPos.isWithinDistance(new Vec3d(this.getX(), this.getX(), this.getX()), 512.0)) {
                             ServerPlayNetworking.send(playerEntity, ModPackets.BLOCK_PARTICLE, packet);
@@ -331,21 +330,18 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
 
     @Inject(method = "drop", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;shouldDropLoot()Z", shift = At.Shift.BEFORE), cancellable = true)
     private void InjectDrop(DamageSource source, CallbackInfo info) {
-        boolean bl;
+        boolean bl = this.playerHitTimer > 0;
 
         Entity entity = source.getAttacker();
 
-        boolean bl2 = bl = this.playerHitTimer > 0;
-
-        if(entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entity;
+        if(entity instanceof PlayerEntity player) {
 
             ItemStack itemStack = player.getStackInHand(Hand.MAIN_HAND);
 
             int j = 0;
 
             if(source.getSource() instanceof TridentEntity tridentEntity) {
-                ItemStack tridentStack = ((ITridentEntity) tridentEntity).nexusUtils$getTridentItemStack();
+                ItemStack tridentStack = tridentEntity.nexusUtils$getTridentItemStack();
 
                 if(tridentStack != null) j = EnchantmentHelper.getLevel(ModEnchantments.TELEPATHY, tridentStack);
             } else if(itemStack != null) {

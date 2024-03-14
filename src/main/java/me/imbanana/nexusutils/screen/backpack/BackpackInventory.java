@@ -69,7 +69,7 @@ public class BackpackInventory extends ItemInventory {
     }
 
     private SingleVariantStorage<FluidVariant> createFluidStorage() {
-        return new SingleVariantStorage<FluidVariant>() {
+        return new SingleVariantStorage<>() {
             @Override
             protected FluidVariant getBlankVariant() {
                 return FluidVariant.blank();

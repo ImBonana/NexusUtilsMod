@@ -24,8 +24,7 @@ public class TwingeEnchantment extends Enchantment implements TradableEnchantmen
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(!(target instanceof LivingEntity)) return;
-        LivingEntity livingTarget = (LivingEntity) target;
+        if(!(target instanceof LivingEntity livingTarget)) return;
 
         livingTarget.addStatusEffect(new StatusEffectInstance(ModEffects.BLEED, (10 + (4*level)) * 20, 0, false, false, true));
     }

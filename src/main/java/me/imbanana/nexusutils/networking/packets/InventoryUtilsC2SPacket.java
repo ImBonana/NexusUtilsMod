@@ -20,15 +20,11 @@ public class InventoryUtilsC2SPacket {
 
     public static void receiveAutoStack(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
         boolean fromPlayerInventory = buf.readBoolean();
-        server.execute(() -> {
-            InventoryAutoStack.autoStack(player, fromPlayerInventory);
-        });
+        server.execute(() -> InventoryAutoStack.autoStack(player, fromPlayerInventory));
     }
 
     public static void receiveTransferAll(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
         boolean fromPlayerInventory = buf.readBoolean();
-        server.execute(() -> {
-            InventoryTransferAll.transferAll(player, fromPlayerInventory);
-        });
+        server.execute(() -> InventoryTransferAll.transferAll(player, fromPlayerInventory));
     }
 }

@@ -7,32 +7,17 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class SimpleDamageSource {
-    String name;
-    RegistryKey<DamageType> registryKey;
-
-    public SimpleDamageSource(String name, RegistryKey<DamageType> registryKey) {
-        this.name = name;
-        this.registryKey = registryKey;
-    }
-
-    public RegistryKey<DamageType> getRegistryKey() {
-        return registryKey;
-    }
-
-    public String getName() {
-        return name;
-    }
+public record SimpleDamageSource(String name, RegistryKey<DamageType> registryKey) {
 
     public DamageSource create(World world, @Nullable Entity source, @Nullable Entity attacker) {
-        return world.getDamageSources().create(this.getRegistryKey(), source, attacker);
+        return world.getDamageSources().create(this.registryKey(), source, attacker);
     }
 
     public DamageSource create(World world, @Nullable Entity source) {
-        return world.getDamageSources().create(this.getRegistryKey(), source);
+        return world.getDamageSources().create(this.registryKey(), source);
     }
 
     public DamageSource create(World world) {
-        return world.getDamageSources().create(this.getRegistryKey());
+        return world.getDamageSources().create(this.registryKey());
     }
 }

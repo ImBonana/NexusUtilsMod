@@ -18,11 +18,6 @@ public class HopperFilterItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack filter = user.getStackInHand(hand);
-//
-//        NbtCompound nbtCompound = filter.getOrCreateNbt();
-//        DefaultedList<ItemStack> inventory = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
-//
-//        Inventories.readNbt(nbtCompound, inventory);
 
         user.openHandledScreen(new HopperFilterScreenHandlerFactory(filter));
 

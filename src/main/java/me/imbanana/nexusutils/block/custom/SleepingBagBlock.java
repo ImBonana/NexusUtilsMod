@@ -169,18 +169,13 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if(state.get(SleepingBagBlock.PART) == SleepingBagPart.FOOT) return BOTTOM_SHAPE;
         Direction direction = SleepingBagBlock.getOppositePartDirection(state).getOpposite();
-        switch (direction) {
-            case NORTH: {
-                return NORTH_SHAPE;
-            }
-            case SOUTH: {
-                return SOUTH_SHAPE;
-            }
-            case WEST: {
-                return WEST_SHAPE;
-            }
-        }
-        return EAST_SHAPE;
+        return switch (direction) {
+            case NORTH -> NORTH_SHAPE;
+            case SOUTH -> SOUTH_SHAPE;
+            case WEST -> WEST_SHAPE;
+
+            default -> EAST_SHAPE;
+        };
     }
 
     public static Direction getOppositePartDirection(BlockState state) {
@@ -273,7 +268,7 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
         super.onPlaced(world, pos, state, placer, itemStack);
         if (!world.isClient) {
             BlockPos blockPos = pos.offset(state.get(FACING));
-            world.setBlockState(blockPos, (BlockState)state.with(PART, SleepingBagPart.HEAD), Block.NOTIFY_ALL);
+            world.setBlockState(blockPos, state.with(PART, SleepingBagPart.HEAD), Block.NOTIFY_ALL);
             world.updateNeighbors(pos, Blocks.AIR);
             state.updateNeighbors(world, pos, Block.NOTIFY_ALL);
         }
@@ -295,7 +290,7 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     }
 
     private static int[][] getAroundAndOnSleepingBagOffsets(Direction sleepingBagDirection, Direction respawnDirection) {
-        return (int[][]) ArrayUtils.addAll(SleepingBagBlock.getAroundSleepingBagOffsets(sleepingBagDirection, respawnDirection), SleepingBagBlock.getOnSleepingBagOffsets(sleepingBagDirection));
+        return ArrayUtils.addAll(SleepingBagBlock.getAroundSleepingBagOffsets(sleepingBagDirection, respawnDirection), SleepingBagBlock.getOnSleepingBagOffsets(sleepingBagDirection));
     }
 
     private static int[][] getAroundSleepingBagOffsets(Direction sleepingBagDirection, Direction respawnDirection) {

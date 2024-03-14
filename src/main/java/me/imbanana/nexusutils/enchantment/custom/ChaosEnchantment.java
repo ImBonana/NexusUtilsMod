@@ -19,9 +19,7 @@ public class ChaosEnchantment extends Enchantment implements TradableEnchantment
 
     @Override
     public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(!(target instanceof LivingEntity)) return;
-
-        LivingEntity livingTarget = (LivingEntity) target;
+        if(!(target instanceof LivingEntity livingTarget)) return;
 
         if(new Random().nextInt(1, 11) == 1) {
             livingTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 60, 0));

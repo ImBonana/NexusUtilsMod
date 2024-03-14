@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.world.gen;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.entity.custom.SnailEntity;
 import me.imbanana.nexusutils.tags.ModEntitySpawnTags;

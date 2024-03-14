@@ -37,7 +37,7 @@ public class InventorySorter {
             } else if (screenHandler instanceof IShulkerBoxScreenHandler shulkerBoxScreenHandler) {
                 if (canPlayerUse(player, screenHandler)) return;
 
-                Inventory containerInventory = shulkerBoxScreenHandler.getInventory();
+                Inventory containerInventory = shulkerBoxScreenHandler.nexusUtils$getInventory();
                 InventorySorter.sortInventory(containerInventory);
                 containerInventory.markDirty();
             } else if (screenHandler instanceof CopperHopperScreenHandler copperHopperScreenHandler) {

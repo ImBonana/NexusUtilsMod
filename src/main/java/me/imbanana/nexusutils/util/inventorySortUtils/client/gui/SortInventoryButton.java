@@ -24,9 +24,7 @@ public class SortInventoryButton extends InventoryManagementButton {
                 offset,
                 new Position2(0, 0),
                 isPlayerInventory,
-                (button) -> {
-                    ClientPlayNetworking.send(ModPackets.SORT_INVENTORY, PacketByteBufs.create().writeBoolean(isPlayerInventory));
-                },
+                (button) -> ClientPlayNetworking.send(ModPackets.SORT_INVENTORY, PacketByteBufs.create().writeBoolean(isPlayerInventory)),
                 getTooltip(isPlayerInventory));
     }
 
@@ -43,9 +41,7 @@ public class SortInventoryButton extends InventoryManagementButton {
                 offset,
                 new Position2(0, 0),
                 isPlayerInventory,
-                (button) -> {
-                    ClientPlayNetworking.send(ModPackets.SORT_INVENTORY, PacketByteBufs.create().writeBoolean(isPlayerInventory));
-                },
+                (button) -> ClientPlayNetworking.send(ModPackets.SORT_INVENTORY, PacketByteBufs.create().writeBoolean(isPlayerInventory)),
                 getTooltip(isPlayerInventory));
     }
 

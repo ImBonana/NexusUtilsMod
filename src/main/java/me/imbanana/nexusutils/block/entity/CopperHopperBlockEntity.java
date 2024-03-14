@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.block.entity;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.custom.CopperHopperBlock;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.custom.HopperFilterItem;
@@ -15,7 +14,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -23,7 +21,6 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.screen.HopperScreenHandler;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -33,7 +30,6 @@ import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -51,9 +47,6 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     private boolean whitelist = true;
 
     private static final int FILTER_SLOT = 0;
-    private static final int[] INVENTORY_SLOTS = new int[]{1,2,3,4,5};
-
-    public static final int TRANSFER_COOLDOWN = 8;
     private int transferCooldown = -1;
     private long lastTickTime;
 
@@ -81,7 +74,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
                     return CopperHopperBlockEntity.this.whitelist ? 1 : 0;
                 }
 
-                return CopperHopperBlockEntity.this.whitelist ? 1 : 0;
+                return 0;
             }
 
             @Override
@@ -173,7 +166,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         if (!blockEntity.needsCooldown() && state.get(CopperHopperBlock.ENABLED).booleanValue()) {
             boolean bl = false;
             if (!blockEntity.isEmpty()) {
-                bl = CopperHopperBlockEntity.insert(world, pos, state, blockEntity);
+                bl = CopperHopperBlockEntity.insert(world, pos, blockEntity);
             }
             if (!blockEntity.isFull()) {
                 bl |= booleanSupplier.getAsBoolean();
@@ -195,8 +188,8 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         return true;
     }
 
-    private static boolean insert(World world, BlockPos pos, BlockState state, Inventory inventory) {
-        Inventory inventory2 = CopperHopperBlockEntity.getOutputInventory(world, pos, state);
+    private static boolean insert(World world, BlockPos pos, Inventory inventory) {
+        Inventory inventory2 = CopperHopperBlockEntity.getOutputInventory(world, pos);
         if (inventory2 == null) {
             return false;
         }
@@ -280,8 +273,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     public static ItemStack transfer(@Nullable Inventory from, Inventory to, ItemStack stack, @Nullable Direction side) {
-        if (to instanceof SidedInventory) {
-            SidedInventory sidedInventory = (SidedInventory)to;
+        if (to instanceof SidedInventory sidedInventory) {
             if (side != null) {
                 int[] is = sidedInventory.getAvailableSlots(side);
                 int i = 0;
@@ -304,19 +296,17 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private static boolean canInsert(Inventory inventory, ItemStack stack, int slot, @Nullable Direction side) {
-        SidedInventory sidedInventory;
         if (!inventory.isValid(slot, stack)) {
             return false;
         }
-        return !(inventory instanceof SidedInventory) || (sidedInventory = (SidedInventory)inventory).canInsert(slot, stack, side);
+        return !(inventory instanceof SidedInventory) || ((SidedInventory)inventory).canInsert(slot, stack, side);
     }
 
     private static boolean canExtract(Inventory hopperInventory, Inventory fromInventory, ItemStack stack, int slot, Direction facing) {
-        SidedInventory sidedInventory;
         if (!fromInventory.canTransferTo(hopperInventory, slot, stack)) {
             return false;
         }
-        return !(fromInventory instanceof SidedInventory) || (sidedInventory = (SidedInventory)fromInventory).canExtract(slot, stack, facing);
+        return !(fromInventory instanceof SidedInventory) || ((SidedInventory)fromInventory).canExtract(slot, stack, facing);
     }
 
     private static ItemStack transfer(@Nullable Inventory from, Inventory to, ItemStack stack, int slot, @Nullable Direction side) {
@@ -348,14 +338,13 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
                 j = Math.min(stack.getCount(), i);
                 stack.decrement(j);
                 itemStack.increment(j);
-                boolean bl3 = bl = j > 0;
+                bl = j > 0;
             }
             if (bl) {
                 CopperHopperBlockEntity hopperBlockEntity;
                 if (bl2 && to instanceof CopperHopperBlockEntity && !(hopperBlockEntity = (CopperHopperBlockEntity)to).isDisabled()) {
                     j = 0;
-                    if (from instanceof CopperHopperBlockEntity) {
-                        CopperHopperBlockEntity hopperBlockEntity2 = (CopperHopperBlockEntity)from;
+                    if (from instanceof CopperHopperBlockEntity hopperBlockEntity2) {
                         if (hopperBlockEntity.lastTickTime >= hopperBlockEntity2.lastTickTime) {
                             j = 1;
                         }
@@ -369,7 +358,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     @Nullable
-    private static Inventory getOutputInventory(World world, BlockPos pos, BlockState state) {
+    private static Inventory getOutputInventory(World world, BlockPos pos) {
         Direction direction = Direction.DOWN;
         return CopperHopperBlockEntity.getInventoryAt(world, pos.offset(direction));
     }
@@ -397,12 +386,12 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         BlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
         if (block instanceof InventoryProvider) {
-            inventory = ((InventoryProvider)((Object)block)).getInventory(blockState, world, blockPos);
-        } else if (blockState.hasBlockEntity() && (blockEntity = world.getBlockEntity(blockPos)) instanceof Inventory && (inventory = (Inventory)((Object)blockEntity)) instanceof ChestBlockEntity && block instanceof ChestBlock) {
+            inventory = ((InventoryProvider) block).getInventory(blockState, world, blockPos);
+        } else if (blockState.hasBlockEntity() && (blockEntity = world.getBlockEntity(blockPos)) instanceof Inventory && (inventory = (Inventory) blockEntity) instanceof ChestBlockEntity && block instanceof ChestBlock) {
             inventory = ChestBlock.getInventory((ChestBlock)block, blockState, world, blockPos, true);
         }
         if (inventory == null && !(list = world.getOtherEntities(null, new Box(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5), EntityPredicates.VALID_INVENTORIES)).isEmpty()) {
-            inventory = (Inventory)((Object)list.get(world.random.nextInt(list.size())));
+            inventory = (Inventory) list.get(world.random.nextInt(list.size()));
         }
         return inventory;
     }
@@ -421,13 +410,6 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
 
     private boolean isDisabled() {
         return this.transferCooldown > 8;
-    }
-
-    public static void onEntityCollided(World world, BlockPos pos, BlockState state, Entity entity, CopperHopperBlockEntity blockEntity) {
-        ItemEntity itemEntity;
-        if (entity instanceof ItemEntity && !(itemEntity = (ItemEntity)entity).getStack().isEmpty() && VoxelShapes.matchesAnywhere(VoxelShapes.cuboid(entity.getBoundingBox().offset(-pos.getX(), -pos.getY(), -pos.getZ())), blockEntity.getInputAreaShape(), BooleanBiFunction.AND)) {
-            CopperHopperBlockEntity.insertAndExtract(world, pos, state, blockEntity, () -> CopperHopperBlockEntity.extract(blockEntity, itemEntity));
-        }
     }
 
     private static boolean filterHasItem(DefaultedList<ItemStack> stacks, ItemStack stack) {

@@ -39,8 +39,8 @@ public abstract class InventoryManagementButton extends ButtonWidget {
             PressAction onPress,
             Text tooltip) {
         super(((HandledScreenAccessor) parent).getX() +
-                        ((HandledScreenAccessor) parent).getBackgroundWidth() + offset.getX(),
-                ((HandledScreenAccessor) parent).getY() + referenceSlot.y + offset.getY(),
+                        ((HandledScreenAccessor) parent).getBackgroundWidth() + offset.x(),
+                ((HandledScreenAccessor) parent).getY() + referenceSlot.y + offset.y(),
                 WIDTH,
                 HEIGHT,
                 Text.literal(""),
@@ -68,8 +68,8 @@ public abstract class InventoryManagementButton extends ButtonWidget {
             boolean isPlayerInventory,
             PressAction onPress,
             Text tooltip) {
-        super(parent.getX() + parent.getBackgroundWidth() + offset.getX(),
-                parent.getY() + referenceSlot.y + offset.getY(),
+        super(parent.getX() + parent.getBackgroundWidth() + offset.x(),
+                parent.getY() + referenceSlot.y + offset.y(),
                 WIDTH,
                 HEIGHT,
                 Text.literal(""),
@@ -89,18 +89,10 @@ public abstract class InventoryManagementButton extends ButtonWidget {
         offset = position;
     }
 
-//    @Override
-//    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-//        setX(parent.getX() + parent.getBackgroundWidth() + offset.getX());
-//        setY(parent.getY() + referenceSlot.y + offset.getY());
-//
-//        super.render(drawContext, mouseX, mouseY, delta);
-//    }
-
     @Override
     public void renderWidget(DrawContext drawContext, int mouseX, int mouseY, float delta) {
-        setX(parent.getX() + parent.getBackgroundWidth() + offset.getX());
-        setY(parent.getY() + referenceSlot.y + offset.getY());
+        setX(parent.getX() + parent.getBackgroundWidth() + offset.x());
+        setY(parent.getY() + referenceSlot.y + offset.y());
 
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
@@ -110,8 +102,8 @@ public abstract class InventoryManagementButton extends ButtonWidget {
         RenderSystem.applyModelViewMatrix();
         RenderSystem.enableDepthTest();
 
-        int u = iconOffset.getX() * width;
-        int v = iconOffset.getY() * height + (isHovered() || isFocused() ? height : 0);
+        int u = iconOffset.x() * width;
+        int v = iconOffset.y() * height + (isHovered() || isFocused() ? height : 0);
 
         drawContext.drawTexture(TEXTURE, getX(), getY(), u, v, WIDTH, HEIGHT);
     }
