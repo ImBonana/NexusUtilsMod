@@ -89,16 +89,19 @@ public abstract class InventoryManagementButton extends ButtonWidget {
         offset = position;
     }
 
+//    @Override
+//    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+//        setX(parent.getX() + parent.getBackgroundWidth() + offset.getX());
+//        setY(parent.getY() + referenceSlot.y + offset.getY());
+//
+//        super.render(drawContext, mouseX, mouseY, delta);
+//    }
+
     @Override
-    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         setX(parent.getX() + parent.getBackgroundWidth() + offset.getX());
         setY(parent.getY() + referenceSlot.y + offset.getY());
 
-        super.render(drawContext, mouseX, mouseY, delta);
-    }
-
-    @Override
-    public void renderButton(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA,

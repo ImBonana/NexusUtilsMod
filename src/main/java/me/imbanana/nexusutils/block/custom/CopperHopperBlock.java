@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import me.imbanana.nexusutils.block.entity.CopperHopperBlockEntity;
 import me.imbanana.nexusutils.block.entity.ItemDisplayBlockEntity;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
@@ -33,6 +34,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.stream.Stream;
 
 public class CopperHopperBlock extends BlockWithEntity implements BlockEntityProvider {
+    public static final MapCodec<CopperHopperBlock> CODEC = CopperHopperBlock.createCodec(CopperHopperBlock::new);
+
     public static final BooleanProperty ENABLED = Properties.ENABLED;
 
     private static final VoxelShape SHAPE = Stream.of(
@@ -48,6 +51,11 @@ public class CopperHopperBlock extends BlockWithEntity implements BlockEntityPro
     public CopperHopperBlock(Settings settings) {
         super(settings);
         this.setDefaultState((BlockState)((BlockState)((BlockState)this.stateManager.getDefaultState())).with(ENABLED, true));
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override

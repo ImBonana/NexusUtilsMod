@@ -5,6 +5,7 @@
   "item.nexusutils.mod_test": "Mod Test",
   "item.nexusutils.snail_item": "Snail",
   "item.nexusutils.hopper_filter": "Hopper Filter",
+  "item.nexusutils.backpack": "Backpack",
 
   "block.nexusutils.frozen_lava": "Frozen Lava",
   "block.nexusutils.item_display": "Item Display",
@@ -29,9 +30,15 @@
 
   "block.nexusutils.sleeping_bag.occupied": "This sleeping_bag is occupied",
 
+  "fluid.nexusutils.milk": "Milk",
+
   "gui.nexusutils.item_display": "Item Display",
   "gui.nexusutils.copper_hopper": "Copper Hopper",
   "gui.nexusutils.hopper_filter": "Hopper Filter",
+  "gui.nexusutils.backpack": "Backpack",
+
+  "screen.nexusutils.backpack.tank.none": "None",
+  "screen.nexusutils.backpack.tank.empty": "Empty",
 
   "itemgroup.nexus": "Nexus",
 
@@ -40,11 +47,17 @@
 
   "key.category.nexusutils.main": "Nexus",
   "key.nexusutils.sit": "Sit",
+  "key.nexusutils.open_backpack": "Open Backpack",
+  "key.nexusutils.backpack_sleeping_bag": "Place Sleeping Bag Backpack",
 
   "message.nexusutils.sit.success": "You are now sitting!",
   "message.nexusutils.sit.try_air": "It appears you're trying to sit on air.",
   "message.nexusutils.sit.try_falling": "Unable to sit while falling.",
   "message.nexusutils.sit.try_already": "You're already sitting!",
+
+  "message.nexusutils.place_sleeping_bag.success": "Placed!",
+  "message.nexusutils.place_sleeping_bag.fail": "Failed to place :\\",
+  "message.nexusutils.place_sleeping_bag.no_bag": "You don't have a sleeping bag in your backpack!",
 
   "enchantment.nexusutils.ice_aspect": "Ice Aspect",
   "enchantment.nexusutils.poison": "Poison",

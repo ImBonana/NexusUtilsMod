@@ -76,9 +76,15 @@ public class InventoryUtils {
                         to.setStack(toIdx, toStack);
                         from.setStack(fromIdx, fromStack.isEmpty() ? ItemStack.EMPTY : fromStack);
                     }
+
+                    from.markDirty();
+                    to.markDirty();
                 } else if (toStack.isEmpty() && !fromStack.isEmpty()) {
                     to.setStack(toIdx, fromStack);
                     from.setStack(fromIdx, ItemStack.EMPTY);
+
+                    from.markDirty();
+                    to.markDirty();
                 }
             }
         }

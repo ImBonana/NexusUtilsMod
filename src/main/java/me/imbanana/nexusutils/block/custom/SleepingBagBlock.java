@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import me.imbanana.nexusutils.block.entity.SleepingBagBlockEntity;
 import me.imbanana.nexusutils.block.enums.SleepingBagPart;
 import net.minecraft.block.*;
@@ -34,6 +35,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEntityProvider {
+    public static final MapCodec<SleepingBagBlock> CODEC = SleepingBagBlock.createCodec(SleepingBagBlock::new);
+
     public static final EnumProperty<SleepingBagPart> PART = EnumProperty.of("sleeping_bag_part", SleepingBagPart.class);
     public static final BooleanProperty OCCUPIED = Properties.OCCUPIED;
     protected static final VoxelShape BOTTOM_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 3.0, 16.0);
@@ -48,6 +51,10 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     protected static final VoxelShape EAST_SHAPE = VoxelShapes.union(BOTTOM_SHAPE, TOP_SHAPE_EAST);
 
     private final DyeColor color;
+
+    public SleepingBagBlock(Settings settings) {
+        this(DyeColor.RED, settings);
+    }
 
     public SleepingBagBlock(DyeColor dyeColor, Settings settings) {
         super(settings);
@@ -133,7 +140,7 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockPos blockPos;
         BlockState blockState;
         SleepingBagPart sleepingBagPart;
@@ -141,7 +148,7 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
             world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL | Block.SKIP_DROPS);
             world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, blockPos, Block.getRawIdFromState(blockState));
         }
-        super.onBreak(world, pos, state, player);
+        return super.onBreak(world, pos, state, player);
     }
 
     @Override
@@ -297,5 +304,10 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
 
     private static int[][] getOnSleepingBagOffsets(Direction sleepingBagDirection) {
         return new int[][]{{0, 0}, {-sleepingBagDirection.getOffsetX(), -sleepingBagDirection.getOffsetZ()}};
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+        return CODEC;
     }
 }

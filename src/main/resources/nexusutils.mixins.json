@@ -5,8 +5,12 @@
   "mixins": [
     "AnvilScreenMixin",
     "BoneMealMixin",
+    "BucketItemMixin",
+    "HopperScreenHandlerAccessor",
     "LivingEntityMixin",
     "MinecartMixin",
+    "PlayerInventoryMixin",
+    "PlayerScreenHandlerMixin",
     "PlayerVoidTotemMixin",
     "ScreenHandlerMixin",
     "ServerPlayerEntityMixin",
@@ -28,7 +32,9 @@
     "AnvilScreenHandlerMixin",
     "BuiltinModelItemRendererMixin",
     "ClientPlayerInteractionManagerMixin",
+    "CreativeInventoryScreenMixin",
     "HandledScreenAccessor",
+    "InventoryScreenMixin",
     "WorldRenderMixin"
   ]
 }

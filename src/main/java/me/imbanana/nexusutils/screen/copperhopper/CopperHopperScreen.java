@@ -102,7 +102,7 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
         }
 
         @Override
-        public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+        public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
             if(firstRender) {
                 firstRender = false;
                 updateTooltip();

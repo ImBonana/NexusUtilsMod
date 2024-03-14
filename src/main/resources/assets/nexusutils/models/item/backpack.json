@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:builtin/entity",
+  "textures": {
+    "particle": "minecraft:block/brown_wool"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 30, 160, 0 ],
+      "translation": [ 0, 3, 0],
+      "scale":[ 0.75, 0.75, 0.75]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 30, 160, 0 ],
+      "translation": [ 0, 3, 0],
+      "scale":[ 0.75, 0.75, 0.75]
+    },
+    "gui": {
+      "rotation": [ 30, -60, 0 ],
+      "translation": [ 1.5, 3.5, 0],
+      "scale":[ 1, 1, 1]
+    },
+    "ground": {
+      "rotation": [ 0, 0, 0 ],
+      "translation": [ 0, 2.5, 0],
+      "scale":[ 0.5, 0.5, 0.5]
+    },
+    "head": {
+      "rotation": [ 0, 180, 0 ],
+      "translation": [ 0, 10, -8],
+      "scale":[ 1,1,1 ]
+    },
+    "fixed": {
+      "rotation": [ 0, 180, 0 ],
+      "translation": [ 0, 2, 0],
+      "scale":[ 0.75, 0.75, 0.75]
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import me.imbanana.nexusutils.block.entity.ItemDisplayBlockEntity;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
 import net.minecraft.block.*;
@@ -23,6 +24,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.stream.Stream;
 
 public class ItemDisplayBlock extends BlockWithEntity implements BlockEntityProvider {
+    public static final MapCodec<ItemDisplayBlock> CODEC = ItemDisplayBlock.createCodec(ItemDisplayBlock::new);
+
     private static final VoxelShape SHAPE = Stream.of(
         Stream.of(
                 Block.createCuboidShape(6.5, 14, 6.5, 9.5, 14.75, 9.5),
@@ -35,6 +38,11 @@ public class ItemDisplayBlock extends BlockWithEntity implements BlockEntityProv
 
     public ItemDisplayBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override

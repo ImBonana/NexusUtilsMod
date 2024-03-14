@@ -53,6 +53,10 @@ public class CopperHopperScreenHandler extends ScreenHandler {
 
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     public boolean isWhitelist() {
         return this.propertyDelegate.get(0) == 1;
     }

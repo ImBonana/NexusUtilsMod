@@ -5,7 +5,7 @@ import me.imbanana.nexusutils.effect.ModEffects;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.enchantment.custom.LavaWalkerEnchantment;
 import me.imbanana.nexusutils.networking.ModPackets;
-import me.imbanana.nexusutils.util.TridentEntityItemStackGetter;
+import me.imbanana.nexusutils.util.accessors.ITridentEntity;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
@@ -149,8 +149,8 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
         if((mainHandItem != null || source.getSource() instanceof TridentEntity) && !this.getWorld().isClient()) {
             int impactEnchantmentLevel = 0;
             if(source.getSource() instanceof TridentEntity) {
-                TridentEntityItemStackGetter tridentEntity = (TridentEntityItemStackGetter) (TridentEntity) source.getSource();
-                ItemStack itemStack = tridentEntity.getTridentItemStack();
+                ITridentEntity tridentEntity = (ITridentEntity) (TridentEntity) source.getSource();
+                ItemStack itemStack = tridentEntity.nexusUtils$getTridentItemStack();
                 impactEnchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.IMPACT, itemStack);
             } else {
                 impactEnchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.IMPACT, mainHandItem);
@@ -345,7 +345,7 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
             int j = 0;
 
             if(source.getSource() instanceof TridentEntity tridentEntity) {
-                ItemStack tridentStack = ((TridentEntityItemStackGetter) tridentEntity).getTridentItemStack();
+                ItemStack tridentStack = ((ITridentEntity) tridentEntity).nexusUtils$getTridentItemStack();
 
                 if(tridentStack != null) j = EnchantmentHelper.getLevel(ModEnchantments.TELEPATHY, tridentStack);
             } else if(itemStack != null) {

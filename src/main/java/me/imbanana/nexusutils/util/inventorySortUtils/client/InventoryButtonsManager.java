@@ -1,5 +1,9 @@
 package me.imbanana.nexusutils.util.inventorySortUtils.client;
 
+import me.imbanana.nexusutils.block.entity.CopperHopperBlockEntity;
+import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
+import me.imbanana.nexusutils.screen.backpack.BackpackScreenHandler;
+import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreenHandler;
 import me.imbanana.nexusutils.util.Position2;
 import me.imbanana.nexusutils.util.inventorySortUtils.InventoryUtils;
 import me.imbanana.nexusutils.util.inventorySortUtils.client.gui.AutoStackButton;
@@ -49,19 +53,25 @@ public class InventoryButtonsManager {
         registerSortableContainer(PlayerInventory.class);
         registerSortableContainer(EnderChestInventory.class);
         registerSortableContainer(LootableContainerBlockEntity.class);
+        registerSortableContainer(BackpackInventory.class);
+        registerSortableContainer(CopperHopperBlockEntity.class);
 
         registerTransferableContainer(PlayerInventory.class);
         registerTransferableContainer(EnderChestInventory.class);
         registerTransferableContainer(LootableContainerBlockEntity.class);
+        registerTransferableContainer(BackpackInventory.class);
 
         registerSimpleInventorySortableHandler(GenericContainerScreenHandler.class);
         registerSimpleInventorySortableHandler(ShulkerBoxScreenHandler.class);
         registerSimpleInventorySortableHandler(HorseScreenHandler.class);
         registerSimpleInventorySortableHandler(HopperScreenHandler.class);
+        registerSimpleInventorySortableHandler(CopperHopperScreenHandler.class);
+        registerSimpleInventorySortableHandler(BackpackScreenHandler.class);
 
         registerSimpleInventoryTransferableHandler(GenericContainerScreenHandler.class);
         registerSimpleInventoryTransferableHandler(ShulkerBoxScreenHandler.class);
         registerSimpleInventoryTransferableHandler(HorseScreenHandler.class);
+        registerSimpleInventoryTransferableHandler(BackpackScreenHandler.class);
     }
 
     public void registerSortableContainer(Class<? extends Inventory> clazz) {

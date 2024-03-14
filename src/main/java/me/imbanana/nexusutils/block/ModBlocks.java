@@ -10,6 +10,7 @@ import me.imbanana.nexusutils.block.entity.renderer.ItemDisplayBlockEntityRender
 import me.imbanana.nexusutils.block.entity.renderer.SleepingBagBlockEntityRenderer;
 import me.imbanana.nexusutils.block.enums.SleepingBagPart;
 import me.imbanana.nexusutils.item.ModItems;
+import me.imbanana.nexusutils.item.custom.SleepingBagItem;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -27,6 +28,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class ModBlocks {
     public static final Block FROZEN_LAVA = registerBlock("frozen_lava", new FrozenLavaBlock(
@@ -61,7 +65,7 @@ public class ModBlocks {
     public static final Block YELLOW_SLEEPING_BAG = registerSleepingBag(DyeColor.YELLOW);
 
     public static Block registerSleepingBag(DyeColor color) {
-        return registerBlock(color.getName() + "_sleeping_bag", new SleepingBagBlock(
+        Block sleepingBagBlock = new SleepingBagBlock(
                 color,
                 FabricBlockSettings.create()
                         .mapColor(state -> state.get(SleepingBagBlock.PART) == SleepingBagPart.FOOT ? color.getMapColor() : MapColor.WHITE_GRAY)
@@ -70,7 +74,16 @@ public class ModBlocks {
                         .nonOpaque()
                         .burnable()
                         .pistonBehavior(PistonBehavior.DESTROY)
-        ), true, true, 1);
+        );
+
+        return registerBlock(
+                color.getName() + "_sleeping_bag",
+                sleepingBagBlock,
+                true,
+                true,
+                1,
+                SleepingBagItem.class
+        );
     }
     
     private static Block registerBlock(String name, Block block) {
@@ -85,14 +98,28 @@ public class ModBlocks {
     }
 
     private static Block registerBlock(String name, Block block, boolean hasItem, boolean addToCategory, int maxStack) {
-        if(hasItem) registerBlockItem(name, block, addToCategory, maxStack);
+        return registerBlock(name, block, hasItem, addToCategory, maxStack, BlockItem.class);
+    }
+
+    private static Block registerBlock(String name, Block block, boolean hasItem, boolean addToCategory, int maxStack, Class<? extends BlockItem> itemClass) {
+        if(hasItem) registerBlockItem(name, block, addToCategory, maxStack, itemClass);
         return Registry.register(Registries.BLOCK, new Identifier(NexusUtils.MOD_ID, name), block);
     }
 
-    private static Item registerBlockItem(String name, Block block, boolean addToCategory, int maxStack) {
-        Item registered = Registry.register(Registries.ITEM, new Identifier(NexusUtils.MOD_ID, name), new BlockItem(block, new FabricItemSettings()));
-        if(addToCategory) ModItems.addItemToCategory(registered);
-        return registered;
+    private static Item registerBlockItem(String name, Block block, boolean addToCategory, int maxStack, Class<? extends BlockItem> itemClass) {
+        try {
+            Constructor<? extends BlockItem> ctor = itemClass.getConstructor(Block.class, Item.Settings.class);
+            BlockItem blockItemInst = ctor.newInstance(block, new FabricItemSettings().maxCount(maxStack));
+            Item registered = Registry.register(Registries.ITEM, new Identifier(NexusUtils.MOD_ID, name), blockItemInst);
+            if(addToCategory) ModItems.addItemToCategory(registered);
+            return registered;
+        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+            System.out.println(new RuntimeException(e));
+
+            Item registered = Registry.register(Registries.ITEM, new Identifier(NexusUtils.MOD_ID, name), new BlockItem(block, new FabricItemSettings().maxCount(maxStack)));
+            if(addToCategory) ModItems.addItemToCategory(registered);
+            return registered;
+        }
     }
 
     public static void  registerModBlocks() {

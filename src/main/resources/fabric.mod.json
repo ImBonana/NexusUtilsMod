@@ -30,12 +30,15 @@
 	],
 	"custom": {
 		"loom:injected_interfaces": {
-			"net/minecraft/entity/projectile/TridentEntity": ["me/imbanana/nexusutils/util/TridentEntityItemStackGetter"]
+			"net/minecraft/entity/projectile/TridentEntity": ["me/imbanana/nexusutils/util/accessors/ITridentEntity"],
+			"net/minecraft/entity/LivingEntity": ["me/imbanana/nexusutils/util/accessors/ILivingEntity"],
+			"net/minecraft/item/BucketItem": ["me/imbanana/nexusutils/util/accessors/IBucketItem"],
+			"net/minecraft/screen/ShulkerBoxScreenHandler": ["me/imbanana/nexusutils/util/accessors/IShulkerBoxScreenHandler"]
 		}
 	},
 	"depends": {
-		"fabricloader": ">=0.14.23",
-		"minecraft": "~1.20.2",
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20.4",
 		"java": ">=17",
 		"fabric-api": "*"
 	},

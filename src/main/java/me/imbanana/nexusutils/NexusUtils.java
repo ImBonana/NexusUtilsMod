@@ -7,6 +7,7 @@ import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.entity.custom.SnailEntity;
 import me.imbanana.nexusutils.events.ModEvents;
+import me.imbanana.nexusutils.fluids.ModFluids;
 import me.imbanana.nexusutils.item.ModItemGroups;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.networking.ModPackets;
@@ -33,6 +34,8 @@ public class NexusUtils implements ModInitializer {
 
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.registerBlockEntities();
+
+		ModFluids.registerFluids();
 
 		ModWorldGen.generateWorldGen();
 		ModItemGroups.registerItemGroups();

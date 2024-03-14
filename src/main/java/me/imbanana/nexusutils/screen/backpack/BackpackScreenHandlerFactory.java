@@ -1,4 +1,4 @@
-package me.imbanana.nexusutils.screen.hopperfilter;
+package me.imbanana.nexusutils.screen.backpack;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,14 +8,13 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import org.jetbrains.annotations.Nullable;
 
-public class HopperFilterExtendedScreenHandlerType implements ExtendedScreenHandlerFactory {
+public class BackpackScreenHandlerFactory implements ExtendedScreenHandlerFactory {
 
-    ItemStack stack;
+    private final ItemStack stack;
 
-    public HopperFilterExtendedScreenHandlerType(ItemStack stack) {
+    public BackpackScreenHandlerFactory(ItemStack stack) {
         this.stack = stack;
     }
 
@@ -26,12 +25,12 @@ public class HopperFilterExtendedScreenHandlerType implements ExtendedScreenHand
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("gui.nexusutils.hopper_filter");
+        return Text.translatable("gui.nexusutils.backpack");
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new HopperFilterScreenHandler(syncId, playerInventory, player.getStackInHand(Hand.MAIN_HAND));
+        return new BackpackScreenHandler(syncId, playerInventory, this.stack);
     }
 }

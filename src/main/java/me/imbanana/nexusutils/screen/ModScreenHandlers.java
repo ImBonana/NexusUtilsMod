@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.screen;
 
 import me.imbanana.nexusutils.NexusUtils;
+import me.imbanana.nexusutils.screen.backpack.BackpackScreenHandler;
 import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreenHandler;
 import me.imbanana.nexusutils.screen.hopperfilter.HopperFilterScreenHandler;
 import me.imbanana.nexusutils.screen.itemdisplay.ItemDisplayScreenHandler;
@@ -20,6 +21,9 @@ public class ModScreenHandlers {
 
     public static final ScreenHandlerType<HopperFilterScreenHandler> HOPPER_FILTER_SCREEN_HANDLER =
             Registry.register(Registries.SCREEN_HANDLER, new Identifier(NexusUtils.MOD_ID, "hopper_filter"), new ExtendedScreenHandlerType<>(HopperFilterScreenHandler::new));
+
+    public static final ScreenHandlerType<BackpackScreenHandler> BACKPACK_SCREEN_SCREEN_HANDLER =
+            Registry.register(Registries.SCREEN_HANDLER, new Identifier(NexusUtils.MOD_ID, "backpack"), new ExtendedScreenHandlerType<>(BackpackScreenHandler::new));
 
     public static void registerScreenHandlers() {
         NexusUtils.LOGGER.info("Registering Screen Handlers for " + NexusUtils.MOD_ID);

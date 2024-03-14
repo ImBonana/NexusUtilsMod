@@ -15,7 +15,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
     @Shadow
     @Nullable
-    protected static String sanitize(String name) {
+    private static String sanitize(String name) {
         return null;
     }
 
@@ -25,7 +25,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
     @Redirect(method = "setNewItemName", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/AnvilScreenHandler;sanitize(Ljava/lang/String;)Ljava/lang/String;"))
     public String sanitizeRedirect(String name) {
-        String s = this.sanitize(name);
+        String s = sanitize(name);
         if(s == null) return null;
         return s.replace("\\&", "§");
     }

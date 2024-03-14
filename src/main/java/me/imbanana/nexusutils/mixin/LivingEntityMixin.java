@@ -1,14 +1,16 @@
 package me.imbanana.nexusutils.mixin;
 
 import me.imbanana.nexusutils.block.custom.SleepingBagBlock;
+import me.imbanana.nexusutils.util.accessors.ILivingEntity;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -26,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.Optional;
 
 @Mixin(value = LivingEntity.class, priority = 800)
-public abstract class LivingEntityMixin extends Entity {
+public abstract class LivingEntityMixin extends Entity implements ILivingEntity {
 
     @Shadow public abstract Optional<BlockPos> getSleepingPosition();
 
@@ -113,5 +115,18 @@ public abstract class LivingEntityMixin extends Entity {
         this.setPose(EntityPose.STANDING);
         this.setPosition(vec3d.x, vec3d.y, vec3d.z);
         livingEntity.clearSleepingPosition();
+    }
+
+    @Override
+    public void nexusutils$onEquipBackpack(ItemStack stack, ItemStack previousStack) {
+        if ((stack.isEmpty() && previousStack.isEmpty()) || ItemStack.canCombine(stack, previousStack) || this.firstUpdate) {
+            return;
+        }
+
+        if (!this.getWorld().isClient() && !this.isSpectator()) {
+            if (!this.isSilent()) {
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, this.getSoundCategory(), 1.0f, 1.0f);
+            }
+        }
     }
 }
