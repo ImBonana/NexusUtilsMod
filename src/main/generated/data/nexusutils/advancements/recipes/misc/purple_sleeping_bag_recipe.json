@@ -43,6 +43,5 @@
     "recipes": [
       "nexusutils:purple_sleeping_bag_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

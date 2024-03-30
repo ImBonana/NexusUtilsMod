@@ -3,6 +3,8 @@
   "values": [
     "nexusutils:frozen_lava",
     "nexusutils:item_display",
-    "nexusutils:copper_hopper"
+    "nexusutils:copper_hopper",
+    "nexusutils:mail_box",
+    "nexusutils:post_box"
   ]
 }

@@ -30,6 +30,5 @@
     "recipes": [
       "nexusutils:mob_grabber_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

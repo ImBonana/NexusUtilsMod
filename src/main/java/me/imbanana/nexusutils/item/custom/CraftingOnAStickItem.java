@@ -23,7 +23,7 @@ public class CraftingOnAStickItem extends Item {
                             new CustomCraftingTableContainer(i, playerInventory, ScreenHandlerContext.create(world, user.getBlockPos())),
                     Text.of("Crafting")
             ));
-        return TypedActionResult.pass(user.getStackInHand(hand));
+        return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
     }
 
 }

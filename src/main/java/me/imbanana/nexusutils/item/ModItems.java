@@ -23,6 +23,7 @@ public class ModItems {
     public static final Item SNAIL_ITEM = registerItem("snail_item", new SnailItem(new FabricItemSettings().maxCount(1)));
     public static final Item HOPPER_FILTER = registerItem("hopper_filter", new HopperFilterItem(new FabricItemSettings().maxCount(64)));
     public static final Item BACKPACK = registerItem("backpack", new BackpackItem(new FabricItemSettings().maxCount(1)));
+    public static final Item PACKAGE = registerItem("package", new PackageItem(new FabricItemSettings().maxCount(1)));
 
 
     private static Item registerItem(String name, Item item) {

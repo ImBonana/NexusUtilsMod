@@ -15,6 +15,7 @@
     "ScreenHandlerMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayerInteractionManagerMixin",
+    "ServerWorldMixin",
     "ShulkerBoxScreenHandlerMixin",
     "WorldMixin",
     "enchantments.EnchantmentBlockMixin",

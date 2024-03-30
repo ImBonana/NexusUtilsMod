@@ -18,7 +18,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.FROZEN_LAVA)
                 .add(ModBlocks.ITEM_DISPLAY)
-                .add(ModBlocks.COPPER_HOPPER);
+                .add(ModBlocks.COPPER_HOPPER)
+                .add(ModBlocks.MAIL_BOX)
+                .add(ModBlocks.POST_BOX);
 
         getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
                 .add(ModBlocks.FROZEN_LAVA);

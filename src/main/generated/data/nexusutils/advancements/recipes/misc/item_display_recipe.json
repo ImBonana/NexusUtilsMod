@@ -43,6 +43,5 @@
     "recipes": [
       "nexusutils:item_display_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

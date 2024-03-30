@@ -1,0 +1,42 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:red_sleeping_bag"
+        },
+        "title": "Not Sleeping On The Ground Anymore!",
+        "description": "Craft a sleeping bag",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+    },
+    "parent": "nexusutils:nexusutils",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "nexusutils:black_sleeping_bag",
+                            "nexusutils:blue_sleeping_bag",
+                            "nexusutils:brown_sleeping_bag",
+                            "nexusutils:cyan_sleeping_bag",
+                            "nexusutils:gray_sleeping_bag",
+                            "nexusutils:green_sleeping_bag",
+                            "nexusutils:light_blue_sleeping_bag",
+                            "nexusutils:light_gray_sleeping_bag",
+                            "nexusutils:lime_sleeping_bag",
+                            "nexusutils:magenta_sleeping_bag",
+                            "nexusutils:orange_sleeping_bag",
+                            "nexusutils:pink_sleeping_bag",
+                            "nexusutils:purple_sleeping_bag",
+                            "nexusutils:red_sleeping_bag",
+                            "nexusutils:white_sleeping_bag",
+                            "nexusutils:yellow_sleeping_bag"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

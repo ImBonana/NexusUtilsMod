@@ -43,6 +43,5 @@
     "recipes": [
       "nexusutils:hopper_filter_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

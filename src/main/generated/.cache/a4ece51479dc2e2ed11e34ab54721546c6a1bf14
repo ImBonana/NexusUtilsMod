@@ -1,3 +1,3 @@
-// 1.20.2	2024-03-03T05:28:20.1064563	Nexus Utils/Tags for minecraft:block
+// 1.20.4	2024-03-31T00:52:36.8039583	Nexus Utils/Tags for minecraft:block
 371cee57b09558f9fdd65312035fb3518d72d86e data\minecraft\tags\blocks\needs_diamond_tool.json
-c5d0a27257cdd45526695fdc3eda0c09dbdb2953 data\minecraft\tags\blocks\mineable\pickaxe.json
+bd23da57490f9335d333ad1b694c0097dd62841b data\minecraft\tags\blocks\mineable\pickaxe.json

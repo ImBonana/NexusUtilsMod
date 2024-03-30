@@ -34,7 +34,7 @@ public class BackpackScreenHandler extends ScreenHandler {
     }
 
     public BackpackScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack itemStack) {
-        super(ModScreenHandlers.BACKPACK_SCREEN_SCREEN_HANDLER, syncId);
+        super(ModScreenHandlers.BACKPACK_SCREEN_HANDLER, syncId);
 
         this.inventory = new BackpackInventory(itemStack);
         this.inventory.onOpen(playerInventory.player);

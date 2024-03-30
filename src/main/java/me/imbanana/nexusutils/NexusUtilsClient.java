@@ -17,6 +17,8 @@ import me.imbanana.nexusutils.screen.backpack.BackpackScreen;
 import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreen;
 import me.imbanana.nexusutils.screen.hopperfilter.HopperFilterScreen;
 import me.imbanana.nexusutils.screen.itemdisplay.ItemDisplayScreen;
+import me.imbanana.nexusutils.screen.mailbox.MailBoxScreen;
+import me.imbanana.nexusutils.screen.postbox.PostBoxScreen;
 import me.imbanana.nexusutils.util.inventorySortUtils.client.InventoryButtonsManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -60,7 +62,9 @@ public class NexusUtilsClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.ITEM_DISPLAY_SCREEN_HANDLER, ItemDisplayScreen::new);
         HandledScreens.register(ModScreenHandlers.COPPER_HOPPER_SCREEN_HANDLER, CopperHopperScreen::new);
         HandledScreens.register(ModScreenHandlers.HOPPER_FILTER_SCREEN_HANDLER, HopperFilterScreen::new);
-        HandledScreens.register(ModScreenHandlers.BACKPACK_SCREEN_SCREEN_HANDLER, BackpackScreen::new);
+        HandledScreens.register(ModScreenHandlers.BACKPACK_SCREEN_HANDLER, BackpackScreen::new);
+        HandledScreens.register(ModScreenHandlers.MAIL_BOX_SCREEN_HANDLER, MailBoxScreen::new);
+        HandledScreens.register(ModScreenHandlers.POST_BOX_SCREEN_HANDLER, PostBoxScreen::new);
         InventoryButtonsManager.INSTANCE.init();
 
         ModBlocks.registerClientRender();

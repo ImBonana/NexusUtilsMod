@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:mail_box"
+        },
+        "title": "You've Got Mail!",
+        "description": "Craft a mail box",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "nexusutils:nexusutils",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "nexusutils:mail_box"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

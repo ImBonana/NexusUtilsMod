@@ -16,6 +16,9 @@ public class ModBlockEntities {
     public static final BlockEntityType<CopperHopperBlockEntity> COPPER_HOPPER_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "copper_hopper_be"),
                     FabricBlockEntityTypeBuilder.create(CopperHopperBlockEntity::new, ModBlocks.COPPER_HOPPER).build());
+    public static final BlockEntityType<MailBoxBlockEntity> MAIL_BOX_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "mail_box_be"),
+                    FabricBlockEntityTypeBuilder.create(MailBoxBlockEntity::new, ModBlocks.MAIL_BOX).build());
 
     public static final BlockEntityType<SleepingBagBlockEntity> SLEEPING_BAG_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "sleeping_bag_be"),

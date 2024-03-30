@@ -41,6 +41,5 @@
     "recipes": [
       "nexusutils:gray_sleeping_bag_dye_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

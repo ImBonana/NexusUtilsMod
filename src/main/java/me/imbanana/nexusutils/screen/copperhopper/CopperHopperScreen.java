@@ -57,16 +57,8 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
         int darkTextColor = 0xAAAAAA;
         int lightTextColor = 0x404040;
 
-        context.drawText(this.textRenderer, this.title, this.titleX, this.titleY, isDarkUiEnabled() ? darkTextColor : lightTextColor, false);
-        context.drawText(this.textRenderer, this.playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY, isDarkUiEnabled() ? darkTextColor : lightTextColor, false);
-    }
-
-    private boolean isDarkUiEnabled() {
-        for (ResourcePackProfile profile : MinecraftClient.getInstance().getResourcePackManager().getEnabledProfiles()) {
-            if(profile.getName().equalsIgnoreCase(NexusUtilsClient.DARK_UI_RESOURCE_PACK_ID.toString())) return true;
-        }
-
-        return false;
+        context.drawText(this.textRenderer, this.title, this.titleX, this.titleY, NexusUtilsClient.isDarkUiEnabled() ? darkTextColor : lightTextColor, false);
+        context.drawText(this.textRenderer, this.playerInventoryTitle, this.playerInventoryTitleX, this.playerInventoryTitleY, NexusUtilsClient.isDarkUiEnabled() ? darkTextColor : lightTextColor, false);
     }
 
     private void renderSortIcon(DrawContext context) {

@@ -17,6 +17,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
     public void generate() {
         addDrop(ModBlocks.ITEM_DISPLAY);
         addDrop(ModBlocks.COPPER_HOPPER);
+        addDrop(ModBlocks.MAIL_BOX);
+        addDrop(ModBlocks.POST_BOX);
 
         addSleepingBagDrop(ModBlocks.BLACK_SLEEPING_BAG);
         addSleepingBagDrop(ModBlocks.BLUE_SLEEPING_BAG);

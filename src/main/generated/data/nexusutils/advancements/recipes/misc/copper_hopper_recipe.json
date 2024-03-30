@@ -43,6 +43,5 @@
     "recipes": [
       "nexusutils:copper_hopper_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

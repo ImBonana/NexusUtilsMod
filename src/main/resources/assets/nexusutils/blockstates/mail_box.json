@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,thing_up=false": {
+      "model": "nexusutils:block/mail_box_down"
+    },
+    "facing=east,thing_up=false": {
+      "model": "nexusutils:block/mail_box_down",
+      "y": 90
+    },
+    "facing=south,thing_up=false": {
+      "model": "nexusutils:block/mail_box_down",
+      "y": 180
+    },
+    "facing=west,thing_up=false": {
+      "model": "nexusutils:block/mail_box_down",
+      "y": 270
+    },
+    "facing=north,thing_up=true": {
+      "model": "nexusutils:block/mail_box_up"
+    },
+    "facing=east,thing_up=true": {
+      "model": "nexusutils:block/mail_box_up",
+      "y": 90
+    },
+    "facing=south,thing_up=true": {
+      "model": "nexusutils:block/mail_box_up",
+      "y": 180
+    },
+    "facing=west,thing_up=true": {
+      "model": "nexusutils:block/mail_box_up",
+      "y": 270
+    }
+  }
+}

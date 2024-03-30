@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:backpack"
+        },
+        "title": "Ready for Adventure",
+        "description": "Craft a backpack",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "nexusutils:sleeping_bag",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "nexusutils:backpack"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

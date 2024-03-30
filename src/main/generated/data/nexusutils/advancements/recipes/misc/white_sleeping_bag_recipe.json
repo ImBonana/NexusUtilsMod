@@ -30,6 +30,5 @@
     "recipes": [
       "nexusutils:white_sleeping_bag_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

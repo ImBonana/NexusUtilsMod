@@ -28,6 +28,5 @@
     "recipes": [
       "nexusutils:wool_to_string_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

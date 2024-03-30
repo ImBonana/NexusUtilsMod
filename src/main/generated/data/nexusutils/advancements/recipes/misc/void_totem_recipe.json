@@ -30,6 +30,5 @@
     "recipes": [
       "nexusutils:void_totem_recipe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

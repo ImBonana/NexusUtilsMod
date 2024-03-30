@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "nexusutils:block/post_box"
+    },
+    "facing=east": {
+      "model": "nexusutils:block/post_box",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "nexusutils:block/post_box",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nexusutils:block/post_box",
+      "y": 270
+    }
+  }
+}

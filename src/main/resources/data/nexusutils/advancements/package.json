@@ -1,0 +1,25 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:package"
+        },
+        "title": "Welcome to my unboxing video",
+        "description": "Open a package",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "nexusutils:mail_box",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:using_item",
+            "conditions": {
+                "item": {
+                    "items": [
+                        "nexusutils:package"
+                    ]
+                }
+            }
+        }
+    }
+}

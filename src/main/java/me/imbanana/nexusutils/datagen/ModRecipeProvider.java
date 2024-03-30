@@ -115,6 +115,41 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
                 .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
                 .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "hopper_filter_recipe"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.BACKPACK, 1)
+                .pattern("LGL")
+                .pattern("ICI")
+                .pattern("LSL")
+                .input('L', Items.LEATHER)
+                .input('G', Items.GOLD_INGOT)
+                .input('I', Items.IRON_INGOT)
+                .input('C', Items.CHEST)
+                .input('S', ModItemTags.SLEEPING_BAGS)
+                .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
+                .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "backpack"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.MAIL_BOX, 1)
+                .pattern("ICI")
+                .pattern(" I ")
+                .pattern(" L ")
+                .input('I', Items.IRON_INGOT)
+                .input('C', Items.CHEST)
+                .input('L', Items.LIGHT_BLUE_CONCRETE)
+                .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "mail_box"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.POST_BOX, 1)
+                .pattern("III")
+                .pattern("LCL")
+                .pattern("LPL")
+                .input('I', Items.IRON_INGOT)
+                .input('C', Items.CHEST)
+                .input('L', Items.LIGHT_BLUE_CONCRETE)
+                .input('P', Items.PAPER)
+                .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "post_box"));
     }
 
     private void registerSleepingBags(RecipeExporter exporter) {

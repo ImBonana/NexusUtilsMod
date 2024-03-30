@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:snail_item"
+        },
+        "title": "Hello There!",
+        "description": "Pickup a snail",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+    },
+    "parent": "nexusutils:nexusutils",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "nexusutils:snail_item"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

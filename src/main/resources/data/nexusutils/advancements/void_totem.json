@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:void_totem"
+        },
+        "title": "I am not scared from the void!",
+        "description": "Craft a Void Totem",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "nexusutils:nexusutils",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "nexusutils:void_totem"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -6,10 +6,16 @@
   "item.nexusutils.snail_item": "Snail",
   "item.nexusutils.hopper_filter": "Hopper Filter",
   "item.nexusutils.backpack": "Backpack",
+  "item.nexusutils.package": "Package",
+
+  "item.nexusutils.package.sent": "Sent by %1$s",
+  "item.nexusutils.package.info": "(Right Click To Open)",
 
   "block.nexusutils.frozen_lava": "Frozen Lava",
   "block.nexusutils.item_display": "Item Display",
   "block.nexusutils.copper_hopper": "Copper Hopper",
+  "block.nexusutils.mail_box": "Mail Box",
+  "block.nexusutils.post_box": "Post Box",
 
   "block.nexusutils.black_sleeping_bag": "Black Sleeping Bag",
   "block.nexusutils.blue_sleeping_bag": "Blue Sleeping Bag",
@@ -29,6 +35,7 @@
   "block.nexusutils.yellow_sleeping_bag": "Yellow Sleeping Bag",
 
   "block.nexusutils.sleeping_bag.occupied": "This sleeping_bag is occupied",
+  "block.nexusutils.mail_box.player": "%1$s's Mail Box",
 
   "fluid.nexusutils.milk": "Milk",
 
@@ -36,14 +43,24 @@
   "gui.nexusutils.copper_hopper": "Copper Hopper",
   "gui.nexusutils.hopper_filter": "Hopper Filter",
   "gui.nexusutils.backpack": "Backpack",
+  "gui.nexusutils.mail_box": "Mail Box",
+  "gui.nexusutils.post_box": "Post Box",
 
   "screen.nexusutils.backpack.tank.none": "None",
   "screen.nexusutils.backpack.tank.empty": "Empty",
 
+  "screen.nexusutils.postbox.search.placeholder": "Search",
+  "screen.nexusutils.postbox.textbox.placeholder": "Message",
+  "screen.nexusutils.postbox.textbox.message": "Message",
+  "screen.nexusutils.postbox.send": "Send",
+  "screen.nexusutils.postbox.mailboxes": "Mail Boxes",
+  "screen.nexusutils.postbox.success": "Success!",
+  "screen.nexusutils.postbox.full": "The mail box is full!",
+  "screen.nexusutils.postbox.not_found": "This mailbox does not exist!",
+
   "itemgroup.nexus": "Nexus",
 
   "entity.nexusutils.snail": "Snail",
-  "entity.nexusutils.nether_bat": "Nether Bat",
 
   "key.category.nexusutils.main": "Nexus",
   "key.nexusutils.sit": "Sit",

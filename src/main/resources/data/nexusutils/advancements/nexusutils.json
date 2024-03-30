@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:crafting_on_a_stick"
+        },
+        "title": "Nexus",
+        "description": "Welcome!",
+        "frame": "task",
+        "show_toast": false,
+        "announce_to_chat": false,
+        "background": "minecraft:textures/block/oak_planks.png"
+    },
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "nexusutils:crafting_on_a_stick"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

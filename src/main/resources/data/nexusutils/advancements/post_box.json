@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "nexusutils:post_box"
+        },
+        "title": "Express Delivery",
+        "description": "Craft a post box",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "nexusutils:mail_box",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "nexusutils:post_box"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

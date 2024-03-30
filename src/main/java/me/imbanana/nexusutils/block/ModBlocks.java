@@ -1,10 +1,7 @@
 package me.imbanana.nexusutils.block;
 
 import me.imbanana.nexusutils.NexusUtils;
-import me.imbanana.nexusutils.block.custom.CopperHopperBlock;
-import me.imbanana.nexusutils.block.custom.FrozenLavaBlock;
-import me.imbanana.nexusutils.block.custom.ItemDisplayBlock;
-import me.imbanana.nexusutils.block.custom.SleepingBagBlock;
+import me.imbanana.nexusutils.block.custom.*;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
 import me.imbanana.nexusutils.block.entity.renderer.ItemDisplayBlockEntityRenderer;
 import me.imbanana.nexusutils.block.entity.renderer.SleepingBagBlockEntityRenderer;
@@ -46,6 +43,22 @@ public class ModBlocks {
     public static final Block COPPER_HOPPER = registerBlock("copper_hopper", new CopperHopperBlock(FabricBlockSettings.copyOf(Blocks.HOPPER)));
 
     public static final Block ITEM_DISPLAY = registerBlock("item_display", new ItemDisplayBlock(FabricBlockSettings.copyOf(Blocks.GLASS).nonOpaque()));
+
+    public static final Block MAIL_BOX = registerBlock("mail_box", new MailBoxBlock(
+            FabricBlockSettings.create()
+                    .nonOpaque()
+                    .mapColor(DyeColor.BLUE)
+                    .instrument(Instrument.BASEDRUM)
+                    .sounds(BlockSoundGroup.STONE)
+    ));
+
+    public static final Block POST_BOX = registerBlock("post_box", new PostBoxBlock(
+            FabricBlockSettings.create()
+                    .nonOpaque()
+                    .mapColor(DyeColor.BLUE)
+                    .instrument(Instrument.BASEDRUM)
+                    .sounds(BlockSoundGroup.STONE)
+    ));
 
     public static final Block BLACK_SLEEPING_BAG = registerSleepingBag(DyeColor.BLACK);
     public static final Block BLUE_SLEEPING_BAG = registerSleepingBag(DyeColor.BLUE);
@@ -128,6 +141,9 @@ public class ModBlocks {
 
     public static void registerClientRender() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ITEM_DISPLAY, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPER_HOPPER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MAIL_BOX, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POST_BOX, RenderLayer.getTranslucent());
 
         registerSleepingBagsRenders();
 

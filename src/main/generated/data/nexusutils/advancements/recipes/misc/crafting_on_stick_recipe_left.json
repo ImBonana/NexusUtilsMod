@@ -30,6 +30,5 @@
     "recipes": [
       "nexusutils:crafting_on_stick_recipe_left"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
