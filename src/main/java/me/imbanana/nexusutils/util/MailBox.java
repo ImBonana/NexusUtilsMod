@@ -1,19 +1,11 @@
 package me.imbanana.nexusutils.util;
 
-import com.mojang.authlib.GameProfile;
-import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.block.custom.MailBoxBlock;
-import me.imbanana.nexusutils.util.accessors.IServerWorld;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.UserCache;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public record MailBox(UUID id, BlockPos pos, UUID owner, String name) {

@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import me.imbanana.nexusutils.NexusUtils;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;

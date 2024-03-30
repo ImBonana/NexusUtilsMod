@@ -6,7 +6,6 @@ import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreenHandler;
 import me.imbanana.nexusutils.screen.hopperfilter.HopperFilterScreenHandler;
 import me.imbanana.nexusutils.screen.itemdisplay.ItemDisplayScreenHandler;
 import me.imbanana.nexusutils.screen.mailbox.MailBoxScreenHandler;
-import me.imbanana.nexusutils.screen.postbox.PostBoxScreen;
 import me.imbanana.nexusutils.screen.postbox.PostBoxScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.registry.Registries;

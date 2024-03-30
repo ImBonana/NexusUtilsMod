@@ -3,9 +3,6 @@ package me.imbanana.nexusutils.screen.postbox;
 import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.networking.ModPackets;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
-import me.imbanana.nexusutils.util.MailBox;
-import me.imbanana.nexusutils.util.MailDeliveryService;
-import me.imbanana.nexusutils.util.accessors.IServerWorld;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,11 +12,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.world.ServerWorld;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class PostBoxScreenHandler extends ScreenHandler {
 

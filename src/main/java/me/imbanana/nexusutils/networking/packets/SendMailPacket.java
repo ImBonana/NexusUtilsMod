@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.networking.packets;
 
-import me.imbanana.nexusutils.block.entity.MailBoxBlockEntity;
 import me.imbanana.nexusutils.item.custom.PackageItem;
 import me.imbanana.nexusutils.networking.ModPackets;
 import me.imbanana.nexusutils.screen.postbox.PostBoxScreen;
@@ -13,7 +12,6 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;

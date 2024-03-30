@@ -68,7 +68,7 @@ public class SleepingBagBlockEntityRenderer implements BlockEntityRenderer<Sleep
         if (world2 != null) {
             BlockState blockState = sleepingBagBlockEntity.getCachedState();
             DoubleBlockProperties.PropertySource<SleepingBagBlockEntity> propertySource = DoubleBlockProperties.toPropertySource(ModBlockEntities.SLEEPING_BAG_BLOCK_ENTITY, SleepingBagBlock::getSleepingBagPart, SleepingBagBlock::getOppositePartDirection, ChestBlock.FACING, blockState, world2, sleepingBagBlockEntity.getPos(), (world, pos) -> false);
-            int k = ((Int2IntFunction) propertySource.apply(new LightmapCoordinatesRetriever())).get(light);
+            int k = propertySource.apply(new LightmapCoordinatesRetriever<>()).get(light);
             this.renderPart(matrices, vertexConsumers, blockState.get(SleepingBagBlock.PART) == SleepingBagPart.HEAD ? this.sleepingBagHead : this.sleepingBagFoot, blockState.get(SleepingBagBlock.FACING), spriteIdentifier, k, overlay);
         } else {
             this.renderPart(matrices, vertexConsumers, this.sleepingBagHead, Direction.SOUTH, spriteIdentifier, light, overlay);
