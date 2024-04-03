@@ -1,41 +1,44 @@
 {
-  "required": true,
-  "package": "me.imbanana.nexusutils.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "AnvilScreenMixin",
-    "BoneMealMixin",
-    "BucketItemMixin",
-    "HopperScreenHandlerAccessor",
-    "LivingEntityMixin",
-    "MinecartMixin",
-    "PlayerInventoryMixin",
-    "PlayerScreenHandlerMixin",
-    "PlayerVoidTotemMixin",
-    "ScreenHandlerMixin",
-    "ServerPlayerEntityMixin",
-    "ServerPlayerInteractionManagerMixin",
-    "ServerWorldMixin",
-    "ShulkerBoxScreenHandlerMixin",
-    "WorldMixin",
-    "enchantments.EnchantmentBlockMixin",
-    "enchantments.EnchantmentHelperMixin",
-    "enchantments.EnchantmentLivingEntityMixin",
-    "enchantments.EnchantmentMilkBucketItemMixin",
-    "enchantments.EnchantmentTridentEntityMixin",
-    "sit.SitLivingEntityAccessor",
-    "sit.SitLivingEntityDismountMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "client": [
-    "AnvilScreenHandlerMixin",
-    "BuiltinModelItemRendererMixin",
-    "ClientPlayerInteractionManagerMixin",
-    "CreativeInventoryScreenMixin",
-    "HandledScreenAccessor",
-    "InventoryScreenMixin",
-    "WorldRenderMixin"
+    "required": true,
+    "package": "me.imbanana.nexusutils.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "AnvilScreenMixin",
+        "BoneMealMixin",
+        "BucketItemMixin",
+        "HopperScreenHandlerAccessor",
+        "LivingEntityMixin",
+        "MinecartMixin",
+        "PlayerEntityMixin",
+        "PlayerInventoryMixin",
+        "PlayerScreenHandlerMixin",
+        "PlayerVoidTotemMixin",
+        "ScreenHandlerMixin",
+        "ServerLoginNetworkHandlerMixin",
+        "ServerPlayerEntityMixin",
+        "ServerPlayerInteractionManagerMixin",
+        "ServerWorldMixin",
+        "ShulkerBoxScreenHandlerMixin",
+        "VillagerEntityMixin",
+        "WorldMixin",
+        "enchantments.EnchantmentBlockMixin",
+        "enchantments.EnchantmentHelperMixin",
+        "enchantments.EnchantmentLivingEntityMixin",
+        "enchantments.EnchantmentMilkBucketItemMixin",
+        "enchantments.EnchantmentTridentEntityMixin",
+        "sit.SitLivingEntityAccessor",
+        "sit.SitLivingEntityDismountMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "client": [
+        "AnvilScreenHandlerMixin",
+        "BuiltinModelItemRendererMixin",
+        "ClientPlayerInteractionManagerMixin",
+        "CreativeInventoryScreenMixin",
+        "HandledScreenAccessor",
+        "InventoryScreenMixin",
+        "WorldRenderMixin"
   ]
 }

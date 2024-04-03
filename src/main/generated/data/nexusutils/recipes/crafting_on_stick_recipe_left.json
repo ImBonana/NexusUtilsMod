@@ -11,8 +11,7 @@
   },
   "pattern": [
     "C  ",
-    " S ",
-    "  S"
+    " S "
   ],
   "result": {
     "item": "nexusutils:crafting_on_a_stick"

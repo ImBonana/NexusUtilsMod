@@ -17,6 +17,7 @@ public class ModPackets {
     public static final Identifier PLACE_SLEEPING_BAG_BACKPACK = new Identifier(NexusUtils.MOD_ID, "place_sleeping_bag_backpack");
     public static final Identifier UPDATE_MAIL_BOXES = new Identifier(NexusUtils.MOD_ID, "update_mail_boxes");
     public static final Identifier SEND_MAIL = new Identifier(NexusUtils.MOD_ID, "send_mail");
+    public static final Identifier SYNC_BACKPACK = new Identifier(NexusUtils.MOD_ID, "sync_backpack");
 
     public static void registerC2SPackets() {
         ServerPlayNetworking.registerGlobalReceiver(SIT_ID, SitC2SPacket::receive);
@@ -36,5 +37,6 @@ public class ModPackets {
         ClientPlayNetworking.registerGlobalReceiver(BLOCK_PARTICLE, BlockParticleS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(UPDATE_MAIL_BOXES, UpdateMailBoxesPacket::receiveS2C);
         ClientPlayNetworking.registerGlobalReceiver(SEND_MAIL, SendMailPacket::receiveS2C);
+        ClientPlayNetworking.registerGlobalReceiver(SYNC_BACKPACK, SyncBackpackS2CPacket::receive);
     }
 }

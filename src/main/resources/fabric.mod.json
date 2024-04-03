@@ -13,10 +13,14 @@
 	},
 	"license": "MIT",
 	"icon": "assets/nexusutils/icon.png",
+	"accessWidener": "nexusutils.accesswidener",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"me.imbanana.nexusutils.NexusUtils"
+		],
+		"server": [
+			"me.imbanana.nexusutils.NexusUtilsServer"
 		],
 		"client": [
 			"me.imbanana.nexusutils.NexusUtilsClient"
@@ -40,9 +44,7 @@
 		"fabricloader": ">=0.15.7",
 		"minecraft": "~1.20.4",
 		"java": ">=17",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
+		"fabric-api": "*",
+		"owo": ">=0.12.5"
 	}
 }

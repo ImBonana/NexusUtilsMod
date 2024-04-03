@@ -3,6 +3,9 @@ package me.imbanana.nexusutils.block.custom;
 import com.mojang.serialization.MapCodec;
 import me.imbanana.nexusutils.block.entity.SleepingBagBlockEntity;
 import me.imbanana.nexusutils.block.enums.SleepingBagPart;
+import me.imbanana.nexusutils.item.backpack.BackpackItem;
+import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
+import me.imbanana.nexusutils.util.accessors.IPlayerInventory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Dismounting;
@@ -13,6 +16,7 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -75,6 +79,19 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
         }
         if (state.get(PART) != SleepingBagPart.HEAD && !(state = world.getBlockState(pos = pos.offset(state.get(FACING)))).isOf(this)) {
             return ActionResult.CONSUME;
+        }
+        ItemStack backpackItem = ((IPlayerInventory) player.getInventory()).nexusUtils$getBackpackItemStack();
+        if(player.isSneaking() && !backpackItem.isEmpty() && backpackItem.getItem() instanceof BackpackItem) {
+            BackpackInventory backpackInventory = new BackpackInventory(backpackItem);
+            if(backpackInventory.getSleepingBag().isEmpty()) {
+                world.removeBlock(pos, false);
+                BlockPos blockPos = pos.offset(state.get(FACING).getOpposite());
+                if (world.getBlockState(blockPos).isOf(this)) {
+                    world.removeBlock(blockPos, false);
+                }
+                backpackInventory.setSleepingBag(new ItemStack(this));
+                return ActionResult.SUCCESS;
+            }
         }
         if (!SleepingBagBlock.isSleepingBagWorking(world)) {
             world.removeBlock(pos, false);

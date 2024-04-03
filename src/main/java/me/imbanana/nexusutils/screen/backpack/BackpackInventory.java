@@ -45,6 +45,11 @@ public class BackpackInventory extends ItemInventory {
         return this.getItems().get(BackpackScreenHandler.SLEEPING_BAG_SLOT_ID);
     }
 
+    public void setSleepingBag(ItemStack itemStack) {
+        this.getItems().set(BackpackScreenHandler.SLEEPING_BAG_SLOT_ID, itemStack);
+        this.markDirty();
+    }
+
     public SingleVariantStorage<FluidVariant> getLeftTank() {
         return this.leftTank;
     }

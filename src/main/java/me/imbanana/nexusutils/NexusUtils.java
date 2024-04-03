@@ -2,6 +2,8 @@ package me.imbanana.nexusutils;
 
 import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
+import me.imbanana.nexusutils.commands.ModCommands;
+import me.imbanana.nexusutils.configs.RealPlayersConfig;
 import me.imbanana.nexusutils.effect.ModEffects;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.entity.ModEntities;
@@ -25,8 +27,11 @@ public class NexusUtils implements ModInitializer {
 	public static final String MOD_ID = "nexusutils";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	public static final RealPlayersConfig REAL_PLAYERS_SERVER_CONFIG = RealPlayersConfig.createAndLoad();
+
 	@Override
 	public void onInitialize() {
+
 		ModEvents.registerEvents();
 		ModPackets.registerC2SPackets();
 
@@ -47,6 +52,7 @@ public class NexusUtils implements ModInitializer {
 		ModCustomTrades.registerTrades();
 
 		ModScreenHandlers.registerScreenHandlers();
+		ModCommands.registerModCommands();
 
 		FabricDefaultAttributeRegistry.register(ModEntities.SNAIL, SnailEntity.createSnailAttributes());
 //		FabricDefaultAttributeRegistry.register(ModEntities.TRIDENT_OF_FIRE, TridentOfFireEntity);

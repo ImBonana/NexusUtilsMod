@@ -19,7 +19,7 @@ public class ModItems {
     public static final Item CRAFTING_ON_A_STICK = registerItem("crafting_on_a_stick", new CraftingOnAStickItem(new FabricItemSettings().maxCount(1)));
     public static final Item MOB_GRABBER = registerItem("mob_grabber", new MobGrabberItem(new FabricItemSettings().maxCount(1)));
     public static final Item VOID_TOTEM = registerItem("void_totem", new VoidTotem(new FabricItemSettings().maxCount(1)));
-    public static final Item MOD_TEST = registerItem("mod_test", new ModTestItem(new FabricItemSettings().maxCount(1)));
+//    public static final Item MOD_TEST = registerItem("mod_test", new ModTestItem(new FabricItemSettings().maxCount(1)));
     public static final Item SNAIL_ITEM = registerItem("snail_item", new SnailItem(new FabricItemSettings().maxCount(1)));
     public static final Item HOPPER_FILTER = registerItem("hopper_filter", new HopperFilterItem(new FabricItemSettings().maxCount(64)));
     public static final Item BACKPACK = registerItem("backpack", new BackpackItem(new FabricItemSettings().maxCount(1)));

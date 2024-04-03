@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.mixin;
 
 import com.google.common.collect.ImmutableList;
+import me.imbanana.nexusutils.util.accessors.IPlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -10,6 +11,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Nameable;
 import net.minecraft.util.collection.DefaultedList;
 import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,11 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(PlayerInventory.class)
-public abstract class PlayerInventoryMixin implements Inventory, Nameable {
+public abstract class PlayerInventoryMixin implements Inventory, Nameable, IPlayerInventory {
     @Mutable
     @Shadow @Final private List<DefaultedList<ItemStack>> combinedInventory;
     @Unique
     private final DefaultedList<ItemStack> backpack = DefaultedList.ofSize(1, ItemStack.EMPTY);
+
+    @Override
+    public ItemStack nexusUtils$getBackpackItemStack() {
+        return backpack.get(0);
+    }
+
+    @Override
+    public void nexusUtils$setBackpackItemStack(ItemStack itemStack) {
+        backpack.set(0, itemStack);
+    }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void Inject$Init(PlayerEntity player, CallbackInfo info) {

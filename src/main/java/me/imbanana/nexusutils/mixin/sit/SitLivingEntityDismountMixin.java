@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.mixin.sit;
 
+import me.imbanana.nexusutils.util.SitHandler;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -20,7 +21,7 @@ public abstract class SitLivingEntityDismountMixin extends Entity implements Att
     @Inject(method = "onDismounted", at = @At(value = "TAIL"))
     protected void InjectOnDismount(Entity vehicle, CallbackInfo ci) {
         if(!(vehicle instanceof DisplayEntity.TextDisplayEntity)) return;
-        vehicle.discard();
+        SitHandler.removeSeat(vehicle.getId());
         this.requestTeleport(vehicle.getBlockX(), vehicle.getBlockY() + 1, vehicle.getBlockZ());
     }
 }

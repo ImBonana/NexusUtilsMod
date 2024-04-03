@@ -19,8 +19,9 @@ public class MobGrabberItem extends Item {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        if(entity instanceof PlayerEntity) return ActionResult.FAIL;
         if(user.hasPassengers()) removePassengers(user);
-        if(entity.startRiding(user)) {
+        if(entity.startRiding(user, true)) {
             user.getItemCooldownManager().set(user.getStackInHand(hand).getItem(), 2);
             return ActionResult.SUCCESS;
         }

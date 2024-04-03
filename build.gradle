@@ -16,9 +16,18 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+
+	maven { url 'https://maven.wispforest.io' }
+	mavenCentral()
+	maven {
+		name 'm2-dv8tion'
+		url 'https://m2.dv8tion.net/releases'
+	}
 }
 
 loom {
+	accessWidenerPath = file("src/main/resources/nexusutils.accesswidener")
+
     runs {
 		// This adds a new gradle task that runs the datagen API: "gradlew runDatagen"
 		datagen {
@@ -43,6 +52,7 @@ sourceSets {
 		}
 	}
 }
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -51,11 +61,31 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
+
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+
+	modImplementation annotationProcessor("io.wispforest:owo-lib:${project.owo_version}")
+	include "io.wispforest:owo-sentinel:${project.owo_version}"
+
+	// JDA Java Discord API
+	modImplementation(include("net.dv8tion:JDA:${project.jda_version}") {
+		exclude module: 'opus-java'
+	})
+	modImplementation(include('org.jetbrains.kotlin:kotlin-stdlib:1.2.30'))
+	include "com.fasterxml.jackson.core:jackson-databind:2.16.0"
+	include "net.sf.trove4j:trove4j:3.0.3"
+	include "org.apache.commons:commons-collections4:4.4"
+	include "com.google.code.findbugs:jsr305:3.0.2"
+	include "org.jetbrains:annotations:16.0.1"
+	include "com.neovisionaries:nv-websocket-client:2.10"
+	include "com.squareup.okhttp3:okhttp:4.12.0"
+	include "com.fasterxml.jackson.core:jackson-annotations:2.13.1"
+	include "com.fasterxml.jackson.core:jackson-core:2.13.1"
+	include "com.squareup.okio:okio-jvm:3.9.0"
+	include "com.neovisionaries:nv-websocket-client:2.14"
 }
 
 processResources {

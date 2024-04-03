@@ -1,8 +1,10 @@
 package me.imbanana.nexusutils.item.backpack;
 
+import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.entity.client.ModModelLayers;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
+import me.imbanana.nexusutils.util.accessors.IPlayerInventory;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -17,7 +19,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
-public class PlayerBackpackFeatureRenderer<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
+import java.util.List;
+
+public class PlayerBackpackFeatureRenderer<T extends PlayerEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private final BackpackEntityModel backpack;
 
     public PlayerBackpackFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader) {
@@ -27,10 +31,8 @@ public class PlayerBackpackFeatureRenderer<T extends LivingEntity, M extends Ent
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        if(!(entity instanceof PlayerEntity)) return;
-        ItemStack itemStack = ((PlayerEntity)entity).getInventory().getStack(BackpackItem.SLOT_ID);
-        if(itemStack.isEmpty()) return;
-        if(!itemStack.isOf(ModItems.BACKPACK)) return;
+        ItemStack itemStack = ((IPlayerInventory) entity.getInventory()).nexusUtils$getBackpackItemStack();
+        if(!(itemStack.getItem() instanceof BackpackItem)) return;
 
         BackpackInventory backpackInventory = new BackpackInventory(itemStack);
         ItemStack sleepingBagItem = backpackInventory.getSleepingBag();

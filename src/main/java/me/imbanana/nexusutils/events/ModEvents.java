@@ -2,10 +2,15 @@ package me.imbanana.nexusutils.events;
 
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.screen.custom.CustomShulkerBoxInventory;
+import me.imbanana.nexusutils.util.SitHandler;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.CropBlock;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,6 +19,7 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -98,6 +104,19 @@ public class ModEvents {
                     }
                 }
             }
+        });
+
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> server.execute(SitHandler::cleanUp));
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+            ServerPlayerEntity player = handler.getPlayer();
+
+            server.execute(() -> {
+                Entity seat = player.getVehicle();
+                if(seat != null && SitHandler.isSeat(seat.getId())) {
+                    player.dismountVehicle();
+                    SitHandler.removeSeat(seat.getId());
+                }
+            });
         });
     }
 }
