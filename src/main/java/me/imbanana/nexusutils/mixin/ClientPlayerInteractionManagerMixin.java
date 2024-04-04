@@ -23,7 +23,8 @@ public abstract class ClientPlayerInteractionManagerMixin {
 
     @Inject(
             method = "breakBlock",
-            at = @At("HEAD")
+            at = @At("HEAD"),
+            cancellable = true
     )
     private void onBreakBlockClient(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         // If the player is holding the tool, we want to let the server handle breaking mechanics.
