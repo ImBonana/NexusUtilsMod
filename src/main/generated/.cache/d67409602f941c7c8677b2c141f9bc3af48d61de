@@ -1,4 +1,4 @@
-// 1.20.4	2024-04-02T22:08:09.8268644	Nexus Utils/Recipes
+// 1.20.4	2024-04-07T13:05:56.7960919	Nexus Utils/Recipes
 80982ba123221425d1acd4d0ba57185e70222333 data\nexusutils\recipes\black_sleeping_bag_recipe.json
 e8b220eb531af62ef6cdbfeb25ba8246b4f8692c data\nexusutils\advancements\recipes\misc\orange_sleeping_bag_recipe.json
 0740f4cdc8cd4c46294330e99dae92e568522ac7 data\nexusutils\recipes\post_box.json
@@ -56,6 +56,7 @@ a3b10d295bb8c72ee756eb65a06736f59ba36d4a data\nexusutils\advancements\recipes\mi
 33e2db845bbd7488222f0990292f969889e560cf data\nexusutils\recipes\hopper_filter_recipe.json
 14c0658d1d28622aa64294d731a653f77e2224be data\nexusutils\recipes\brown_sleeping_bag_dye_recipe.json
 b3f6e712be26cfb4668c96a15d7314d512b35fe7 data\nexusutils\advancements\recipes\misc\blue_sleeping_bag_dye_recipe.json
+ebe3f4dfb877647cfe15d505410db872ad72cadd data\nexusutils\advancements\recipes\misc\pink_quartz.json
 c60d99ac42b31752ad767e5b9887e1542946b29e data\nexusutils\advancements\recipes\misc\mail_box.json
 94aa6b6bd7aafca6a75d6d456059a5bcd00dd68a data\nexusutils\advancements\recipes\misc\black_sleeping_bag_recipe.json
 24b7a11ff304964282d04a6ffbeeea31d8b59561 data\nexusutils\recipes\purple_sleeping_bag_dye_recipe.json
@@ -85,6 +86,7 @@ c653b1dbb12a53d1ff796a011465005fa154e675 data\nexusutils\advancements\recipes\mi
 952d6b281fab4b65595b9a07e38f6114b32c95e5 data\nexusutils\advancements\recipes\misc\black_sleeping_bag_dye_recipe.json
 0c961db5c270cacfc501cc0619a40db7f7d63a53 data\nexusutils\recipes\orange_sleeping_bag_dye_recipe.json
 df82af34bb5cfe8073859ef1974c49a44c785bc3 data\nexusutils\recipes\pink_sleeping_bag_recipe.json
+5d9d5bcb181bdf334e60b80cdaea91371c18b85f data\nexusutils\recipes\pink_quartz.json
 a1bed5e40f5841e2410443a179574f5f75297637 data\nexusutils\advancements\recipes\misc\post_box.json
 a87adb3d8e90693dda80976318776fa4ee2248e3 data\nexusutils\recipes\gray_sleeping_bag_recipe.json
 83a5deff44d86baf71a0d9e86c898584cdf6bad8 data\nexusutils\recipes\gray_sleeping_bag_dye_recipe.json

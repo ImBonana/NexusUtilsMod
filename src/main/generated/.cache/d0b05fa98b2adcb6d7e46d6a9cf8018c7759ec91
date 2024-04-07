@@ -1,4 +1,4 @@
-// 1.20.4	2024-04-02T22:08:09.8338595	Nexus Utils/Block Loot Tables
+// 1.20.4	2024-04-07T13:05:56.8002778	Nexus Utils/Block Loot Tables
 f8ec29f15eb20e9c07bd2a34c8e23c4471634e5f data\nexusutils\loot_tables\blocks\black_sleeping_bag.json
 c198724fc1fbabe371def14630eec23cc0403fbc data\nexusutils\loot_tables\blocks\cyan_sleeping_bag.json
 f8abfae7bbd4b7ebbeb13864573a10f576506fd4 data\nexusutils\loot_tables\blocks\magenta_sleeping_bag.json
@@ -6,8 +6,8 @@ f8abfae7bbd4b7ebbeb13864573a10f576506fd4 data\nexusutils\loot_tables\blocks\mage
 d2deb2c80fe3284b879139f4dc3cd62d1fc348bc data\nexusutils\loot_tables\blocks\pink_sleeping_bag.json
 d4d5eb36875aecfedf4782584ef7dec8a2bf41c1 data\nexusutils\loot_tables\blocks\mail_box.json
 c6d3c17f3ea22956692bfa94a1f2ee7530cf4956 data\nexusutils\loot_tables\blocks\post_box.json
-5ea6ba6c160d627ef4922fc86f41d1870b7d88ad data\nexusutils\loot_tables\blocks\blue_sleeping_bag.json
 47435cd37d224b6180d3bd9ef3c516eb0f043c7e data\nexusutils\loot_tables\blocks\orange_sleeping_bag.json
+5ea6ba6c160d627ef4922fc86f41d1870b7d88ad data\nexusutils\loot_tables\blocks\blue_sleeping_bag.json
 8e610d91da3ae6798ef41a5dfe7f7c1f34dba0d8 data\nexusutils\loot_tables\blocks\lime_sleeping_bag.json
 a55e5e22c603859b2c730c603489475ee5cc9a19 data\nexusutils\loot_tables\blocks\purple_sleeping_bag.json
 7241aeb024dbc5cb8ecf083fd7b546e64320e31e data\nexusutils\loot_tables\blocks\light_gray_sleeping_bag.json

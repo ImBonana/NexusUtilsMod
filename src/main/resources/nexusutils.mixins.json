@@ -3,7 +3,7 @@
     "package": "me.imbanana.nexusutils.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "AnvilScreenMixin",
+        "AnvilScreenHandlerMixin",
         "BoneMealMixin",
         "BucketItemMixin",
         "HopperScreenHandlerAccessor",
@@ -34,7 +34,7 @@
         "defaultRequire": 1
     },
     "client": [
-        "AnvilScreenHandlerMixin",
+        "AnvilScreenMixin",
         "BuiltinModelItemRendererMixin",
         "ClientPlayerInteractionManagerMixin",
         "CreativeInventoryScreenMixin",

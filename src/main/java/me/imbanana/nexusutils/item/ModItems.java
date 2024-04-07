@@ -4,6 +4,9 @@ import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.item.backpack.BackpackItem;
 import me.imbanana.nexusutils.item.custom.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
@@ -24,7 +27,17 @@ public class ModItems {
     public static final Item HOPPER_FILTER = registerItem("hopper_filter", new HopperFilterItem(new FabricItemSettings().maxCount(64)));
     public static final Item BACKPACK = registerItem("backpack", new BackpackItem(new FabricItemSettings().maxCount(1)));
     public static final Item PACKAGE = registerItem("package", new PackageItem(new FabricItemSettings().maxCount(1)));
-
+    public static final Item PINK_QUARTZ = registerItem("pink_quartz", new Item(
+            new FabricItemSettings()
+                    .food(
+                            new FoodComponent.Builder()
+                                    .alwaysEdible()
+                                    .hunger(4)
+                                    .saturationModifier(1.2f)
+                                    .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
+                                    .build()
+                    )
+            ));
 
     private static Item registerItem(String name, Item item) {
         return registerItem(name, item, true);

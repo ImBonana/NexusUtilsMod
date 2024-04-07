@@ -35,6 +35,7 @@ public abstract class BoneMealMixin {
                     }
                 }
 
+                context.getStack().decrement(1);
                 context.getPlayer().emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
                 world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
             }

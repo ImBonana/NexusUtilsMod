@@ -1,0 +1,9 @@
+{
+    "asset_name": "pink_quartz",
+    "description": {
+        "color": "#F862A4",
+        "translate": "trim_material.nexusutils.pink_quartz"
+    },
+    "ingredient": "nexusutils:pink_quartz",
+    "item_model_index": 1.0
+}

@@ -148,6 +148,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('P', Items.PAPER)
                 .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
                 .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "post_box"));
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.PINK_QUARTZ)
+                .input(Items.QUARTZ)
+                .input(Items.AMETHYST_SHARD)
+                .criterion(hasItem(Items.QUARTZ), conditionsFromItem(Items.QUARTZ))
+                .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "pink_quartz"));
     }
 
     private void registerSleepingBags(RecipeExporter exporter) {

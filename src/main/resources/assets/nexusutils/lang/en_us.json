@@ -7,9 +7,12 @@
   "item.nexusutils.hopper_filter": "Hopper Filter",
   "item.nexusutils.backpack": "Backpack",
   "item.nexusutils.package": "Package",
+  "item.nexusutils.pink_quartz": "Pink Quartz",
 
   "item.nexusutils.package.sent": "Sent by %1$s",
   "item.nexusutils.package.info": "(Right Click To Open)",
+
+  "trim_material.nexusutils.pink_quartz": "Pink Quartz Material",
 
   "block.nexusutils.frozen_lava": "Frozen Lava",
   "block.nexusutils.item_display": "Item Display",

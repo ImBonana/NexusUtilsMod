@@ -307,8 +307,6 @@ public abstract class EnchantmentLivingEntityMixin extends Entity implements Att
             if(aegisEnchantmentLevel > 0) {
                 double minVel = 2;
                 double velY = Math.min(this.fallDistance / 15, minVel);
-                NexusUtils.LOGGER.info(String.valueOf(velY));
-                NexusUtils.LOGGER.info(String.valueOf(this.fallDistance));
                 this.setVelocity(new Vec3d(0, velY, 0));
                 this.velocityModified = true;
                 this.onLanding();
