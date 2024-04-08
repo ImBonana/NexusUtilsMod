@@ -411,8 +411,6 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private static boolean filterHasItem(DefaultedList<ItemStack> stacks, ItemStack stack) {
-        // make code here
-
         for(ItemStack s : stacks) {
             if(s.isEmpty()) continue;
             if(stack.getItem() == s.getItem()) return true;
@@ -422,7 +420,29 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private static boolean shouldInvert(boolean invert, boolean expr) {
-        if(invert) return !expr;
-        return expr;
+        return invert ? !expr : expr;
+    }
+
+    private boolean isItemAllowed(ItemStack stack) {
+        ItemStack filterItem = this.getStack(FILTER_SLOT);
+        if(filterItem.getItem() == ModItems.HOPPER_FILTER) {
+            NbtCompound filterNbt = filterItem.getOrCreateNbt();
+            DefaultedList<ItemStack> itemsToFilter = DefaultedList.ofSize(HopperFilterItem.INVENTORY_SIZE, ItemStack.EMPTY);
+            Inventories.readNbt(filterNbt, itemsToFilter);
+            return shouldInvert(!this.whitelist, filterHasItem(itemsToFilter, stack));
+
+        }
+
+        return shouldInvert(!this.whitelist, filterItem.getItem() == stack.getItem());
+    }
+
+    @Override
+    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+        return slot != FILTER_SLOT;
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        return slot != FILTER_SLOT && isItemAllowed(stack);
     }
 }

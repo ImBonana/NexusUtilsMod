@@ -83,9 +83,9 @@ public class ModEvents {
                 }
             } else if (itemStack.getItem() instanceof SwordItem && EnchantmentHelper.getLevel(ModEnchantments.LAUNCH, itemStack) > 0 && !player.getItemCooldownManager().isCoolingDown(itemStack.getItem())) { // sword with the launch enchantment
 //                NexusUtils.LOGGER.info("Launching!");
-                player.setVelocity(player.getRotationVector().multiply(EnchantmentHelper.getLevel(ModEnchantments.LAUNCH, itemStack) * 0.5f));
+                player.setVelocity(player.getRotationVector().multiply(EnchantmentHelper.getLevel(ModEnchantments.LAUNCH, itemStack) * 0.75f));
 //                player.velocityModified = true;
-                player.getItemCooldownManager().set(itemStack.getItem(), 200);
+                player.getItemCooldownManager().set(itemStack.getItem(), 100);
                 return TypedActionResult.success(itemStack, true);
             }
 

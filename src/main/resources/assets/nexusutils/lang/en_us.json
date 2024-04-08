@@ -8,6 +8,8 @@
   "item.nexusutils.backpack": "Backpack",
   "item.nexusutils.package": "Package",
   "item.nexusutils.pink_quartz": "Pink Quartz",
+  "item.nexusutils.terrorist_dog": "Terrorist Dog Belt",
+  "item.nexusutils.terrorist_dog_remote": "Terrorist Dog Remote",
 
   "item.nexusutils.package.sent": "Sent by %1$s",
   "item.nexusutils.package.info": "(Right Click To Open)",

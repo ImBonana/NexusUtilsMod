@@ -155,6 +155,29 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.QUARTZ), conditionsFromItem(Items.QUARTZ))
                 .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
                 .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "pink_quartz"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.TERRORIST_DOG, 2)
+                .pattern(" C ")
+                .pattern("WTW")
+                .pattern(" S ")
+                .input('C', Items.COPPER_INGOT)
+                .input('W', ItemTags.WOOL)
+                .input('T', Items.TNT)
+                .input('S', Items.STRING)
+                .criterion(hasItem(Items.TNT), conditionsFromItem(Items.TNT))
+                .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "terrorist_dog"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.TERRORIST_DOG_REMOTE, 1)
+                .pattern("III")
+                .pattern("ICI")
+                .pattern("III")
+                .input('C', Items.COPPER_INGOT)
+                .input('I', Items.IRON_INGOT)
+                .criterion(hasItem(Items.TNT), conditionsFromItem(Items.TNT))
+                .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
+                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, new Identifier(NexusUtils.MOD_ID, "terrorist_dog_remote"));
     }
 
     private void registerSleepingBags(RecipeExporter exporter) {

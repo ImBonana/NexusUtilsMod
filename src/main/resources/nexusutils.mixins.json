@@ -21,6 +21,7 @@
         "ServerWorldMixin",
         "ShulkerBoxScreenHandlerMixin",
         "VillagerEntityMixin",
+        "WolfEntityMixin",
         "WorldMixin",
         "enchantments.EnchantmentBlockMixin",
         "enchantments.EnchantmentHelperMixin",
@@ -40,6 +41,7 @@
         "CreativeInventoryScreenMixin",
         "HandledScreenAccessor",
         "InventoryScreenMixin",
+        "WolfEntityRendererMixin",
         "WorldRenderMixin"
-  ]
+    ]
 }

@@ -39,6 +39,9 @@ public class ModItems {
                     )
             ));
 
+    public static final Item TERRORIST_DOG_REMOTE = registerItem("terrorist_dog_remote", new TerroristDogRemoteItem(new FabricItemSettings().maxCount(1).maxDamage(32)));
+    public static final Item TERRORIST_DOG = registerItem("terrorist_dog", new TerroristDogItem(new FabricItemSettings().maxCount(16)));
+
     private static Item registerItem(String name, Item item) {
         return registerItem(name, item, true);
     }
