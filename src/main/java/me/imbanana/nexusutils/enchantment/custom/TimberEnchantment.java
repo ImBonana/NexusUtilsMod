@@ -61,6 +61,10 @@ public class TimberEnchantment extends Enchantment implements TradableEnchantmen
         add(Blocks.SPRUCE_LOG);
         add(Blocks.STRIPPED_SPRUCE_LOG);
         add(Blocks.MANGROVE_ROOTS);
+        add(Blocks.WARPED_STEM);
+        add(Blocks.STRIPPED_WARPED_STEM);
+        add(Blocks.CRIMSON_STEM);
+        add(Blocks.STRIPPED_CRIMSON_STEM);
     }};
 
     public static boolean canBreak(Block block) {
