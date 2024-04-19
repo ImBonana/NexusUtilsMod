@@ -4,6 +4,8 @@ import me.imbanana.nexusutils.enchantment.MultipleTargetsEnchantment;
 import me.imbanana.nexusutils.enchantment.TradableEnchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShearsItem;
 
 public class TelepathyEnchantment extends MultipleTargetsEnchantment implements TradableEnchantment {
     public TelepathyEnchantment(Rarity rarity, EnchantmentTarget[] targets, EquipmentSlot... slotTypes) {
@@ -38,5 +40,10 @@ public class TelepathyEnchantment extends MultipleTargetsEnchantment implements 
     @Override
     public int getMaxLevelToGet() {
         return this.getMaxLevel();
+    }
+
+    @Override
+    public boolean isAcceptableItem(ItemStack stack) {
+        return super.isAcceptableItem(stack) || stack.getItem() instanceof ShearsItem;
     }
 }

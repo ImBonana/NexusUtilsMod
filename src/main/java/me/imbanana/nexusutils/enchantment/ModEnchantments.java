@@ -112,7 +112,7 @@ public class ModEnchantments {
             new LightningEnchantment(Enchantment.Rarity.UNCOMMON, new EnchantmentTarget[]{EnchantmentTarget.BOW, EnchantmentTarget.CROSSBOW}, EquipmentSlot.MAINHAND));
 
     public static final Enchantment TELEPATHY = register("telepathy",
-            new TelepathyEnchantment(Enchantment.Rarity.UNCOMMON, new EnchantmentTarget[]{EnchantmentTarget.DIGGER, EnchantmentTarget.WEAPON, EnchantmentTarget.CROSSBOW, EnchantmentTarget.BOW, EnchantmentTarget.TRIDENT}, EquipmentSlot.HEAD));
+            new TelepathyEnchantment(Enchantment.Rarity.UNCOMMON, new EnchantmentTarget[]{EnchantmentTarget.DIGGER, EnchantmentTarget.WEAPON, EnchantmentTarget.CROSSBOW, EnchantmentTarget.BOW, EnchantmentTarget.TRIDENT}, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
 
     public static final Enchantment BLAST = register("blast",
             new BlastEnchantment(Enchantment.Rarity.UNCOMMON, null, EquipmentSlot.MAINHAND));

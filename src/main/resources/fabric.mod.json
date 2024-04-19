@@ -37,7 +37,9 @@
 			"net/minecraft/entity/projectile/TridentEntity": ["me/imbanana/nexusutils/util/accessors/ITridentEntity"],
 			"net/minecraft/entity/LivingEntity": ["me/imbanana/nexusutils/util/accessors/ILivingEntity"],
 			"net/minecraft/item/BucketItem": ["me/imbanana/nexusutils/util/accessors/IBucketItem"],
-			"net/minecraft/screen/ShulkerBoxScreenHandler": ["me/imbanana/nexusutils/util/accessors/IShulkerBoxScreenHandler"]
+			"net/minecraft/screen/ShulkerBoxScreenHandler": ["me/imbanana/nexusutils/util/accessors/IShulkerBoxScreenHandler"],
+			"net/minecraft/entity/player/PlayerInventory": ["me/imbanana/nexusutils/util/accessors/IPlayerInventory"],
+			"net/minecraft/server/world/ServerWorld": ["me/imbanana/nexusutils/util/accessors/IServerWorld"]
 		}
 	},
 	"depends": {
