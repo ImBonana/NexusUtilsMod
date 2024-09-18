@@ -13,6 +13,6 @@ public class NexusUtilsDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
-		pack.addProvider(ModPoiProvider::new);
+		pack.addProvider(ModEnchantmentProvider::new);
 	}
 }

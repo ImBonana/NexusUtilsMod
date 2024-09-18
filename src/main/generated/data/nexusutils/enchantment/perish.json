@@ -1,0 +1,56 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.nexusutils.perish"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "max_amplifier": 0.0,
+          "max_duration": 15.0,
+          "min_amplifier": 0.0,
+          "min_duration": 10.0,
+          "to_apply": "minecraft:wither"
+        },
+        "enchanted": "attacker",
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "chance": {
+                "type": "minecraft:enchantment_level",
+                "amount": 0.1
+              },
+              "condition": "minecraft:random_chance"
+            },
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "direct_attacker",
+              "predicate": {
+                "type": "minecraft:trident"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "exclusive_set": "#nexusutils:exclusive/chaos",
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#nexusutils:enchantable/ranged_weapon",
+  "weight": 3
+}

@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -19,7 +18,7 @@ public class ModTexturedRenderLayers {
                     .map(color ->
                             new SpriteIdentifier(
                                     TexturedRenderLayers.BEDS_ATLAS_TEXTURE,
-                                    new Identifier(NexusUtils.MOD_ID, "entity/sleeping_bag/" + color.getName())
+                                    NexusUtils.idOf("entity/sleeping_bag/" + color.getName())
                             ))
                     .toArray(SpriteIdentifier[]::new);
 

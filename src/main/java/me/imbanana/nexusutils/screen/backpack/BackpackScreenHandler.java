@@ -4,17 +4,15 @@ import me.imbanana.nexusutils.fluids.ModFluids;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.backpack.BackpackItem;
 import me.imbanana.nexusutils.item.custom.SleepingBagItem;
+import me.imbanana.nexusutils.networking.packets.screens.ItemInventoryOpeningData;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
-import me.imbanana.nexusutils.util.accessors.IBucketItem;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.*;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
@@ -29,8 +27,8 @@ public class BackpackScreenHandler extends ScreenHandler {
 
     public static final int SLEEPING_BAG_SLOT_ID = BackpackItem.INVENTORY_SIZE + 4;
 
-    public BackpackScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        this(syncId, inventory, buf.readItemStack());
+    public BackpackScreenHandler(int syncId, PlayerInventory inventory, ItemInventoryOpeningData data) {
+        this(syncId, inventory, data.stack());
     }
 
     public BackpackScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack itemStack) {
@@ -93,11 +91,11 @@ public class BackpackScreenHandler extends ScreenHandler {
         return this.inventory.canPlayerUse(player);
     }
 
-    public SingleVariantStorage<FluidVariant> getLeftTank() {
+    public FluidTank getLeftTank() {
         return this.inventory.getLeftTank();
     }
 
-    public SingleVariantStorage<FluidVariant> getRightTank() {
+    public FluidTank getRightTank() {
         return this.inventory.getRightTank();
     }
 
@@ -132,29 +130,28 @@ public class BackpackScreenHandler extends ScreenHandler {
         }
     }
 
-    private void tryToTransferFluid(Slot inputSlot, Slot outputSlot, SingleVariantStorage<FluidVariant> fluidStorage) {
+    private void tryToTransferFluid(Slot inputSlot, Slot outputSlot, FluidTank fluidTank) {
         if(inputSlot.hasStack() && inputSlot.canInsert(inputSlot.getStack())) {
-            if(inputSlot.getStack().getItem() instanceof BucketItem) {
-                IBucketItem bucketItem = (IBucketItem) inputSlot.getStack().getItem();
+            if(inputSlot.getStack().getItem() instanceof BucketItem bucketItem) {
                 Fluid fluid = bucketItem.nexusutils$getFluid();
 
-                if(fluid == Fluids.EMPTY && !outputSlot.hasStack() && !fluidStorage.isResourceBlank() && fluidStorage.getAmount() >= 1000) {
+                if(fluid == Fluids.EMPTY && !outputSlot.hasStack() && !fluidTank.isResourceBlank() && fluidTank.getAmount() >= 1000) {
                     inputSlot.getStack().decrement(1);
 
-                    fluidStorage.amount -= 1000;
+                    fluidTank.amount -= 1000;
 
-                    ItemStack outputStack = fluidStorage.variant.getFluid().getBucketItem().getDefaultStack();
+                    ItemStack outputStack = fluidTank.variant.getFluid().getBucketItem().getDefaultStack();
                     outputSlot.setStack(outputStack);
                 } else {
-                    transferFluid(inputSlot, outputSlot, fluidStorage, fluid);
+                    transferFluid(inputSlot, outputSlot, fluidTank, fluid);
                 }
             } else if (inputSlot.getStack().getItem() instanceof MilkBucketItem) {
-                transferFluid(inputSlot, outputSlot, fluidStorage, ModFluids.MILK);
+                transferFluid(inputSlot, outputSlot, fluidTank, ModFluids.MILK);
             }
         }
     }
 
-    private void transferFluid(Slot inputSlot, Slot outputSlot, SingleVariantStorage<FluidVariant> fluidStorage, Fluid fluid) {
+    private void transferFluid(Slot inputSlot, Slot outputSlot, FluidTank fluidTank, Fluid fluid) {
         FluidVariant fluidVariant = FluidVariant.of(fluid);
 
         ItemStack outputItem = new ItemStack(Items.BUCKET);
@@ -163,18 +160,17 @@ public class BackpackScreenHandler extends ScreenHandler {
 
         if(
                 fluid != Fluids.EMPTY
-                && fluidStorage.getAmount() <= (fluidStorage.getCapacity() - fluidAmount)
-                && (fluidVariant.equals(fluidStorage.variant) || fluidStorage.variant.isBlank())
+                && fluidTank.getAmount() <= (fluidTank.getCapacity() - fluidAmount)
+                && (fluidVariant.equals(fluidTank.variant) || fluidTank.variant.isBlank())
                 && outputItem.getCount() < outputSlot.getMaxItemCount(outputItem)
-                && (!outputSlot.hasStack() || (outputSlot.hasStack() && ItemStack.canCombine(outputSlot.getStack(), outputItem)))
+                && (!outputSlot.hasStack() || (outputSlot.hasStack() && ItemStack.areItemsAndComponentsEqual(outputSlot.getStack(), outputItem)))
         ) {
-
             inputSlot.getStack().decrement(1);
-            if (fluidStorage.variant.isBlank()) {
-                fluidStorage.variant = fluidVariant;
-                fluidStorage.amount = fluidAmount;
+            if (fluidTank.variant.isBlank()) {
+                fluidTank.variant = fluidVariant;
+                fluidTank.amount = fluidAmount;
             } else {
-                fluidStorage.amount += fluidAmount;
+                fluidTank.amount += fluidAmount;
             }
 
             if(outputSlot.hasStack()) {

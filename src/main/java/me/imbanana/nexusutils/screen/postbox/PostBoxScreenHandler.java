@@ -1,14 +1,12 @@
 package me.imbanana.nexusutils.screen.postbox;
 
 import me.imbanana.nexusutils.block.ModBlocks;
-import me.imbanana.nexusutils.networking.ModPackets;
+import me.imbanana.nexusutils.networking.ModNetwork;
+import me.imbanana.nexusutils.networking.packets.mail.UpdateMailBoxesPacket;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -18,7 +16,7 @@ public class PostBoxScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
     private final PostBoxInventory inventory;
 
-    public PostBoxScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
+    public PostBoxScreenHandler(int syncId, PlayerInventory playerInventory, Object data) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
     }
 
@@ -70,7 +68,7 @@ public class PostBoxScreenHandler extends ScreenHandler {
     }
 
     public void updateMailBoxes() {
-        ClientPlayNetworking.send(ModPackets.UPDATE_MAIL_BOXES, PacketByteBufs.create());
+        ModNetwork.NETWORK_CHANNEL.clientHandle().send(UpdateMailBoxesPacket.EMPTY);
     }
 
     @Override

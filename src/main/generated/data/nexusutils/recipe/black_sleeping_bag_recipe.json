@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:black_wool"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "pattern": [
+    "   ",
+    "   ",
+    "WCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nexusutils:black_sleeping_bag"
+  }
+}

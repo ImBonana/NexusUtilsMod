@@ -1,7 +1,7 @@
 package me.imbanana.nexusutils.mixin;
 
-import me.imbanana.nexusutils.enchantment.ModEnchantments;
-import me.imbanana.nexusutils.enchantment.custom.OreExcavationEnchantment;
+import com.mojang.datafixers.util.Pair;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
 import me.imbanana.nexusutils.enchantment.custom.TimberEnchantment;
 import me.imbanana.nexusutils.util.BlockBreaker;
 import me.imbanana.nexusutils.util.BlockFinder;
@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,8 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(value = ServerPlayerInteractionManager.class)
-public class ServerPlayerInteractionManagerMixin {
+@Mixin(ServerPlayerInteractionManager.class)
+public abstract class ServerPlayerInteractionManagerMixin {
 
     @Final @Shadow protected ServerPlayerEntity player;
 
@@ -43,9 +44,7 @@ public class ServerPlayerInteractionManagerMixin {
         ItemStack heldStack = player.getMainHandStack();
         BlockState blockState = world.getBlockState(pos);
 
-        int blastEnchantmentTarget = EnchantmentHelper.getLevel(ModEnchantments.BLAST, heldStack);
-
-        if (blastEnchantmentTarget > 0) {
+        if (EnchantmentHelper.hasAnyEnchantmentsWith(heldStack, ModEnchantmentEffectComponentTypes.BLAST)) {
             if(!this.nexusutils$isMining) {
                 List<BlockPos> posList = BlockFinder.findPositions(world, player, 1, 0);
 
@@ -55,11 +54,11 @@ public class ServerPlayerInteractionManagerMixin {
             if(this.nexusutils$isMining) cir.setReturnValue(true);
         }
 
-        int timberEnchantmentLevel = EnchantmentHelper.getLevel(ModEnchantments.TIMBER, heldStack);
+        Pair<Unit, Integer> timberEnchantment = EnchantmentHelper.getEffectListAndLevel(heldStack, ModEnchantmentEffectComponentTypes.TIMBER);
 
-        if(timberEnchantmentLevel > 0 && TimberEnchantment.canBreak(blockState.getBlock())) {
+        if(timberEnchantment != null && TimberEnchantment.canBreak(blockState.getBlock())) {
             if(!this.nexusutils$isMining) {
-                List<BlockPos> posList = BlockFinder.getVeinBlocks(blockState.getBlock(), pos, world, 10 + (5 * timberEnchantmentLevel));
+                List<BlockPos> posList = BlockFinder.getVeinBlocks(blockState.getBlock(), pos, world, 10 + (5 * timberEnchantment.getSecond()));
 
                 if(serverBreakBlocks(posList, pos, heldStack)) cir.setReturnValue(true);
             }
@@ -67,11 +66,11 @@ public class ServerPlayerInteractionManagerMixin {
             if(this.nexusutils$isMining) cir.setReturnValue(true);
         }
 
-        int oreExcavationLevel = EnchantmentHelper.getLevel(ModEnchantments.ORE_EXCAVATION, heldStack);
+        Pair<Unit, Integer> oreExcavation = EnchantmentHelper.getEffectListAndLevel(heldStack, ModEnchantmentEffectComponentTypes.ORE_EXCAVATION);
 
-        if(oreExcavationLevel > 0 && OreExcavationEnchantment.canBreak(blockState.getBlock())) {
+        if(oreExcavation != null) {
             if(!this.nexusutils$isMining) {
-                List<BlockPos> posList = BlockFinder.getVeinBlocks(blockState.getBlock(), pos, world, 10 + (5 * oreExcavationLevel));
+                List<BlockPos> posList = BlockFinder.getVeinBlocks(blockState.getBlock(), pos, world, 10 + (5 * oreExcavation.getSecond()));
 
                 if(serverBreakBlocks(posList, pos, heldStack)) cir.setReturnValue(true);
             }

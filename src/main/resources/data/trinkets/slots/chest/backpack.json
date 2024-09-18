@@ -1,0 +1,6 @@
+{
+  "icon": "nexusutils:gui/empty_backpack_slot",
+  "validator_predicates": [
+    "trinkets:tag"
+  ]
+}

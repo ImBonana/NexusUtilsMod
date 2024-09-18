@@ -1,11 +1,13 @@
 package me.imbanana.nexusutils.mixin;
 
-import me.imbanana.nexusutils.enchantment.ModEnchantments;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
@@ -29,10 +31,15 @@ public abstract class ClientPlayerInteractionManagerMixin {
     private void onBreakBlockClient(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         // If the player is holding the tool, we want to let the server handle breaking mechanics.
         // This prevents a small quirk where the middle block in a 3x3 grid would break before the other blocks.
-        int blastEnchantmentTarget = EnchantmentHelper.getLevel(ModEnchantments.BLAST, client.player.getMainHandStack());
-        int timberEnchantmentTarget = EnchantmentHelper.getLevel(ModEnchantments.TIMBER, client.player.getMainHandStack());
+        ClientPlayerEntity player = client.player;
+        if(player == null) return;
 
-        if(client.player != null && (blastEnchantmentTarget > 0 || timberEnchantmentTarget > 0)) {
+        ItemStack tool = player.getMainHandStack();
+
+        if(EnchantmentHelper.hasAnyEnchantmentsWith(tool, ModEnchantmentEffectComponentTypes.BLAST)
+            || EnchantmentHelper.hasAnyEnchantmentsWith(tool, ModEnchantmentEffectComponentTypes.TIMBER)
+            || EnchantmentHelper.hasAnyEnchantmentsWith(tool, ModEnchantmentEffectComponentTypes.ORE_EXCAVATION)
+        ) {
             cir.cancel();
             World world = this.client.world;
 

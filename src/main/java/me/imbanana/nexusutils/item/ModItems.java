@@ -1,17 +1,19 @@
 package me.imbanana.nexusutils.item;
 
 import me.imbanana.nexusutils.NexusUtils;
+import me.imbanana.nexusutils.components.ModComponents;
+import me.imbanana.nexusutils.components.custom.FluidTanksComponent;
 import me.imbanana.nexusutils.item.backpack.BackpackItem;
 import me.imbanana.nexusutils.item.custom.*;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,35 +21,47 @@ import java.util.List;
 public class ModItems {
     private static final List<Item> modGroupItems = new ArrayList<>();
 
-    public static final Item CRAFTING_ON_A_STICK = registerItem("crafting_on_a_stick", new CraftingOnAStickItem(new FabricItemSettings().maxCount(1)));
-    public static final Item MOB_GRABBER = registerItem("mob_grabber", new MobGrabberItem(new FabricItemSettings().maxCount(1)));
-    public static final Item VOID_TOTEM = registerItem("void_totem", new VoidTotem(new FabricItemSettings().maxCount(1)));
-//    public static final Item MOD_TEST = registerItem("mod_test", new ModTestItem(new FabricItemSettings().maxCount(1)));
-    public static final Item SNAIL_ITEM = registerItem("snail_item", new SnailItem(new FabricItemSettings().maxCount(1)));
-    public static final Item HOPPER_FILTER = registerItem("hopper_filter", new HopperFilterItem(new FabricItemSettings().maxCount(64)));
-    public static final Item BACKPACK = registerItem("backpack", new BackpackItem(new FabricItemSettings().maxCount(1)));
-    public static final Item PACKAGE = registerItem("package", new PackageItem(new FabricItemSettings().maxCount(1)));
+    public static final Item CRAFTING_ON_A_STICK = registerItem("crafting_on_a_stick", new CraftingOnAStickItem(new Item.Settings().maxCount(1)));
+    public static final Item MOB_GRABBER = registerItem("mob_grabber", new MobGrabberItem(new Item.Settings().maxCount(1)));
+    public static final Item VOID_TOTEM = registerItem("void_totem", new VoidTotem(new Item.Settings().maxCount(1)));
+//    public static final Item MOD_TEST = registerItem("mod_test", new ModTestItem(new Item.Settings().maxCount(1)));
+    public static final Item SNAIL_ITEM = registerItem("snail_item", new SnailItem(new Item.Settings().maxCount(1)));
+    public static final Item HOPPER_FILTER = registerItem("hopper_filter", new HopperFilterItem(
+            new Item.Settings()
+                    .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
+            ));
+    public static final Item BACKPACK = registerItem("backpack", new BackpackItem(
+            new Item.Settings()
+                    .maxCount(1)
+                    .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
+                    .component(ModComponents.FLUID_TANKS, FluidTanksComponent.createTanks(BackpackItem.CAPACITY))
+    ));
+    public static final Item PACKAGE = registerItem("package", new PackageItem(
+            new Item.Settings()
+                    .maxCount(1)
+                    .component(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT)
+    ));
     public static final Item PINK_QUARTZ = registerItem("pink_quartz", new Item(
-            new FabricItemSettings()
+            new Item.Settings()
                     .food(
                             new FoodComponent.Builder()
                                     .alwaysEdible()
-                                    .hunger(4)
+                                    .nutrition(4)
                                     .saturationModifier(1.2f)
                                     .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
                                     .build()
                     )
             ));
 
-    public static final Item TERRORIST_DOG_REMOTE = registerItem("terrorist_dog_remote", new TerroristDogRemoteItem(new FabricItemSettings().maxCount(1).maxDamage(32)));
-    public static final Item TERRORIST_DOG = registerItem("terrorist_dog", new TerroristDogItem(new FabricItemSettings().maxCount(16)));
+    public static final Item TERRORIST_DOG_REMOTE = registerItem("terrorist_dog_remote", new TerroristDogRemoteItem(new Item.Settings().maxCount(1).maxDamage(32)));
+    public static final Item TERRORIST_DOG = registerItem("terrorist_dog", new TerroristDogItem(new Item.Settings().maxCount(16)));
 
     private static Item registerItem(String name, Item item) {
         return registerItem(name, item, true);
     }
 
     private static Item registerItem(String name, Item item, boolean addToGroupTab) {
-        Item registered = Registry.register(Registries.ITEM, new Identifier(NexusUtils.MOD_ID, name), item);
+        Item registered = Registry.register(Registries.ITEM, NexusUtils.idOf(name), item);
         if(addToGroupTab) addItemToCategory(registered);
         return registered;
     }

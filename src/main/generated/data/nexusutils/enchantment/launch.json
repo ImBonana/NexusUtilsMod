@@ -1,0 +1,55 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.nexusutils.launch"
+  },
+  "effects": {
+    "nexusutils:on_right_click": [
+      {
+        "effect": {
+          "type": "minecraft:all_of",
+          "effects": [
+            {
+              "type": "nexusutils:launch_forward",
+              "power": {
+                "type": "minecraft:linear",
+                "base": 1.0,
+                "per_level_above_first": 1.0
+              }
+            },
+            {
+              "type": "nexusutils:item_cooldown",
+              "cooldown": {
+                "type": "minecraft:linear",
+                "base": 50.0,
+                "per_level_above_first": 20.0
+              }
+            },
+            {
+              "type": "nexusutils:swing_hand"
+            }
+          ]
+        },
+        "requirements": {
+          "condition": "nexusutils:item_cooldown",
+          "entity": "this",
+          "onCooldown": false
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 9
+  },
+  "max_level": 2,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 9
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:enchantable/sword",
+  "weight": 2
+}

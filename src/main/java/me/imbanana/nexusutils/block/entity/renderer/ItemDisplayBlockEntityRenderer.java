@@ -26,6 +26,9 @@ public class ItemDisplayBlockEntityRenderer implements BlockEntityRenderer<ItemD
     public void render(ItemDisplayBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
         ItemStack stack = entity.getRenderStack();
+        World world = entity.getWorld();
+        if(world == null) return;
+
         matrices.push();
 
         matrices.translate(0.5f, stack.getItem() instanceof BlockItem ? 0.3f : 0.4f, 0.5f);
@@ -33,7 +36,7 @@ public class ItemDisplayBlockEntityRenderer implements BlockEntityRenderer<ItemD
         itemRenderer.renderItem(
                 stack,
                 ModelTransformationMode.GROUND,
-                getLightLevel(entity.getWorld(), entity.getPos()),
+                getLightLevel(world, entity.getPos()),
                 OverlayTexture.DEFAULT_UV,
                 matrices,
                 vertexConsumers,

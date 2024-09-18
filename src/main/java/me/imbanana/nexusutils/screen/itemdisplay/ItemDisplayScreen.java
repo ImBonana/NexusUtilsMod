@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ItemDisplayScreen extends HandledScreen<ItemDisplayScreenHandler> {
-   private static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/gui/container/item_display.png");
+   private static final Identifier TEXTURE = NexusUtils.idOf("textures/gui/container/item_display.png");
 
     public ItemDisplayScreen(ItemDisplayScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

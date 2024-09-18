@@ -8,7 +8,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class BackpackEntityModel extends Model {
-	public static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/entity/backpack.png");
+	public static final Identifier TEXTURE = NexusUtils.idOf("textures/entity/backpack.png");
 
 	private final ModelPart backpack;
 	private final ModelPart sleepingBag;
@@ -18,6 +18,7 @@ public class BackpackEntityModel extends Model {
 		this.backpack = root.getChild("backpack");
 		this.sleepingBag = root.getChild("sleeping_bag");
 	}
+
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
@@ -58,13 +59,13 @@ public class BackpackEntityModel extends Model {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		this.backpack.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		this.sleepingBag.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
+		this.backpack.render(matrices, vertexConsumer, light, overlay, color);
+		this.sleepingBag.render(matrices, vertexConsumer, light, overlay, color);
 	}
 
-	public void render(boolean showSleepingBag, MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		this.backpack.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		if(showSleepingBag) this.sleepingBag.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color, boolean showSleepingBag) {
+		this.backpack.render(matrices, vertexConsumer, light, overlay, color);
+		if(showSleepingBag) this.sleepingBag.render(matrices, vertexConsumer, light, overlay, color);
 	}
 }

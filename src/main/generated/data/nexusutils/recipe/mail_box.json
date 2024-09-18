@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "L": {
+      "item": "minecraft:light_blue_concrete"
+    }
+  },
+  "pattern": [
+    "ICI",
+    " I ",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nexusutils:mail_box"
+  }
+}

@@ -8,7 +8,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -79,14 +78,13 @@ public class PostBoxBlock extends HorizontalFacingBlock {
         Direction direction = state.get(FACING);
 
         return switch (direction) {
-            default -> NORMAL_SHAPE;
-
             case EAST, WEST -> SIDE_SHAPE;
+            default -> NORMAL_SHAPE;
         };
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }

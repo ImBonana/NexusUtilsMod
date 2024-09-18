@@ -1,0 +1,44 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.nexusutils.twinge"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "max_amplifier": 0.0,
+          "max_duration": {
+            "type": "minecraft:linear",
+            "base": 3.0,
+            "per_level_above_first": 4.0
+          },
+          "min_amplifier": 0.0,
+          "min_duration": {
+            "type": "minecraft:linear",
+            "base": 2.0,
+            "per_level_above_first": 4.0
+          },
+          "to_apply": "nexusutils:bleed"
+        },
+        "enchanted": "attacker"
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 0
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/trident",
+  "weight": 2
+}

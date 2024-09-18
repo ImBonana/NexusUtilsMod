@@ -1,6 +1,6 @@
 package me.imbanana.nexusutils.util;
 
-import me.imbanana.nexusutils.mixin.sit.SitLivingEntityAccessor;
+import me.imbanana.nexusutils.mixin.SitLivingEntityAccessor;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.entity.Entity;
@@ -24,7 +24,7 @@ import java.util.UUID;
 
 public class SitHandler {
     private final static Map<UUID, Long> cooldowns = new HashMap<>();
-    private final static Map<Integer, DisplayEntity.TextDisplayEntity> seats = new HashMap<Integer, DisplayEntity.TextDisplayEntity>();
+    private final static Map<Integer, DisplayEntity.TextDisplayEntity> seats = new HashMap<>();
 
 
     public static void tryToSit(ServerPlayerEntity player) {

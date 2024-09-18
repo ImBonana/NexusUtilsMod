@@ -1,57 +1,44 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
+import net.minecraft.enchantment.effect.entity.ApplyMobEffectEnchantmentEffect;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.provider.number.EnchantmentLevelLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.registry.tag.ItemTags;
 
-import java.util.Random;
-
-public class PoisonEnchantment extends Enchantment implements TradableEnchantment {
-    public PoisonEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 2;
-    }
-
-    @Override
-    public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(!(target instanceof LivingEntity livingTarget)) return;
-
-        if(new Random().nextInt(1, 11) <= level) {
-            livingTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 30 + (level * 30), 0));
-        }
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 45;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 30;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class PoisonEnchantment extends NexusEnchantment {
+    public PoisonEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                    Enchantment.definition(
+                            itemLookup.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                            2,
+                            2,
+                            Enchantment.leveledCost(4, 8),
+                            Enchantment.leveledCost(25, 8),
+                            4,
+                            AttributeModifierSlot.MAINHAND
+                    )
+            ).addEffect(
+                    EnchantmentEffectComponentTypes.POST_ATTACK,
+                    EnchantmentEffectTarget.ATTACKER,
+                    EnchantmentEffectTarget.VICTIM,
+                    new ApplyMobEffectEnchantmentEffect(
+                            RegistryEntryList.of(StatusEffects.POISON),
+                            EnchantmentLevelBasedValue.linear(5),
+                            EnchantmentLevelBasedValue.linear(5),
+                            EnchantmentLevelBasedValue.constant(0),
+                            EnchantmentLevelBasedValue.constant(0)
+                    ),
+                    RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.linear(0.10f)))
+            )
+        );
     }
 }

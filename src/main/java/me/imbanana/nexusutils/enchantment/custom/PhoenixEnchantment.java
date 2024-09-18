@@ -1,42 +1,28 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.ItemTags;
 
-public class PhoenixEnchantment extends Enchantment implements TradableEnchantment {
-    public PhoenixEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 55;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 43;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class PhoenixEnchantment extends NexusEnchantment {
+    public PhoenixEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ItemTags.HEAD_ARMOR_ENCHANTABLE),
+                                2,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(65),
+                                8,
+                                AttributeModifierSlot.HEAD
+                        )
+                ).addEffect(
+                        ModEnchantmentEffectComponentTypes.PHOENIX
+                        // the chances are in the living entity mixin
+                )
+        );
     }
 }

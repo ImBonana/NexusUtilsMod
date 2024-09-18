@@ -24,43 +24,55 @@ public class InventorySorter {
     public static void sortCurrentlyOpenInventory(ServerPlayerEntity player) {
         try {
             ScreenHandler screenHandler = player.currentScreenHandler;
-            if(screenHandler == null){
-                NexusUtils.LOGGER.error("Sorting failed, because screenHandler is null.");
-                return;
-            }
-            if (screenHandler instanceof GenericContainerScreenHandler genericContainerScreenHandler) {
-                if (canPlayerUse(player, screenHandler)) return;
+            switch (screenHandler) {
+                case null -> {
+                    NexusUtils.LOGGER.error("Sorting failed, because screenHandler is null.");
+                }
 
-                Inventory containerInventory = genericContainerScreenHandler.getInventory();
-                InventorySorter.sortInventory(containerInventory);
-                containerInventory.markDirty();
-            } else if (screenHandler instanceof IShulkerBoxScreenHandler shulkerBoxScreenHandler) {
-                if (canPlayerUse(player, screenHandler)) return;
+                case GenericContainerScreenHandler genericContainerScreenHandler -> {
+                    if (canPlayerUse(player, screenHandler)) return;
 
-                Inventory containerInventory = shulkerBoxScreenHandler.nexusUtils$getInventory();
-                InventorySorter.sortInventory(containerInventory);
-                containerInventory.markDirty();
-            } else if (screenHandler instanceof CopperHopperScreenHandler copperHopperScreenHandler) {
-                if (canPlayerUse(player, screenHandler)) return;
+                    Inventory containerInventory = genericContainerScreenHandler.getInventory();
+                    InventorySorter.sortInventory(containerInventory);
+                    containerInventory.markDirty();
+                }
 
-                Inventory containerInventory = copperHopperScreenHandler.getInventory();
-                InventorySorter.sortInventory(containerInventory);
-                containerInventory.markDirty();
-            } else if(screenHandler instanceof HopperScreenHandler hopperScreenHandler) {
-                if (canPlayerUse(player, screenHandler)) return;
+                case IShulkerBoxScreenHandler shulkerBoxScreenHandler -> {
+                    if (canPlayerUse(player, screenHandler)) return;
 
-                Inventory containerInventory = ((HopperScreenHandlerAccessor) hopperScreenHandler).getInventory();
-                InventorySorter.sortInventory(containerInventory);
-                containerInventory.markDirty();
-            } else if(screenHandler instanceof BackpackScreenHandler backpackScreenHandler) {
-                if (canPlayerUse(player, screenHandler)) return;
+                    Inventory containerInventory = shulkerBoxScreenHandler.nexusUtils$getInventory();
+                    InventorySorter.sortInventory(containerInventory);
+                    containerInventory.markDirty();
+                }
 
-                Inventory containerInventory = backpackScreenHandler.getInventory();
-                InventorySorter.sortInventory(containerInventory);
-                containerInventory.markDirty();
-            } else {
-                String currentScreenHandlerReturnType = screenHandler.getClass().getName();
-                NexusUtils.LOGGER.warn("player.currentScreenHandler returned {}, which does not work with Simple Sorting.", currentScreenHandlerReturnType);
+                case CopperHopperScreenHandler copperHopperScreenHandler -> {
+                    if (canPlayerUse(player, screenHandler)) return;
+
+                    Inventory containerInventory = copperHopperScreenHandler.getInventory();
+                    InventorySorter.sortInventory(containerInventory);
+                    containerInventory.markDirty();
+                }
+
+                case HopperScreenHandler hopperScreenHandler -> {
+                    if (canPlayerUse(player, screenHandler)) return;
+
+                    Inventory containerInventory = ((HopperScreenHandlerAccessor) hopperScreenHandler).getInventory();
+                    InventorySorter.sortInventory(containerInventory);
+                    containerInventory.markDirty();
+                }
+
+                case BackpackScreenHandler backpackScreenHandler -> {
+                    if (canPlayerUse(player, screenHandler)) return;
+
+                    Inventory containerInventory = backpackScreenHandler.getInventory();
+                    InventorySorter.sortInventory(containerInventory);
+                    containerInventory.markDirty();
+                }
+
+                default -> {
+                    String currentScreenHandlerReturnType = screenHandler.getClass().getName();
+                    NexusUtils.LOGGER.warn("player.currentScreenHandler returned {}, which does not work with Simple Sorting.", currentScreenHandlerReturnType);
+                }
             }
         } catch (Exception e) {
             NexusUtils.LOGGER.error("Sorting failed, because of this exception: {}", e.getMessage());

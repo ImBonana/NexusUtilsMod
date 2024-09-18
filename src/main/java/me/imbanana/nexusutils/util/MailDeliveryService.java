@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
@@ -28,7 +29,7 @@ public class MailDeliveryService extends PersistentState {
     }
 
     public static PersistentState.Type<MailDeliveryService> getPersistentStateType(ServerWorld world) {
-        return new PersistentState.Type<>(() -> new MailDeliveryService(world), nbt -> MailDeliveryService.fromNbt(world, nbt), null);
+        return new PersistentState.Type<>(() -> new MailDeliveryService(world), (nbt, wrapperLookup) -> MailDeliveryService.fromNbt(world, nbt), null);
     }
 
     public void createMailBox(MailBox mailBox) {
@@ -90,7 +91,7 @@ public class MailDeliveryService extends PersistentState {
 
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         NbtList nbtList = new NbtList();
         for (MailBox mailBox : this.mailBoxes.values()) {
             NbtCompound nbtCompound = new NbtCompound();

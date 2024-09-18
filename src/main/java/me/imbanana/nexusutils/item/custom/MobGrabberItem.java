@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.item.custom;
 
-import me.imbanana.nexusutils.NexusUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

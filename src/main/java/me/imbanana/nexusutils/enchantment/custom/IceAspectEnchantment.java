@@ -1,65 +1,45 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.tags.ModEnchantmentTags;
+import me.imbanana.nexusutils.tags.ModItemTags;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
+import net.minecraft.enchantment.effect.entity.ApplyMobEffectEnchantmentEffect;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.provider.number.EnchantmentLevelLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntryList;
 
-import java.util.Random;
-
-public class IceAspectEnchantment extends Enchantment implements TradableEnchantment {
-    public IceAspectEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(!(target instanceof LivingEntity livingTarget)) return;
-
-        if(new Random().nextInt(1, 6) <= level) {
-            livingTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 30 + (level * 30), level-1));
-        }
-
-        super.onTargetDamaged(user, target, level);
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 2;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    protected boolean canAccept(Enchantment other) {
-        return super.canAccept(other) && other != Enchantments.FIRE_ASPECT;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 50;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 30;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class IceAspectEnchantment extends NexusEnchantment {
+    public IceAspectEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                    Enchantment.definition(
+                            itemLookup.getOrThrow(ModItemTags.ICE_ASPECT_ENCHANTABLE),
+                            2,
+                            2,
+                            Enchantment.leveledCost(10, 20),
+                            Enchantment.leveledCost(60, 20),
+                            4,
+                            AttributeModifierSlot.MAINHAND
+                    )
+            ).addEffect(
+                        EnchantmentEffectComponentTypes.POST_ATTACK,
+                        EnchantmentEffectTarget.ATTACKER,
+                        EnchantmentEffectTarget.VICTIM,
+                        new ApplyMobEffectEnchantmentEffect(
+                                RegistryEntryList.of(StatusEffects.SLOWNESS),
+                                EnchantmentLevelBasedValue.constant(2),
+                                EnchantmentLevelBasedValue.constant(4),
+                                EnchantmentLevelBasedValue.constant(0),
+                                EnchantmentLevelBasedValue.constant(0)
+                        ),
+                        RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.20f)))
+            ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.ICE_ASPECT_EXCLUSIVE_SET))
+        );
     }
 }

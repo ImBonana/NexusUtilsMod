@@ -5,7 +5,6 @@ import me.imbanana.nexusutils.block.entity.SleepingBagBlockEntity;
 import me.imbanana.nexusutils.block.enums.SleepingBagPart;
 import me.imbanana.nexusutils.item.backpack.BackpackItem;
 import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
-import me.imbanana.nexusutils.util.accessors.IPlayerInventory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Dismounting;
@@ -16,7 +15,6 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -24,7 +22,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -73,15 +70,15 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient) {
             return ActionResult.CONSUME;
         }
         if (state.get(PART) != SleepingBagPart.HEAD && !(state = world.getBlockState(pos = pos.offset(state.get(FACING)))).isOf(this)) {
             return ActionResult.CONSUME;
         }
-        ItemStack backpackItem = ((IPlayerInventory) player.getInventory()).nexusUtils$getBackpackItemStack();
-        if(player.isSneaking() && !backpackItem.isEmpty() && backpackItem.getItem() instanceof BackpackItem) {
+        ItemStack backpackItem = player.getInventory().nexusUtils$getBackpackItemStack();
+        if(player.isSneaking() && player.getInventory().nexusUtils$isBackapckEquipped() && backpackItem.getItem() instanceof BackpackItem) {
             BackpackInventory backpackInventory = new BackpackInventory(backpackItem);
             if(backpackInventory.getSleepingBag().isEmpty()) {
                 world.removeBlock(pos, false);
@@ -103,7 +100,7 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
             world.createExplosion(null, world.getDamageSources().badRespawnPoint(vec3d), null, vec3d, 5.0f, true, World.ExplosionSourceType.BLOCK);
             return ActionResult.SUCCESS;
         }
-        if (state.get(OCCUPIED).booleanValue()) {
+        if (state.get(OCCUPIED)) {
             player.sendMessage(Text.translatable("block.nexusutils.sleeping_bag.occupied"), true);
             return ActionResult.SUCCESS;
         }
@@ -302,7 +299,7 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     }
 
     @Override
-    public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+    protected boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
     }
 

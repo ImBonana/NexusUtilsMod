@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:enchantable/mining",
+    "#minecraft:enchantable/weapon",
+    "#nexusutils:enchantable/ranged_weapon"
+  ]
+}

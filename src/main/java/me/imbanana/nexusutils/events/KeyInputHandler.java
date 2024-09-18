@@ -1,10 +1,11 @@
 package me.imbanana.nexusutils.events;
 
-import me.imbanana.nexusutils.networking.ModPackets;
+import me.imbanana.nexusutils.networking.ModNetwork;
+import me.imbanana.nexusutils.networking.packets.OpenBackpackPacket;
+import me.imbanana.nexusutils.networking.packets.PlaceSleepingBagBackpackPacket;
+import me.imbanana.nexusutils.networking.packets.SitPacket;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
@@ -22,15 +23,15 @@ public class KeyInputHandler {
     public static void registerKeyInput() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(sitKey.wasPressed()) {
-                ClientPlayNetworking.send(ModPackets.SIT_ID, PacketByteBufs.create());
+                ModNetwork.NETWORK_CHANNEL.clientHandle().send(new SitPacket());
             }
 
             if(openBackpackKey.wasPressed()) {
-                ClientPlayNetworking.send(ModPackets.OPEN_BACKPACK, PacketByteBufs.create());
+                ModNetwork.NETWORK_CHANNEL.clientHandle().send(new OpenBackpackPacket());
             }
 
             if(backpackSleepingBagKey.wasPressed()) {
-                ClientPlayNetworking.send(ModPackets.PLACE_SLEEPING_BAG_BACKPACK, PacketByteBufs.create());
+                ModNetwork.NETWORK_CHANNEL.clientHandle().send(new PlaceSleepingBagBackpackPacket());
             }
         });
     }

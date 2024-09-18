@@ -1,42 +1,33 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.tags.ModItemTags;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.value.MultiplyEnchantmentEffect;
+import net.minecraft.registry.RegistryKey;
 
-public class ExperienceEnchantment extends Enchantment implements TradableEnchantment {
-    public ExperienceEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 3;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 45;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 25;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class ExperienceEnchantment extends NexusEnchantment {
+    public ExperienceEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                    Enchantment.definition(
+                            itemLookup.getOrThrow(ModItemTags.EXPERIENCE_ENCHANTABLE),
+                            2,
+                            3,
+                            Enchantment.leveledCost(15, 9),
+                            Enchantment.leveledCost(65, 9),
+                            4,
+                            AttributeModifierSlot.MAINHAND
+                    )
+            ).addEffect(
+                    EnchantmentEffectComponentTypes.MOB_EXPERIENCE,
+                    new MultiplyEnchantmentEffect(EnchantmentLevelBasedValue.linear(1.3f, 0.1f))
+            ).addEffect(
+                    EnchantmentEffectComponentTypes.BLOCK_EXPERIENCE,
+                    new MultiplyEnchantmentEffect(EnchantmentLevelBasedValue.linear(1.3f, 0.1f))
+            )
+        );
     }
 }

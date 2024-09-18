@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.block.entity;
 
 import me.imbanana.nexusutils.block.custom.MailBoxBlock;
+import me.imbanana.nexusutils.networking.packets.screens.BlockEntityScreenOpeningData;
 import me.imbanana.nexusutils.screen.mailbox.MailBoxScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -11,10 +12,10 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -23,7 +24,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class MailBoxBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, Nameable {
+public class MailBoxBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockEntityScreenOpeningData>, ImplementedInventory, Nameable {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
     private Text customName;
 
@@ -50,8 +51,8 @@ public class MailBoxBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.pos);
+    public BlockEntityScreenOpeningData getScreenOpeningData(ServerPlayerEntity player) {
+        return new BlockEntityScreenOpeningData(this.pos);
     }
 
     @Override
@@ -78,20 +79,20 @@ public class MailBoxBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory);
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+        Inventories.writeNbt(nbt, inventory, registryLookup);
         if (this.hasCustomName()) {
-            nbt.putString("CustomName", Text.Serialization.toJsonString(this.customName));
+            nbt.putString("CustomName", Text.Serialization.toJsonString(this.customName, registryLookup));
         }
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        Inventories.readNbt(nbt, inventory);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
+        Inventories.readNbt(nbt, inventory, registryLookup);
         if (nbt.contains("CustomName", NbtElement.STRING_TYPE)) {
-            this.customName = Text.Serialization.fromJson(nbt.getString("CustomName"));
+            this.customName = Text.Serialization.fromJson(nbt.getString("CustomName"), registryLookup);
         }
     }
 
@@ -100,8 +101,8 @@ public class MailBoxBlockEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
+        return createNbt(registryLookup);
     }
 
     @Nullable

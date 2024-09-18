@@ -10,7 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class SnailRenderer extends MobEntityRenderer<SnailEntity, SnailModel<SnailEntity>> {
-    private static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/entity/snail.png");
+    private static final Identifier TEXTURE = NexusUtils.idOf("textures/entity/snail.png");
 
     public SnailRenderer(EntityRendererFactory.Context context) {
         super(context, new SnailModel<>(context.getPart(ModModelLayers.SNAIL)), 0.3f);

@@ -1,49 +1,27 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.ItemTags;
 
-public class ReplanterEnchantment extends Enchantment implements TradableEnchantment {
-    public ReplanterEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() instanceof HoeItem;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 35;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 20;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class ReplanterEnchantment extends NexusEnchantment {
+    public ReplanterEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                    Enchantment.definition(
+                            itemLookup.getOrThrow(ItemTags.MINING_ENCHANTABLE),
+                            1,
+                            1,
+                            Enchantment.constantCost(15),
+                            Enchantment.constantCost(45),
+                            4,
+                            AttributeModifierSlot.MAINHAND
+                    )
+            ).addEffect(
+                    ModEnchantmentEffectComponentTypes.REPLANTER
+            )
+        );
     }
 }

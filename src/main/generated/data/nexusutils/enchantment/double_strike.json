@@ -1,0 +1,37 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.nexusutils.double_strike"
+  },
+  "effects": {
+    "minecraft:damage": [
+      {
+        "effect": {
+          "type": "minecraft:multiply",
+          "factor": 2.0
+        },
+        "requirements": {
+          "chance": {
+            "type": "minecraft:enchantment_level",
+            "amount": 0.1
+          },
+          "condition": "minecraft:random_chance"
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 65,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/sword",
+  "weight": 1
+}

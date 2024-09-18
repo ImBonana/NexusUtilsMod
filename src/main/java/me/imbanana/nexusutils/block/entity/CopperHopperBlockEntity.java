@@ -3,24 +3,26 @@ package me.imbanana.nexusutils.block.entity;
 import me.imbanana.nexusutils.block.custom.CopperHopperBlock;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.custom.HopperFilterItem;
+import me.imbanana.nexusutils.networking.packets.screens.BlockEntityScreenOpeningData;
 import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -34,15 +36,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory, Hopper {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(6, ItemStack.EMPTY);
+public class CopperHopperBlockEntity extends LootableContainerBlockEntity implements ExtendedScreenHandlerFactory<BlockEntityScreenOpeningData>, ImplementedInventory, Hopper {
+    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(6, ItemStack.EMPTY);
 
     protected final PropertyDelegate propertyDelegate;
 
-    private boolean whitelist = true;
+    private boolean whitelistMode = true;
 
     private static final int FILTER_SLOT = 0;
     private int transferCooldown = -1;
@@ -69,7 +70,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
             @Override
             public int get(int index) {
                 if(index == 0) {
-                    return CopperHopperBlockEntity.this.whitelist ? 1 : 0;
+                    return CopperHopperBlockEntity.this.whitelistMode ? 1 : 0;
                 }
 
                 return 0;
@@ -78,7 +79,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
             @Override
             public void set(int index, int value) {
                 if (index == 0) {
-                    CopperHopperBlockEntity.this.whitelist = (value == 1);
+                    CopperHopperBlockEntity.this.whitelistMode = (value == 1);
                 }
             }
 
@@ -89,8 +90,8 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         };
     }
 
-    public void setWhitelist(boolean value) {
-        this.whitelist = value;
+    public void setWhitelistMode(boolean value) {
+        this.whitelistMode = value;
     }
 
     @Override
@@ -105,34 +106,44 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.pos);
+    public BlockEntityScreenOpeningData getScreenOpeningData(ServerPlayerEntity player) {
+        return new BlockEntityScreenOpeningData(this.pos);
     }
 
     @Override
-    public Text getDisplayName() {
+    protected Text getContainerName() {
         return Text.translatable("gui.nexusutils.copper_hopper");
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory);
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return this.inventory;
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+        Inventories.writeNbt(nbt, inventory, registryLookup);
         nbt.putInt("TransferCooldown", this.transferCooldown);
-        nbt.putBoolean("IsWhitelist", this.whitelist);
+        nbt.putBoolean("IsWhitelist", this.whitelistMode);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        Inventories.readNbt(nbt, inventory);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
+        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
+        if(!this.readLootTable(nbt)) Inventories.readNbt(nbt, inventory, registryLookup);
         this.transferCooldown = nbt.getInt("TransferCooldown");
-        this.whitelist = nbt.getBoolean("IsWhitelist");
+        this.whitelistMode = nbt.getBoolean("IsWhitelist");
     }
 
-    @Nullable
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new CopperHopperScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
@@ -142,16 +153,10 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
-    @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
-    }
-
-
     public static void serverTick(World world, BlockPos pos, BlockState state, CopperHopperBlockEntity blockEntity) {
         --blockEntity.transferCooldown;
         blockEntity.lastTickTime = world.getTime();
-        if (!blockEntity.needsCooldown()) {
+        if (!blockEntity.inCooldown()) {
             blockEntity.setTransferCooldown(0);
             CopperHopperBlockEntity.insertAndExtract(world, pos, state, blockEntity, () -> CopperHopperBlockEntity.extract(world, blockEntity));
         }
@@ -161,7 +166,7 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         if (world.isClient) {
             return false;
         }
-        if (!blockEntity.needsCooldown() && state.get(CopperHopperBlock.ENABLED).booleanValue()) {
+        if (!blockEntity.inCooldown() && state.get(CopperHopperBlock.ENABLED)) {
             boolean bl = false;
             if (!blockEntity.isEmpty()) {
                 bl = CopperHopperBlockEntity.insert(world, pos, blockEntity);
@@ -176,6 +181,10 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
             }
         }
         return false;
+    }
+
+    public boolean canBlockFromAbove() {
+        return true;
     }
 
     private boolean isFull() {
@@ -309,18 +318,9 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
 
     private static ItemStack transfer(@Nullable Inventory from, Inventory to, ItemStack stack, int slot, @Nullable Direction side) {
         // my inject
-        if(to instanceof CopperHopperBlockEntity && slot == FILTER_SLOT) return stack;
-        if(to instanceof CopperHopperBlockEntity copperHopperBlockEntity) {
-            ItemStack filterItem = copperHopperBlockEntity.inventory.get(0);
-
-            if(filterItem.getItem() == ModItems.HOPPER_FILTER) {
-                NbtCompound filterNbt = filterItem.getOrCreateNbt();
-                DefaultedList<ItemStack> itemsToFilter = DefaultedList.ofSize(HopperFilterItem.INVENTORY_SIZE, ItemStack.EMPTY);
-                Inventories.readNbt(filterNbt, itemsToFilter);
-                if(shouldInvert(copperHopperBlockEntity.whitelist, filterHasItem(itemsToFilter, stack))) return stack;
-
-            } else if(!filterItem.isEmpty() && shouldInvert(copperHopperBlockEntity.whitelist, filterItem.getItem() == stack.getItem())) return stack;
-        }
+        if(to instanceof CopperHopperBlockEntity copperHopperBlockEntity
+                && (slot == FILTER_SLOT || !copperHopperBlockEntity.isItemAllowed(stack)))
+            return stack;
         // end
         ItemStack itemStack = to.getStack(slot);
         if (CopperHopperBlockEntity.canInsert(to, stack, slot, side)) {
@@ -367,7 +367,8 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     public static List<ItemEntity> getInputItemEntities(World world, Hopper hopper) {
-        return hopper.getInputAreaShape().getBoundingBoxes().stream().flatMap(box -> world.getEntitiesByClass(ItemEntity.class, box.offset(hopper.getHopperX() - 0.5, hopper.getHopperY() - 0.5, hopper.getHopperZ() - 0.5), EntityPredicates.VALID_ENTITY).stream()).collect(Collectors.toList());
+        Box box = hopper.getInputAreaShape().offset(hopper.getHopperX() - 0.5, hopper.getHopperY() - 0.5, hopper.getHopperZ() - 0.5);
+        return world.getEntitiesByClass(ItemEntity.class, box, EntityPredicates.VALID_ENTITY);
     }
 
     @Nullable
@@ -395,14 +396,14 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
     }
 
     private static boolean canMergeItems(ItemStack first, ItemStack second) {
-        return first.getCount() <= first.getMaxCount() && ItemStack.canCombine(first, second);
+        return first.getCount() <= first.getMaxCount() && ItemStack.areItemsAndComponentsEqual(first, second);
     }
 
     private void setTransferCooldown(int transferCooldown) {
         this.transferCooldown = transferCooldown;
     }
 
-    private boolean needsCooldown() {
+    private boolean inCooldown() {
         return this.transferCooldown > 0;
     }
 
@@ -419,21 +420,22 @@ public class CopperHopperBlockEntity extends BlockEntity implements ExtendedScre
         return false;
     }
 
-    private static boolean shouldInvert(boolean invert, boolean expr) {
-        return invert ? !expr : expr;
-    }
-
     private boolean isItemAllowed(ItemStack stack) {
         ItemStack filterItem = this.getStack(FILTER_SLOT);
-        if(filterItem.getItem() == ModItems.HOPPER_FILTER) {
-            NbtCompound filterNbt = filterItem.getOrCreateNbt();
-            DefaultedList<ItemStack> itemsToFilter = DefaultedList.ofSize(HopperFilterItem.INVENTORY_SIZE, ItemStack.EMPTY);
-            Inventories.readNbt(filterNbt, itemsToFilter);
-            return shouldInvert(!this.whitelist, filterHasItem(itemsToFilter, stack));
+        if(filterItem.isEmpty()) return true;
 
+        if(filterItem.getItem() == ModItems.HOPPER_FILTER) {
+            ContainerComponent containerComponent = filterItem.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT);
+            DefaultedList<ItemStack> itemsToFilter = DefaultedList.ofSize(HopperFilterItem.INVENTORY_SIZE, ItemStack.EMPTY);
+
+            containerComponent.copyTo(itemsToFilter);
+
+            boolean itemInFilter = filterHasItem(itemsToFilter, stack);
+            return this.whitelistMode ? itemInFilter : !itemInFilter;
         }
 
-        return shouldInvert(!this.whitelist, filterItem.getItem() == stack.getItem());
+        boolean isSameItem = filterItem.getItem() == stack.getItem();
+        return this.whitelistMode ? isSameItem : !isSameItem;
     }
 
     @Override

@@ -1,10 +1,10 @@
 package me.imbanana.nexusutils.item;
 
 import me.imbanana.nexusutils.util.ISimpleInventory;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ContainerComponent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 
 public class ItemInventory implements ISimpleInventory {
@@ -22,14 +22,14 @@ public class ItemInventory implements ISimpleInventory {
     }
 
     protected void init() {
-        NbtCompound itemNbt = this.item.getOrCreateNbt();
-        Inventories.readNbt(itemNbt, this.inventory);
+        ContainerComponent containerComponent = this.item.get(DataComponentTypes.CONTAINER);
+        if(containerComponent == null) return;
+        containerComponent.copyTo(this.inventory);
     }
 
     @Override
     public void markDirty() {
-        NbtCompound nbt = this.item.getOrCreateNbt();
-        Inventories.writeNbt(nbt, this.inventory);
+        this.item.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(this.inventory));
     }
 
     @Override

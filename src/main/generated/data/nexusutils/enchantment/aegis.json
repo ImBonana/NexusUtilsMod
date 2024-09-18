@@ -1,0 +1,41 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.nexusutils.aegis"
+  },
+  "effects": {
+    "nexusutils:on_fall": [
+      {
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "max_amplifier": 0.0,
+          "max_duration": 15.0,
+          "min_amplifier": 0.0,
+          "min_duration": 10.0,
+          "to_apply": "minecraft:speed"
+        },
+        "requirements": {
+          "condition": "nexusutils:entity_fall_distance",
+          "distance": {
+            "min": 4.0
+          },
+          "entity": "this"
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "feet"
+  ],
+  "supported_items": "#minecraft:enchantable/foot_armor",
+  "weight": 3
+}

@@ -1,15 +1,12 @@
 package me.imbanana.nexusutils.commands;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import io.wispforest.owo.offline.OfflineAdvancementLookup;
 import io.wispforest.owo.offline.OfflineDataLookup;
 import me.imbanana.nexusutils.NexusUtils;
 import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.argument.ArgumentTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
@@ -21,7 +18,6 @@ import net.minecraft.util.UserCache;
 import net.minecraft.util.Uuids;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import static net.minecraft.server.command.CommandManager.*;

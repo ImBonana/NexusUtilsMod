@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "G G",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nexusutils:item_display"
+  }
+}

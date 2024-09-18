@@ -1,0 +1,53 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.nexusutils.rocket_escape"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "nexusutils:launch_into_air",
+          "forwardPower": -3.0,
+          "upPower": 3.0
+        },
+        "enchanted": "victim",
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "nexusutils:entity_status",
+              "entity": "this",
+              "range": {
+                "max": 4.0
+              },
+              "statusType": "health"
+            },
+            {
+              "chance": {
+                "type": "minecraft:enchantment_level",
+                "amount": 0.25
+              },
+              "condition": "minecraft:random_chance"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "legs"
+  ],
+  "supported_items": "#minecraft:enchantable/leg_armor",
+  "weight": 2
+}

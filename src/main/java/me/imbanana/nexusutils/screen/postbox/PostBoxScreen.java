@@ -3,10 +3,9 @@ package me.imbanana.nexusutils.screen.postbox;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.NexusUtilsClient;
-import me.imbanana.nexusutils.networking.ModPackets;
+import me.imbanana.nexusutils.networking.ModNetwork;
+import me.imbanana.nexusutils.networking.packets.mail.SendMailPacket;
 import me.imbanana.nexusutils.util.MailBox;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.PlayerSkinDrawer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -19,7 +18,6 @@ import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -31,7 +29,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.*;
 
 public class PostBoxScreen extends HandledScreen<PostBoxScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/gui/container/post_box.png");
+    private static final Identifier TEXTURE = NexusUtils.idOf("textures/gui/container/post_box.png");
     private static final List<MailBox> MAIL_BOXES_CACHE = new ArrayList<>();
     private static boolean mailBoxesDirty = false;
 
@@ -327,11 +325,7 @@ public class PostBoxScreen extends HandledScreen<PostBoxScreenHandler> {
 
         @Override
         public void onPress() {
-            PacketByteBuf packet = PacketByteBufs.create();
-            packet.writeString(PostBoxScreen.this.message);
-            PostBoxScreen.this.selected.toPacket(packet);
-
-            ClientPlayNetworking.send(ModPackets.SEND_MAIL, packet);
+            ModNetwork.NETWORK_CHANNEL.clientHandle().send(new SendMailPacket(PostBoxScreen.this.selected, PostBoxScreen.this.message));
         }
 
         @Override

@@ -2,27 +2,25 @@ package me.imbanana.nexusutils.block.entity;
 
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.ModBlocks;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
 public class ModBlockEntities {
     public static final BlockEntityType<ItemDisplayBlockEntity> ITEM_DISPLAY_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "item_display_be"),
-                    FabricBlockEntityTypeBuilder.create(ItemDisplayBlockEntity::new, ModBlocks.ITEM_DISPLAY).build());
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("item_display_be"),
+                    BlockEntityType.Builder.create(ItemDisplayBlockEntity::new, ModBlocks.ITEM_DISPLAY).build());
 
     public static final BlockEntityType<CopperHopperBlockEntity> COPPER_HOPPER_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "copper_hopper_be"),
-                    FabricBlockEntityTypeBuilder.create(CopperHopperBlockEntity::new, ModBlocks.COPPER_HOPPER).build());
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("copper_hopper_be"),
+                    BlockEntityType.Builder.create(CopperHopperBlockEntity::new, ModBlocks.COPPER_HOPPER).build());
     public static final BlockEntityType<MailBoxBlockEntity> MAIL_BOX_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "mail_box_be"),
-                    FabricBlockEntityTypeBuilder.create(MailBoxBlockEntity::new, ModBlocks.MAIL_BOX).build());
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("mail_box_be"),
+                    BlockEntityType.Builder.create(MailBoxBlockEntity::new, ModBlocks.MAIL_BOX).build());
 
     public static final BlockEntityType<SleepingBagBlockEntity> SLEEPING_BAG_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(NexusUtils.MOD_ID, "sleeping_bag_be"),
-                    FabricBlockEntityTypeBuilder.create(
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("sleeping_bag_be"),
+                    BlockEntityType.Builder.create(
                             SleepingBagBlockEntity::new,
 
                             ModBlocks.BLACK_SLEEPING_BAG,

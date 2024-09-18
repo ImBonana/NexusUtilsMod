@@ -1,16 +1,16 @@
 package me.imbanana.nexusutils.screen.backpack;
 
+import me.imbanana.nexusutils.networking.packets.screens.ItemInventoryOpeningData;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-public class BackpackScreenHandlerFactory implements ExtendedScreenHandlerFactory {
+public class BackpackScreenHandlerFactory implements ExtendedScreenHandlerFactory<ItemInventoryOpeningData> {
 
     private final ItemStack stack;
 
@@ -19,8 +19,8 @@ public class BackpackScreenHandlerFactory implements ExtendedScreenHandlerFactor
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeItemStack(this.stack);
+    public ItemInventoryOpeningData getScreenOpeningData(ServerPlayerEntity player) {
+        return new ItemInventoryOpeningData(this.stack);
     }
 
     @Override

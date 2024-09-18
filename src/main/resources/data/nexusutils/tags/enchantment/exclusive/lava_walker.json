@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "nexusutils:lava_walker",
+    "minecraft:frost_walker"
+  ]
+}

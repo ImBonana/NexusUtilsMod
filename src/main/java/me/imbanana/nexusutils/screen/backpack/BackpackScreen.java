@@ -6,7 +6,6 @@ import me.imbanana.nexusutils.NexusUtilsClient;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/gui/container/backpack.png");
+    private static final Identifier TEXTURE = NexusUtils.idOf("textures/gui/container/backpack.png");
 
     public BackpackScreen(BackpackScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -100,14 +99,14 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
         return this.x + tankX <= mouseX && mouseX <= tankX + tankWidth + this.x && tankY + this.y <= mouseY && mouseY <= tankY + tankHeight + this.y;
     }
 
-    private List<Text> getTankTooltip(SingleVariantStorage<FluidVariant> fluidStorage) {
-        FluidVariant fluidVariant = fluidStorage.getResource();
+    private List<Text> getTankTooltip(FluidTank fluidTank) {
+        FluidVariant fluidVariant = fluidTank.getResource();
 
         List<Text> tankTips = new ArrayList<>();
         MutableText fluidName = !fluidVariant.isBlank() ? FluidVariantAttributes.getName(fluidVariant).copy() : Text.translatable("screen.nexusutils.backpack.tank.none");
-        Text fluidAmount = !fluidVariant.isBlank() ? Text.literal(fluidStorage.getAmount() + "/" + fluidStorage.getCapacity()) : Text.translatable("screen.nexusutils.backpack.tank.empty");
+        Text fluidAmount = !fluidVariant.isBlank() ? Text.literal(fluidTank.getAmount() + "/" + fluidTank.getCapacity()) : Text.translatable("screen.nexusutils.backpack.tank.empty");
 
-        if(fluidName != null && !fluidStorage.isResourceBlank()) {
+        if(fluidName != null && !fluidTank.isResourceBlank()) {
             int color = FluidVariantRendering.getColor(fluidVariant);
 
             if(color < 0 && (fluidVariant.getFluid() == Fluids.LAVA || fluidVariant.getFluid() == Fluids.FLOWING_LAVA))
@@ -117,21 +116,21 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
         }
         tankTips.add(fluidAmount);
 
-        if (!fluidStorage.isResourceBlank() && MinecraftClient.getInstance().options.advancedItemTooltips) {
+        if (!fluidTank.isResourceBlank() && MinecraftClient.getInstance().options.advancedItemTooltips) {
             tankTips.add(Text.literal(Registries.FLUID.getId(fluidVariant.getFluid()).toString()).formatted(Formatting.DARK_GRAY));
         }
 
         return tankTips;
     }
 
-    private void drawTank(DrawContext context, SingleVariantStorage<FluidVariant> fluidStorage, int x) {
+    private void drawTank(DrawContext context, FluidTank fluidTank, int x) {
         renderFluid(
                 context,
-                fluidStorage.variant,
+                fluidTank.variant,
                 this.x + x,
                 this.y + 66,
                 0,
-                (int) Math.floor(((double) fluidStorage.amount / fluidStorage.getCapacity()) * 44),
+                (int) Math.floor(((double) fluidTank.amount / fluidTank.getCapacity()) * 44),
                 16
         );
 
@@ -160,7 +159,6 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
                 int drawHeight = Math.min(height - j, 16);
 
                 int drawX = x + i;
-//                int drawY = y + j + height;
                 int drawY = y + j - height;
 
                 float minU = texture.getMinU();
@@ -169,13 +167,12 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
                 float maxU = texture.getMaxU();
                 float maxV = texture.getMaxV();
 
-                BufferBuilder builder = Tessellator.getInstance().getBuffer();
+                BufferBuilder builder =  Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
                 Matrix4f matrix4f = context.getMatrices().peek().getPositionMatrix();
-                builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-                builder.vertex(matrix4f, drawX, drawY + drawHeight, (float)z).texture(minU, minV + (maxV - minV) * (float)drawHeight / 16F).next();
-                builder.vertex(matrix4f, drawX + drawWidth, drawY + drawHeight, (float)z).texture(minU + (maxU - minU) * (float)drawWidth / 16F, minV + (maxV - minV) * drawHeight / 16F).next();
-                builder.vertex(matrix4f, drawX + drawWidth, drawY, (float)z).texture(minU + (maxU - minU) * drawWidth / 16F, minV).next();
-                builder.vertex(matrix4f, drawX, drawY, (float)z).texture(minU, minV).next();
+                builder.vertex(matrix4f, drawX, drawY + drawHeight, (float)z).texture(minU, minV + (maxV - minV) * (float)drawHeight / 16F);
+                builder.vertex(matrix4f, drawX + drawWidth, drawY + drawHeight, (float)z).texture(minU + (maxU - minU) * (float)drawWidth / 16F, minV + (maxV - minV) * drawHeight / 16F);
+                builder.vertex(matrix4f, drawX + drawWidth, drawY, (float)z).texture(minU + (maxU - minU) * drawWidth / 16F, minV);
+                builder.vertex(matrix4f, drawX, drawY, (float)z).texture(minU, minV);
                 BufferRenderer.drawWithGlobalProgram(builder.end());
             }
         }

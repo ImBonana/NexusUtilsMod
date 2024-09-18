@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class MailBoxScreen extends HandledScreen<MailBoxScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/gui/container/mail_box.png");
+    private static final Identifier TEXTURE = NexusUtils.idOf("textures/gui/container/mail_box.png");
 
     public MailBoxScreen(MailBoxScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

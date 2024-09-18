@@ -1,21 +1,14 @@
 package me.imbanana.nexusutils.screen.backpack;
 
+import me.imbanana.nexusutils.components.ModComponents;
+import me.imbanana.nexusutils.components.custom.FluidTanksComponent;
 import me.imbanana.nexusutils.item.ItemInventory;
 import me.imbanana.nexusutils.item.backpack.BackpackItem;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 
 public class BackpackInventory extends ItemInventory {
-    private SingleVariantStorage<FluidVariant> leftTank;
-    private SingleVariantStorage<FluidVariant> rightTank;
-
-
-    private final String LEFT_TANK = "LeftTank";
-    private final String RIGHT_TANK = "RightTank";
-    private final String LEFT_TANK_AMOUNT = "LeftTankAmount";
-    private final String RIGHT_TANK_AMOUNT = "RightTankAmount";
+    private FluidTank leftTank;
+    private FluidTank rightTank;
 
     public BackpackInventory(ItemStack backpackItem) {
         super(backpackItem, BackpackItem.INVENTORY_SIZE + 5);
@@ -25,20 +18,16 @@ public class BackpackInventory extends ItemInventory {
     protected void init() {
         super.init();
 
-        this.leftTank = createFluidStorage();
-        this.rightTank = createFluidStorage();
+        this.leftTank = new FluidTank(BackpackItem.CAPACITY);
+        this.rightTank = new FluidTank(BackpackItem.CAPACITY);
 
-        NbtCompound backpackNbt = this.item.getOrCreateNbt();
-
-        readTanks(backpackNbt);
+        readTanks();
     }
 
     @Override
     public void markDirty() {
         super.markDirty();
-        NbtCompound backpackNbt = this.item.getOrCreateNbt();
-
-        writeTanks(backpackNbt);
+        writeTanks();
     }
 
     public ItemStack getSleepingBag() {
@@ -50,40 +39,27 @@ public class BackpackInventory extends ItemInventory {
         this.markDirty();
     }
 
-    public SingleVariantStorage<FluidVariant> getLeftTank() {
+    public FluidTank getLeftTank() {
         return this.leftTank;
     }
 
-    public SingleVariantStorage<FluidVariant> getRightTank() {
+    public FluidTank getRightTank() {
         return this.rightTank;
     }
 
-    private void writeTanks(NbtCompound nbtCompound) {
-        nbtCompound.put(LEFT_TANK, this.leftTank.variant.toNbt());
-        nbtCompound.put(RIGHT_TANK, this.rightTank.variant.toNbt());
-        nbtCompound.putLong(LEFT_TANK_AMOUNT, this.leftTank.amount);
-        nbtCompound.putLong(RIGHT_TANK_AMOUNT, this.rightTank.amount);
+    private void writeTanks() {
+        this.item.set(ModComponents.FLUID_TANKS,
+                new FluidTanksComponent(
+                        FluidTanksComponent.Tank.of(this.leftTank),
+                        FluidTanksComponent.Tank.of(this.rightTank)
+                )
+        );
     }
 
-    private void readTanks(NbtCompound nbtCompound) {
-        this.leftTank.variant = FluidVariant.fromNbt(nbtCompound.getCompound(LEFT_TANK));
-        this.rightTank.variant = FluidVariant.fromNbt(nbtCompound.getCompound(RIGHT_TANK));
+    private void readTanks() {
+        FluidTanksComponent fluidTanks = this.item.getOrDefault(ModComponents.FLUID_TANKS, FluidTanksComponent.createTanks(BackpackItem.CAPACITY));
 
-        this.leftTank.amount = nbtCompound.getLong(LEFT_TANK_AMOUNT);
-        this.rightTank.amount = nbtCompound.getLong(RIGHT_TANK_AMOUNT);
-    }
-
-    private SingleVariantStorage<FluidVariant> createFluidStorage() {
-        return new SingleVariantStorage<>() {
-            @Override
-            protected FluidVariant getBlankVariant() {
-                return FluidVariant.blank();
-            }
-
-            @Override
-            protected long getCapacity(FluidVariant variant) {
-                return 4000;
-            }
-        };
+        this.leftTank = FluidTank.of(fluidTanks.leftTank());
+        this.rightTank = FluidTank.of(fluidTanks.rightTank());
     }
 }

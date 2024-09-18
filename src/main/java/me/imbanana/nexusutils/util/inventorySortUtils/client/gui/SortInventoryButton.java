@@ -1,10 +1,9 @@
 package me.imbanana.nexusutils.util.inventorySortUtils.client.gui;
 
 import me.imbanana.nexusutils.mixin.HandledScreenAccessor;
-import me.imbanana.nexusutils.networking.ModPackets;
+import me.imbanana.nexusutils.networking.ModNetwork;
+import me.imbanana.nexusutils.networking.packets.inventoryUtils.SortInventoryPacket;
 import me.imbanana.nexusutils.util.Position2;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.slot.Slot;
@@ -24,7 +23,7 @@ public class SortInventoryButton extends InventoryManagementButton {
                 offset,
                 new Position2(0, 0),
                 isPlayerInventory,
-                (button) -> ClientPlayNetworking.send(ModPackets.SORT_INVENTORY, PacketByteBufs.create().writeBoolean(isPlayerInventory)),
+                (button) -> ModNetwork.NETWORK_CHANNEL.clientHandle().send(new SortInventoryPacket(isPlayerInventory)),
                 getTooltip(isPlayerInventory));
     }
 
@@ -41,7 +40,7 @@ public class SortInventoryButton extends InventoryManagementButton {
                 offset,
                 new Position2(0, 0),
                 isPlayerInventory,
-                (button) -> ClientPlayNetworking.send(ModPackets.SORT_INVENTORY, PacketByteBufs.create().writeBoolean(isPlayerInventory)),
+                (button) -> ModNetwork.NETWORK_CHANNEL.clientHandle().send(new SortInventoryPacket(isPlayerInventory)),
                 getTooltip(isPlayerInventory));
     }
 

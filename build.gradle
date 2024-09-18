@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -8,6 +8,10 @@ group = project.maven_group
 
 base {
 	archivesName = project.archives_base_name
+}
+
+runClient.doFirst {
+	args = ['--username', "_ImBanana"]
 }
 
 repositories {
@@ -23,6 +27,23 @@ repositories {
 		name 'm2-dv8tion'
 		url 'https://m2.dv8tion.net/releases'
 	}
+
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+	}
+
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/"
+	}
+
+	maven {
+		name = "Ladysnake Libs"
+		url = 'https://maven.ladysnake.org/releases'
+	}
+
+	maven { url 'https://jitpack.io' }
 }
 
 loom {
@@ -67,8 +88,16 @@ dependencies {
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
+	modImplementation "dev.emi:trinkets:${project.trinkets_version}"
+
 	modImplementation annotationProcessor("io.wispforest:owo-lib:${project.owo_version}")
 	include "io.wispforest:owo-sentinel:${project.owo_version}"
+
+	modLocalRuntime "net.fabricmc:fabric-language-kotlin:1.12.1+kotlin.2.0.20"
+	modLocalRuntime "com.terraformersmc:modmenu:11.0.2"
+	modLocalRuntime "maven.modrinth:auth-me:8.0.0+1.21-fabric"
+	modLocalRuntime "maven.modrinth:simple-voice-chat:fabric-1.21.1-2.5.21"
+	modLocalRuntime "maven.modrinth:cloth-config:15.0.130+fabric"
 
 	// JDA Java Discord API
 	modImplementation(include("net.dv8tion:JDA:${project.jda_version}") {
@@ -88,16 +117,25 @@ dependencies {
 	include "com.neovisionaries:nv-websocket-client:2.14"
 }
 
+def replaceProperties = [
+		version: project.version,
+		minecraft_version: minecraft_version,
+		fabric_api_version: fabric_version,
+		fabric_version: loader_version,
+		owo_version: owo_version,
+		trinkets_version: trinkets_version,
+]
+
 processResources {
-	inputs.property "version", project.version
+	inputs.properties replaceProperties
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand replaceProperties
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
@@ -106,8 +144,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -119,7 +157,8 @@ jar {
 // configure the maven publication
 publishing {
 	publications {
-		mavenJava(MavenPublication) {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
 			from components.java
 		}
 	}

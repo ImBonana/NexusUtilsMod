@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class HopperFilterScreen extends HandledScreen<HopperFilterScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/gui/container/hopper_filter.png");
+    private static final Identifier TEXTURE = NexusUtils.idOf("textures/gui/container/hopper_filter.png");
 
     public HopperFilterScreen(HopperFilterScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

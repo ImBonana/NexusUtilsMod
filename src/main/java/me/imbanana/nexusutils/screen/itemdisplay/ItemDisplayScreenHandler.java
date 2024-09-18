@@ -1,20 +1,20 @@
 package me.imbanana.nexusutils.screen.itemdisplay;
 
+import me.imbanana.nexusutils.networking.packets.screens.BlockEntityScreenOpeningData;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class ItemDisplayScreenHandler extends ScreenHandler {
     private final Inventory inventory;
 
-    public ItemDisplayScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()));
+    public ItemDisplayScreenHandler(int syncId, PlayerInventory inventory, BlockEntityScreenOpeningData data) {
+        this(syncId, inventory, inventory.player.getWorld().getBlockEntity(data.pos()));
     }
 
     public ItemDisplayScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity) {

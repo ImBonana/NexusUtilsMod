@@ -1,48 +1,30 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.ItemTags;
 
-public class PoseidonEnchantment extends Enchantment  implements TradableEnchantment {
-    public PoseidonEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public float getAttackDamage(int level, EntityGroup group) {
-        return 1.0f + (float)Math.max(0, level - 1) * 0.5f;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 5;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 55;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 40;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class PoseidonEnchantment extends NexusEnchantment {
+    public PoseidonEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                    Enchantment.definition(
+                            itemLookup.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
+                            2,
+                            5,
+                            Enchantment.leveledCost(4, 8),
+                            Enchantment.leveledCost(25, 8),
+                            4,
+                            AttributeModifierSlot.MAINHAND
+                    )
+            ).addEffect(
+                    EnchantmentEffectComponentTypes.DAMAGE,
+                    new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(3F, 1.5f))
+            )
+        );
     }
 }

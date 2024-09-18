@@ -38,8 +38,8 @@ public class SnailModel<T extends SnailEntity> extends SinglePartEntityModel<T> 
 	}
 
 	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		snail.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
+		snail.render(matrices, vertexConsumer, light, overlay, color);
 	}
 
 	@Override

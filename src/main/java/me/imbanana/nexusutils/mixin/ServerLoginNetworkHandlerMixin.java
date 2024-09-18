@@ -2,7 +2,11 @@ package me.imbanana.nexusutils.mixin;
 
 
 import me.imbanana.nexusutils.NexusUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.network.ClientConnection;
+import net.minecraft.network.listener.ServerLoginPacketListener;
+import net.minecraft.network.listener.TickablePacketListener;
 import net.minecraft.network.packet.c2s.login.LoginHelloC2SPacket;
 import net.minecraft.network.packet.s2c.login.LoginHelloS2CPacket;
 import net.minecraft.server.MinecraftServer;
@@ -15,15 +19,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.SERVER)
 @Mixin(ServerLoginNetworkHandler.class)
-class ServerLoginNetworkHandlerMixin {
-    @Shadow private @Nullable String profileName;
+public abstract class ServerLoginNetworkHandlerMixin implements ServerLoginPacketListener, TickablePacketListener {
+    @Shadow
+    @Nullable String profileName;
 
     @Shadow private volatile ServerLoginNetworkHandler.State state;
 
-    @Shadow @Final private ClientConnection connection;
+    @Shadow @Final
+    ClientConnection connection;
 
-    @Shadow @Final private MinecraftServer server;
+    @Shadow @Final
+    MinecraftServer server;
 
     @Shadow @Final private byte[] nonce;
 
@@ -31,7 +39,7 @@ class ServerLoginNetworkHandlerMixin {
     private void injectOnHello(LoginHelloC2SPacket packet, CallbackInfo ci) {
         if(NexusUtils.REAL_PLAYERS_SERVER_CONFIG.realPlayers().contains(this.profileName)) {
             this.state = ServerLoginNetworkHandler.State.KEY;
-            this.connection.send(new LoginHelloS2CPacket("", this.server.getKeyPair().getPublic().getEncoded(), this.nonce));
+            this.connection.send(new LoginHelloS2CPacket("", this.server.getKeyPair().getPublic().getEncoded(), this.nonce, true));
             ci.cancel();
         }
     }

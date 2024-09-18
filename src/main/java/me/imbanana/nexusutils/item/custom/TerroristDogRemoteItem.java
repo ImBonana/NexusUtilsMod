@@ -1,8 +1,7 @@
 package me.imbanana.nexusutils.item.custom;
 
 import me.imbanana.nexusutils.util.ITerroristable;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,8 +12,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import net.minecraft.world.entity.EntityLookup;
-import net.minecraft.world.entity.SimpleEntityLookup;
 
 import java.util.List;
 
@@ -32,10 +29,10 @@ public class TerroristDogRemoteItem extends Item {
         for(WolfEntity wolfEntity : wolfTerrorits) ((ITerroristable) wolfEntity).nexusUtils$goBoom();
 
         if(!world.isClient) {
-            itemStack.damage(1, user, p -> p.sendToolBreakStatus(hand));
+            itemStack.damage(1, user, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         }
 
-        user.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 1f, 1f);
+        user.playSoundToPlayer(SoundEvents.UI_BUTTON_CLICK.value(), SoundCategory.PLAYERS, 1f, 1f);
 
         return TypedActionResult.success(itemStack);
     }

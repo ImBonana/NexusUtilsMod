@@ -21,7 +21,7 @@ public abstract class InventoryManagementButton extends ButtonWidget {
     public static final int HEIGHT = 14;
 
     private static final Identifier TEXTURE =
-            new Identifier(NexusUtils.MOD_ID, "textures/gui/inventory_utils_buttons.png");
+            NexusUtils.idOf("textures/gui/inventory_utils_buttons.png");
 
     private final HandledScreenAccessor parent;
     private final Slot referenceSlot;

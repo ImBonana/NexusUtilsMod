@@ -29,8 +29,8 @@ public abstract class BoneMealMixin {
                 if(!world.getBlockState(newPos).isAir()) return;
                 world.setBlockState(newPos, blockState.getBlock().getDefaultState(), Block.NOTIFY_LISTENERS);
 
-                if(world.getBlockState(blockPos).getBlock() instanceof CactusBlock cactusBlock) {
-                    if(!cactusBlock.canPlaceAt(blockState, world, newPos)) {
+                if(world.getBlockState(blockPos).getBlock() instanceof CactusBlock) {
+                    if(!blockState.canPlaceAt(world, newPos)) {
                         world.breakBlock(newPos, true);
                     }
                 }

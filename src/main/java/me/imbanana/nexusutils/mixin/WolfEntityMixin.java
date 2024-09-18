@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import me.imbanana.nexusutils.item.custom.TerroristDogItem;
 import me.imbanana.nexusutils.util.ITerroristable;
 import net.minecraft.entity.EntityType;
@@ -35,8 +36,8 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
     }
 
     @Inject(method = "initDataTracker", at = @At("TAIL"))
-    private void injectInitDataTracker(CallbackInfo ci) {
-        this.dataTracker.startTracking(HAS_BOMB_BELT, false);
+    private void injectInitDataTracker(CallbackInfo ci, @Local(argsOnly = true) DataTracker.Builder builder) {
+        builder.add(HAS_BOMB_BELT, false);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))

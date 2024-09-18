@@ -1,16 +1,15 @@
 package me.imbanana.nexusutils.screen.copperhopper;
 
 import me.imbanana.nexusutils.block.entity.CopperHopperBlockEntity;
-import me.imbanana.nexusutils.networking.ModPackets;
+import me.imbanana.nexusutils.networking.ModNetwork;
+import me.imbanana.nexusutils.networking.packets.UpdateCopperHopperFilterModePacket;
+import me.imbanana.nexusutils.networking.packets.screens.BlockEntityScreenOpeningData;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -21,8 +20,8 @@ public class CopperHopperScreenHandler extends ScreenHandler {
     private final PropertyDelegate propertyDelegate;
     public final CopperHopperBlockEntity blockEntity;
 
-    public CopperHopperScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()), new ArrayPropertyDelegate(1));
+    public CopperHopperScreenHandler(int syncId, PlayerInventory inventory, BlockEntityScreenOpeningData data) {
+        this(syncId, inventory, inventory.player.getWorld().getBlockEntity(data.pos()), new ArrayPropertyDelegate(1));
     }
 
     public CopperHopperScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
@@ -55,7 +54,7 @@ public class CopperHopperScreenHandler extends ScreenHandler {
     }
     public void toggleWhitelist() {
         this.propertyDelegate.set(0, isWhitelist() ? 0 : 1);
-        ClientPlayNetworking.send(ModPackets.UPDATE_COPPER_HOPPER_FILTER_MODE, PacketByteBufs.create().writeBlockPos(this.blockEntity.getPos()).writeBoolean(this.propertyDelegate.get(0) == 1));
+        ModNetwork.NETWORK_CHANNEL.clientHandle().send(new UpdateCopperHopperFilterModePacket(this.blockEntity.getPos(), this.propertyDelegate.get(0) == 1));
     }
 
     @Override

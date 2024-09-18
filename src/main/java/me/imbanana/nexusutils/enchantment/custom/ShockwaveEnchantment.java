@@ -1,60 +1,39 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.enchantment.effects.LaunchEntityIntoAirEnchantment;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.provider.number.EnchantmentLevelLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.ItemTags;
 
-import java.util.Random;
-
-public class ShockwaveEnchantment extends Enchantment implements TradableEnchantment {
-    public ShockwaveEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public void onUserDamaged(LivingEntity user, Entity attacker, int level) {
-        if(!user.getWorld().isClient()) {
-            if(new Random().nextInt(1, 6) == 1) {
-                Vec3d rotationVector = attacker.getRotationVector();
-                Vec3d pushTo = new Vec3d(rotationVector.getX(), 0, rotationVector.getZ()).multiply(-2).add(0, 1, 0);
-                attacker.setVelocity(pushTo);
-            }
-        }
-
-        super.onUserDamaged(user, attacker, level);
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 50;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 35;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class ShockwaveEnchantment extends NexusEnchantment {
+    public ShockwaveEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE),
+                                1,
+                                1,
+                                Enchantment.constantCost(25),
+                                Enchantment.constantCost(65),
+                                8,
+                                AttributeModifierSlot.CHEST
+                        )
+                ).addEffect(
+                        EnchantmentEffectComponentTypes.POST_ATTACK,
+                        EnchantmentEffectTarget.VICTIM,
+                        EnchantmentEffectTarget.ATTACKER,
+                        new LaunchEntityIntoAirEnchantment(
+                                EnchantmentLevelBasedValue.constant(-2),
+                                EnchantmentLevelBasedValue.constant(1)
+                        ),
+                        RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.2f)))
+                )
+        );
     }
 }

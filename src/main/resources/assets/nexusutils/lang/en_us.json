@@ -67,6 +67,17 @@
 
   "entity.nexusutils.snail": "Snail",
 
+  "attribute.name.generic.jump_count": "Jump Count",
+
+  "tag.item.nexusutils.sleeping_bags": "Sleeping Bags",
+  "tag.item.nexusutils.enchantable.axes": "Axes",
+  "tag.item.nexusutils.enchantable.experience": "Experience",
+  "tag.item.nexusutils.enchantable.ice_aspect": "Ice Aspect",
+  "tag.item.nexusutils.enchantable.pickaxes": "Pickaxes",
+  "tag.item.nexusutils.enchantable.ranged_projectile": "Ranged Projectile",
+  "tag.item.nexusutils.enchantable.ranged_weapon": "Ranged Weapon",
+  "tag.item.nexusutils.enchantable.telepathy": "Telepathy",
+
   "key.category.nexusutils.main": "Nexus",
   "key.nexusutils.sit": "Sit",
   "key.nexusutils.open_backpack": "Open Backpack",
@@ -84,7 +95,7 @@
   "enchantment.nexusutils.ice_aspect": "Ice Aspect",
   "enchantment.nexusutils.poison": "Poison",
   "enchantment.nexusutils.blind": "Blind",
-  "enchantment.nexusutils.arrow_deflect": "Arrow Deflect",
+  "enchantment.nexusutils.projectile_deflect": "Projectile Deflect",
   "enchantment.nexusutils.voodoo": "Voodoo",
   "enchantment.nexusutils.nether_slayer": "Nether Slayer",
   "enchantment.nexusutils.ender_slayer": "Ender Slayer",
@@ -109,7 +120,7 @@
   "enchantment.nexusutils.disappear": "Disappear",
   "enchantment.nexusutils.diminish": "Diminish",
   "enchantment.nexusutils.aegis": "Aegis",
-  "enchantment.nexusutils.jelly_legs": "Jelly Legs",
+  "enchantment.nexusutils.jump": "Jump",
   "enchantment.nexusutils.phoenix": "Phoenix",
   "enchantment.nexusutils.lightning": "Lightning",
   "enchantment.nexusutils.telepathy": "Telepathy",
@@ -148,7 +159,7 @@
   "enchantment.nexusutils.disappear.desc": "25% Chance to become invisible when low on health",
   "enchantment.nexusutils.diminish.desc": "20% Chance to give your enemy mining fatigue",
   "enchantment.nexusutils.aegis.desc": "Gain speed when taking fall damage",
-  "enchantment.nexusutils.jelly_legs.desc": "Bounce on landing!",
+  "enchantment.nexusutils.jump.desc": "Bounce on landing!",
   "enchantment.nexusutils.phoenix.desc": "10% Chance to revive yourself when killed",
   "enchantment.nexusutils.lightning.desc": "When shooting with a bow / crossbow you have 5% chance to summon a lightning bolt (1 per level)",
   "enchantment.nexusutils.telepathy.desc": "Automatically pickup drops from entities / blocks",
@@ -159,18 +170,17 @@
   "enchantment.nexusutils.replanter.desc": "When harvesting crops, the crop automatically place it self",
   "enchantment.nexusutils.experience.desc": "Get more experience from ores and mobs",
 
-  "effect.nexusutils.more_health": "More Health",
   "effect.nexusutils.bleed": "Bleeding",
 
   "death.attack.bleed.player": "%1$s bled to death",
   "death.attack.bleed": "%1$s bled to death",
-
-  "entity.minecraft.villager.enchanter": "Enchanter",
 
   "nexusutils.button.sort_player": "Sort inventory",
   "nexusutils.button.sort_container": "Sort container",
   "nexusutils.button.autostack_into": "Stack into container",
   "nexusutils.button.autostack_from": "Stack from container",
   "nexusutils.button.transfer_place": "Place all",
-  "nexusutils.button.transfer_take": "Take all"
+  "nexusutils.button.transfer_take": "Take all",
+
+  "trinkets.slot.chest.backpack": "Backpack"
 }

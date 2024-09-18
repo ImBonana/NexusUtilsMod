@@ -1,149 +1,99 @@
 package me.imbanana.nexusutils.enchantment;
 
 import me.imbanana.nexusutils.NexusUtils;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
 import me.imbanana.nexusutils.enchantment.custom.*;
+import me.imbanana.nexusutils.enchantment.effects.ModEnchantmentEffects;
+import me.imbanana.nexusutils.enchantment.lootConditions.ModLootConditionTypes;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.registry.*;
 
 public class ModEnchantments {
-    private static final List<TradableEnchantment> tradableEnchantments = new ArrayList<>();
+    public static final NexusEnchantment AEGIS = new AegisEnchantment(of("aegis"));
 
-    public static final Enchantment ICE_ASPECT = register("ice_aspect",
-            new IceAspectEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment ATTRACTION = new AttractionEnchantment(of("attraction"));
 
-    public static final Enchantment POISON = register("poison",
-            new PoisonEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment AUTO_SMELT = new AutoSmeltEnchantment(of("auto_smelt"));
 
-    public static final Enchantment BLIND = register("blind",
-            new BlindEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment BLAST = new BlastEnchantment(of("blast"));
 
-    public static final Enchantment ARROW_DEFLECT = register("arrow_deflect",
-            new ArrowDeflectEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_LEGS, EquipmentSlot.LEGS));
+    public static final NexusEnchantment BLIND = new BlindEnchantment(of("blind"));
 
-    public static final Enchantment VOODOO = register("voodoo",
-            new VoodooEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_HEAD, EquipmentSlot.HEAD));
+    public static final NexusEnchantment CHAOS = new ChaosEnchantment(of("chaos"));
 
+    public static final NexusEnchantment DEVOUR = new DevourEnchantment(of("devour"));
 
-    public static final Enchantment NETHER_SLAYER = register("nether_slayer",
-            new NetherSlayerEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_CHEST, EquipmentSlot.CHEST));
+    public static final NexusEnchantment DIMINISH = new DiminishEnchantment(of("diminish"));
 
-    public static final Enchantment ENDER_SLAYER = register("ender_slayer",
-            new EnderSlayerEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_CHEST, EquipmentSlot.CHEST));
+    public static final NexusEnchantment DISAPPEAR = new DisappearEnchantment(of("disappear"));
 
-    public static final Enchantment HEADLIGHT = register("headlight",
-            new HeadlightEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_HEAD, EquipmentSlot.HEAD));
+    public static final NexusEnchantment DOUBLE_STRIKE = new DoubleStrikeEnchantment(of("double_strike"));
 
-    public static final Enchantment EXTRA_HEALTH = register("extra_health",
-            new ExtraHealthEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET));
+    public static final NexusEnchantment ENDER_SLAYER = new EnderSlayerEnchantment(of("ender_slayer"));
 
-    public static final Enchantment DOUBLE_STRIKE = register("double_strike",
-            new DoubleStrikeEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment EXPERIENCE = new ExperienceEnchantment(of("experience"));
 
-    public static final Enchantment POSEIDON = register("poseidon",
-            new PoseidonEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.TRIDENT, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment EXTRA_HEALTH = new ExtraHealthEnchantment(of("extra_health"));
 
-    public static final Enchantment TWINGE = register("twinge",
-            new TwingeEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.TRIDENT, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment FAMINE = new FamineEnchantment(of("famine"));
 
-    public static final Enchantment ATTRACTION = register("attraction",
-            new AttractionEnchantment(Enchantment.Rarity.UNCOMMON, new EnchantmentTarget[]{EnchantmentTarget.BOW, EnchantmentTarget.CROSSBOW}, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment HEADLIGHT = new HeadlightEnchantment(of("headlight"));
 
-    public static final Enchantment CHAOS = register("chaos",
-            new ChaosEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.TRIDENT, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment ICE_ASPECT = new IceAspectEnchantment(of("ice_aspect"));
 
-    public static final Enchantment NIGHT_OWL = register("night_owl",
-            new NightOwlEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment IMPACT = new ImpactEnchantment(of("impact"));
 
-    public static final Enchantment FAMINE = register("famine",
-            new FamineEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment JUMP = new JumpEnchantment(of("jump"));
 
-    public static final Enchantment LAUNCH = register("launch",
-            new LaunchEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment LAUNCH = new LaunchEnchantment(of("launch"));
 
+    public static final NexusEnchantment LAVA_WALKER = new LavaWalkerEnchantment(of("lava_walker"));
 
-    public static final Enchantment DEVOUR = register("devour",
-            new DevourEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment LIFESTEAL = new LifestealEnchantment(of("lifesteal"));
 
+    public static final NexusEnchantment LIGHTNING = new LightningEnchantment(of("lightning"));
 
-    public static final Enchantment LIFESTEAL = register("lifesteal",
-            new LifestealEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment NETHER_SLAYER = new NetherSlayerEnchantment(of("nether_slayer"));
 
-    public static final Enchantment SHOCKWAVE = register("shockwave",
-            new ShockwaveEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_CHEST, EquipmentSlot.CHEST));
+    public static final NexusEnchantment NIGHT_OWL = new NightOwlEnchantment(of("night_owl"));
 
-    public static final Enchantment ROCKET_ESCAPE = register("rocket_escape",
-            new RocketEscapeEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_LEGS, EquipmentSlot.LEGS));
+    public static final NexusEnchantment ORE_EXCAVATION = new OreExcavationEnchantment(of("ore_excavation"));
 
-    public static final Enchantment PLUMMET = register("plummet",
-            new PlummetEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_FEET, EquipmentSlot.FEET));
+    public static final NexusEnchantment PERISH = new PerishEnchantment(of("perish"));
 
-    public static final Enchantment PERISH = register("perish",
-            new PerishEnchantment(Enchantment.Rarity.UNCOMMON, new EnchantmentTarget[]{EnchantmentTarget.TRIDENT, EnchantmentTarget.BOW, EnchantmentTarget.CROSSBOW}, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment PHOENIX = new PhoenixEnchantment(of("phoenix"));
 
-    public static final Enchantment LAVA_WALKER = register("lava_walker",
-            new LavaWalkerEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_FEET, EquipmentSlot.FEET));
+    public static final NexusEnchantment PLUMMET = new PlummetEnchantment(of("plummet"));
 
-    public static final Enchantment IMPACT = register("impact",
-            new ImpactEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.TRIDENT, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment POISON = new PoisonEnchantment(of("poison"));
 
-    public static final Enchantment DISAPPEAR = register("disappear",
-            new DisappearEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_LEGS, EquipmentSlot.LEGS));
+    public static final NexusEnchantment POSEIDON = new PoseidonEnchantment(of("poseidon"));
 
-    public static final Enchantment DIMINISH = register("diminish",
-            new DiminishEnchantment(Enchantment.Rarity.UNCOMMON, null, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment PROJECTILE_DEFLECT = new ProjectileDeflectEnchantment(of("projectile_deflect"));
 
-    public static final Enchantment AEGIS = register("aegis",
-            new AegisEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_FEET, EquipmentSlot.FEET));
+    public static final NexusEnchantment REPLANTER = new ReplanterEnchantment(of("replanter"));
 
-    public static final Enchantment JELLY_LEGS = register("jelly_legs",
-            new JellyLegsEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_FEET, EquipmentSlot.FEET));
+    public static final NexusEnchantment ROCKET_ESCAPE = new RocketEscapeEnchantment(of("rocket_escape"));
 
-    public static final Enchantment PHOENIX = register("phoenix",
-            new PhoenixEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.ARMOR_HEAD, EquipmentSlot.HEAD));
+    public static final NexusEnchantment SHOCKWAVE = new ShockwaveEnchantment(of("shockwave"));
 
-    public static final Enchantment LIGHTNING = register("lightning",
-            new LightningEnchantment(Enchantment.Rarity.UNCOMMON, new EnchantmentTarget[]{EnchantmentTarget.BOW, EnchantmentTarget.CROSSBOW}, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment TELEPATHY = new TelepathyEnchantment(of("telepathy"));
 
-    public static final Enchantment TELEPATHY = register("telepathy",
-            new TelepathyEnchantment(Enchantment.Rarity.UNCOMMON, new EnchantmentTarget[]{EnchantmentTarget.DIGGER, EnchantmentTarget.WEAPON, EnchantmentTarget.CROSSBOW, EnchantmentTarget.BOW, EnchantmentTarget.TRIDENT}, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND));
+    public static final NexusEnchantment TIMBER = new TimberEnchantment(of("timber"));
 
-    public static final Enchantment BLAST = register("blast",
-            new BlastEnchantment(Enchantment.Rarity.UNCOMMON, null, EquipmentSlot.MAINHAND));
+    public static final NexusEnchantment TWINGE = new TwingeEnchantment(of("twinge"));
 
-    public static final Enchantment TIMBER = register("timber",
-            new TimberEnchantment(Enchantment.Rarity.UNCOMMON, null, EquipmentSlot.MAINHAND));
-
-    public static final Enchantment ORE_EXCAVATION = register("ore_excavation",
-            new OreExcavationEnchantment(Enchantment.Rarity.UNCOMMON, null, EquipmentSlot.MAINHAND));
-
-    public static final Enchantment AUTO_SMELT = register("auto_smelt",
-            new AutoSmeltEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.DIGGER, EquipmentSlot.MAINHAND));
-
-    public static final Enchantment REPLANTER = register("replanter",
-            new ReplanterEnchantment(Enchantment.Rarity.UNCOMMON, null, EquipmentSlot.MAINHAND));
-
-    public static final Enchantment EXPERIENCE = register("experience",
-            new ExperienceEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND));
-
-
-    public static List<TradableEnchantment> getTradableEnchantments() {
-        return tradableEnchantments;
-    }
-
-    private static Enchantment register(String name, Enchantment enchantment) {
-        Enchantment enchant = Registry.register(Registries.ENCHANTMENT, new Identifier(NexusUtils.MOD_ID, name), enchantment);
-        if(enchant instanceof TradableEnchantment tradableEnchantment) tradableEnchantments.add(tradableEnchantment);
-        return enchant;
-    }
+    public static final NexusEnchantment VOODOO = new VoodooEnchantment(of("voodoo"));
 
     public static void registerModEnchantments() {
+        ModEnchantmentEffectComponentTypes.init();
+        ModEnchantmentEffects.init();
+        ModLootConditionTypes.init();
+
         NexusUtils.LOGGER.info("Registering Enchantments for " + NexusUtils.MOD_ID);
+    }
+
+    private static RegistryKey<Enchantment> of(String id) {
+        return RegistryKey.of(RegistryKeys.ENCHANTMENT, NexusUtils.idOf(id));
     }
 }

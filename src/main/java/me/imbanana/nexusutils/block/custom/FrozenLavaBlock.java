@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.block.custom;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -20,10 +21,17 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class FrozenLavaBlock extends Block {
+    public static final MapCodec<FrozenLavaBlock> CODEC = createCodec(FrozenLavaBlock::new);
     public static final IntProperty AGE = Properties.AGE_3;
 
     public FrozenLavaBlock(Settings settings) {
         super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(AGE, Integer.valueOf(0)));
+    }
+
+    @Override
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        world.scheduleBlockTick(pos, this, MathHelper.nextInt(world.getRandom(), 60, 120));
     }
 
     @Override
@@ -98,5 +106,10 @@ public class FrozenLavaBlock extends Block {
     protected void melt(World world, BlockPos pos) {
         world.setBlockState(pos, FrozenLavaBlock.getMeltedState());
         world.updateNeighbor(pos, FrozenLavaBlock.getMeltedState().getBlock(), pos);
+    }
+
+    @Override
+    protected MapCodec<FrozenLavaBlock> getCodec() {
+        return CODEC;
     }
 }

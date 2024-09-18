@@ -3,19 +3,21 @@ package me.imbanana.nexusutils.block;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.custom.*;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
+import me.imbanana.nexusutils.block.entity.SleepingBagBlockEntity;
 import me.imbanana.nexusutils.block.entity.renderer.ItemDisplayBlockEntityRenderer;
 import me.imbanana.nexusutils.block.entity.renderer.SleepingBagBlockEntityRenderer;
 import me.imbanana.nexusutils.block.enums.SleepingBagPart;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.custom.SleepingBagItem;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.item.BlockItem;
@@ -24,39 +26,42 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class ModBlocks {
+    public static final ArrayList<SleepingBagBlock> sleepingBags = new ArrayList<>();
+
     public static final Block FROZEN_LAVA = registerBlock("frozen_lava", new FrozenLavaBlock(
-            FabricBlockSettings.create()
+            AbstractBlock.Settings.create()
                     .mapColor(MapColor.BLACK)
                     .ticksRandomly()
                     .requiresTool()
                     .strength(25.0f, 600.0f)
                     .sounds(BlockSoundGroup.GLASS)
-                    .instrument(Instrument.BASEDRUM)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
     ), false);
 
-    public static final Block COPPER_HOPPER = registerBlock("copper_hopper", new CopperHopperBlock(FabricBlockSettings.copyOf(Blocks.HOPPER)));
+    public static final Block COPPER_HOPPER = registerBlock("copper_hopper", new CopperHopperBlock(AbstractBlock.Settings.copy(Blocks.HOPPER)));
 
-    public static final Block ITEM_DISPLAY = registerBlock("item_display", new ItemDisplayBlock(FabricBlockSettings.copyOf(Blocks.GLASS).nonOpaque()));
+    public static final Block ITEM_DISPLAY = registerBlock("item_display", new ItemDisplayBlock(AbstractBlock.Settings.copy(Blocks.GLASS).nonOpaque()));
 
     public static final Block MAIL_BOX = registerBlock("mail_box", new MailBoxBlock(
-            FabricBlockSettings.create()
+            AbstractBlock.Settings.create()
                     .nonOpaque()
                     .mapColor(DyeColor.BLUE)
-                    .instrument(Instrument.BASEDRUM)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
                     .sounds(BlockSoundGroup.STONE)
     ));
 
     public static final Block POST_BOX = registerBlock("post_box", new PostBoxBlock(
-            FabricBlockSettings.create()
+            AbstractBlock.Settings.create()
                     .nonOpaque()
                     .mapColor(DyeColor.BLUE)
-                    .instrument(Instrument.BASEDRUM)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
                     .sounds(BlockSoundGroup.STONE)
     ));
 
@@ -78,9 +83,9 @@ public class ModBlocks {
     public static final Block YELLOW_SLEEPING_BAG = registerSleepingBag(DyeColor.YELLOW);
 
     public static Block registerSleepingBag(DyeColor color) {
-        Block sleepingBagBlock = new SleepingBagBlock(
+        SleepingBagBlock sleepingBagBlock = new SleepingBagBlock(
                 color,
-                FabricBlockSettings.create()
+                AbstractBlock.Settings.create()
                         .mapColor(state -> state.get(SleepingBagBlock.PART) == SleepingBagPart.FOOT ? color.getMapColor() : MapColor.WHITE_GRAY)
                         .sounds(BlockSoundGroup.WOOL)
                         .strength(0.2f)
@@ -88,6 +93,8 @@ public class ModBlocks {
                         .burnable()
                         .pistonBehavior(PistonBehavior.DESTROY)
         );
+
+        sleepingBags.add(sleepingBagBlock);
 
         return registerBlock(
                 color.getName() + "_sleeping_bag",
@@ -116,20 +123,20 @@ public class ModBlocks {
 
     private static Block registerBlock(String name, Block block, boolean hasItem, boolean addToCategory, int maxStack, Class<? extends BlockItem> itemClass) {
         if(hasItem) registerBlockItem(name, block, addToCategory, maxStack, itemClass);
-        return Registry.register(Registries.BLOCK, new Identifier(NexusUtils.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, NexusUtils.idOf(name), block);
     }
 
     private static Item registerBlockItem(String name, Block block, boolean addToCategory, int maxStack, Class<? extends BlockItem> itemClass) {
         try {
             Constructor<? extends BlockItem> ctor = itemClass.getConstructor(Block.class, Item.Settings.class);
-            BlockItem blockItemInst = ctor.newInstance(block, new FabricItemSettings().maxCount(maxStack));
-            Item registered = Registry.register(Registries.ITEM, new Identifier(NexusUtils.MOD_ID, name), blockItemInst);
+            BlockItem blockItemInst = ctor.newInstance(block, new Item.Settings().maxCount(maxStack));
+            Item registered = Registry.register(Registries.ITEM, NexusUtils.idOf(name), blockItemInst);
             if(addToCategory) ModItems.addItemToCategory(registered);
             return registered;
         } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-            System.out.println(new RuntimeException(e));
+            System.out.println(e);
 
-            Item registered = Registry.register(Registries.ITEM, new Identifier(NexusUtils.MOD_ID, name), new BlockItem(block, new FabricItemSettings().maxCount(maxStack)));
+            Item registered = Registry.register(Registries.ITEM, NexusUtils.idOf(name), new BlockItem(block, new Item.Settings().maxCount(maxStack)));
             if(addToCategory) ModItems.addItemToCategory(registered);
             return registered;
         }
@@ -152,22 +159,11 @@ public class ModBlocks {
     }
 
     private static void registerSleepingBagsRenders() {
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BLACK_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BLUE_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BROWN_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CYAN_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GRAY_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GREEN_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.LIGHT_BLUE_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.LIGHT_GRAY_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.LIME_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MAGENTA_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ORANGE_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PINK_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PURPLE_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.RED_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_SLEEPING_BAG, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.YELLOW_SLEEPING_BAG, RenderLayer.getCutout());
+        for (SleepingBagBlock sleepingBagBlock : sleepingBags) {
+            BlockRenderLayerMap.INSTANCE.putBlock(sleepingBagBlock, RenderLayer.getCutout());
 
+            BuiltinItemRendererRegistry.INSTANCE.register(sleepingBagBlock, (stack, mode, matrices, vertexConsumers, light, overlay) ->
+                    MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(new SleepingBagBlockEntity(BlockPos.ORIGIN, sleepingBagBlock.getDefaultState(), true), matrices, vertexConsumers, light, overlay));
+        }
     }
 }

@@ -2,7 +2,6 @@ package me.imbanana.nexusutils.util;
 
 import me.imbanana.nexusutils.block.custom.MailBoxBlock;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,21 +37,5 @@ public record MailBox(UUID id, BlockPos pos, UUID owner, String name) {
                 nbt.getUuid("owner"),
                 nbt.getString("name")
         );
-    }
-
-    public void toPacket(PacketByteBuf buf) {
-        buf.writeUuid(this.id);
-        buf.writeBlockPos(this.pos);
-        buf.writeUuid(this.owner);
-        buf.writeString(this.name);
-    }
-
-    public static MailBox fromPacket(PacketByteBuf buf) {
-        UUID id = buf.readUuid();
-        BlockPos pos = buf.readBlockPos();
-        UUID owner = buf.readUuid();
-        String name = buf.readString();
-
-        return new MailBox(id, pos, owner, name);
     }
 }

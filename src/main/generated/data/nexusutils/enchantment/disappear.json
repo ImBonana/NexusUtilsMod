@@ -1,0 +1,56 @@
+{
+  "anvil_cost": 3,
+  "description": {
+    "translate": "enchantment.nexusutils.disappear"
+  },
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "max_amplifier": 0.0,
+          "max_duration": 30.0,
+          "min_amplifier": 0.0,
+          "min_duration": 25.0,
+          "to_apply": "minecraft:invisibility"
+        },
+        "enchanted": "victim",
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "nexusutils:entity_status",
+              "entity": "this",
+              "range": {
+                "max": 7.0
+              },
+              "statusType": "health"
+            },
+            {
+              "chance": {
+                "type": "minecraft:enchantment_level",
+                "amount": 0.25
+              },
+              "condition": "minecraft:random_chance"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "legs"
+  ],
+  "supported_items": "#minecraft:enchantable/leg_armor",
+  "weight": 2
+}

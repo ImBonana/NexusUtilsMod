@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.block.entity.renderer;
 
-import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import me.imbanana.nexusutils.block.custom.SleepingBagBlock;
 import me.imbanana.nexusutils.block.entity.ModBlockEntities;
 import me.imbanana.nexusutils.block.entity.SleepingBagBlockEntity;

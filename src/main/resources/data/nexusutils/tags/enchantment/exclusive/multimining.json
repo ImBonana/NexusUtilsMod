@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "nexusutils:blast",
+    "nexusutils:timber",
+    "nexusutils:ore_excavation"
+  ]
+}

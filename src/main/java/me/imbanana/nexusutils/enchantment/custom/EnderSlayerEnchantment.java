@@ -1,42 +1,34 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
+import net.minecraft.loot.condition.LocationCheckLootCondition;
+import net.minecraft.predicate.entity.LocationPredicate;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.world.World;
 
-public class EnderSlayerEnchantment extends Enchantment implements TradableEnchantment {
-    public EnderSlayerEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 5;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 50;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 25;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class EnderSlayerEnchantment extends NexusEnchantment {
+    public EnderSlayerEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ItemTags.CHEST_ARMOR),
+                                10,
+                                5,
+                                Enchantment.leveledCost(1, 11),
+                                Enchantment.leveledCost(12, 11),
+                                1,
+                                AttributeModifierSlot.CHEST
+                        )
+                ).addEffect(
+                        EnchantmentEffectComponentTypes.DAMAGE,
+                        new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(3, 1)),
+                        LocationCheckLootCondition.builder(LocationPredicate.Builder.create().dimension(World.END))
+                )
+        );
     }
 }

@@ -1,46 +1,34 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.ModEnchantments;
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
+import me.imbanana.nexusutils.tags.ModEnchantmentTags;
+import me.imbanana.nexusutils.tags.ModItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimberEnchantment extends Enchantment implements TradableEnchantment {
-    public TimberEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() instanceof AxeItem;
-    }
-
-    @Override
-    protected boolean canAccept(Enchantment other) {
-        return super.canAccept(other) && other != ModEnchantments.BLAST;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 2;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
+public class TimberEnchantment extends NexusEnchantment  {
+    public TimberEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ModItemTags.AXES_ENCHANTABLE),
+                                1,
+                                2,
+                                Enchantment.leveledCost(15, 9),
+                                Enchantment.leveledCost(65, 9),
+                                8,
+                                AttributeModifierSlot.MAINHAND
+                        )
+                ).addEffect(
+                        ModEnchantmentEffectComponentTypes.TIMBER
+                ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.MULTIMINING_EXCLUSIVE_SET))
+        );
     }
 
     private final static List<Block> whitelistedBlocks = new ArrayList<>(){{
@@ -69,20 +57,5 @@ public class TimberEnchantment extends Enchantment implements TradableEnchantmen
 
     public static boolean canBreak(Block block) {
         return whitelistedBlocks.contains(block);
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 55;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 40;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
     }
 }

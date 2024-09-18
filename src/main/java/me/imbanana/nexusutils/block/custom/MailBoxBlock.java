@@ -4,9 +4,9 @@ import com.mojang.serialization.MapCodec;
 import me.imbanana.nexusutils.block.entity.MailBoxBlockEntity;
 import me.imbanana.nexusutils.util.MailBox;
 import me.imbanana.nexusutils.util.MailDeliveryService;
-import me.imbanana.nexusutils.util.accessors.IServerWorld;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -17,7 +17,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
@@ -55,9 +54,8 @@ public class MailBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
         Direction direction = state.get(FACING);
 
         return switch (direction) {
-            default -> NORMAL_SHAPE;
-
             case EAST, WEST -> SIDE_SHAPE;
+            default -> NORMAL_SHAPE;
         };
     }
 
@@ -118,7 +116,7 @@ public class MailBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if(!world.isClient) {
             NamedScreenHandlerFactory screenHandlerFactory = (MailBoxBlockEntity) world.getBlockEntity(pos);
 
@@ -134,11 +132,12 @@ public class MailBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof MailBoxBlockEntity mailBoxBlock) {
-            mailBoxBlock.setCustomName(itemStack.hasCustomName() ? itemStack.getName() : Text.translatable("block.nexusutils.mail_box.player", placer.getName()));
+            Text customName = itemStack.getComponents().get(DataComponentTypes.CUSTOM_NAME) != null ? itemStack.getComponents().get(DataComponentTypes.CUSTOM_NAME) : Text.translatable("block.nexusutils.mail_box.player", placer.getName());
+            mailBoxBlock.setCustomName(customName);
             if(!world.isClient && placer instanceof PlayerEntity) {
                 ServerWorld serverWorld = (ServerWorld) world;
-                MailDeliveryService mailDeliveryService = ((IServerWorld) serverWorld).nexusUtils$getMailDeliveryService();
-                MailBox mailBox = new MailBox(UUID.randomUUID(), pos, placer.getUuid(), mailBoxBlock.getCustomName().getString());
+                MailDeliveryService mailDeliveryService = serverWorld.nexusUtils$getMailDeliveryService();
+                MailBox mailBox = new MailBox(UUID.randomUUID(), pos, placer.getUuid(), customName.getLiteralString());
 
                 mailDeliveryService.createMailBox(mailBox);
             }
@@ -149,7 +148,7 @@ public class MailBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
     public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if(!world.isClient) {
             ServerWorld serverWorld = (ServerWorld) world;
-            MailDeliveryService mailDeliveryService = ((IServerWorld) serverWorld).nexusUtils$getMailDeliveryService();
+            MailDeliveryService mailDeliveryService =  serverWorld.nexusUtils$getMailDeliveryService();
 
             mailDeliveryService.deleteMailBox(pos);
         }

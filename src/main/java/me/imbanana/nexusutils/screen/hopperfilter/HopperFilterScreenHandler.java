@@ -1,19 +1,19 @@
 package me.imbanana.nexusutils.screen.hopperfilter;
 
 import me.imbanana.nexusutils.item.ModItems;
+import me.imbanana.nexusutils.networking.packets.screens.ItemInventoryOpeningData;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class HopperFilterScreenHandler extends ScreenHandler {
     private final Inventory inventory;
-    public HopperFilterScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        this(syncId, inventory, buf.readItemStack());
+    public HopperFilterScreenHandler(int syncId, PlayerInventory inventory, ItemInventoryOpeningData data) {
+        this(syncId, inventory, data.stack());
     }
 
     public HopperFilterScreenHandler(int syncId, PlayerInventory playerInventory, ItemStack itemStack) {

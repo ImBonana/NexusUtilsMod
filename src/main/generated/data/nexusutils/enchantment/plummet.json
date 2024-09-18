@@ -1,0 +1,39 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.nexusutils.plummet"
+  },
+  "effects": {
+    "nexusutils:on_fall": [
+      {
+        "effect": {
+          "type": "nexusutils:damage_mobs_fall",
+          "maxDamage": 15.0,
+          "power": 1.0,
+          "radius": 4.0
+        },
+        "requirements": {
+          "condition": "nexusutils:entity_fall_distance",
+          "distance": {
+            "min": 3.5
+          },
+          "entity": "this"
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "feet"
+  ],
+  "supported_items": "#minecraft:enchantable/foot_armor",
+  "weight": 3
+}

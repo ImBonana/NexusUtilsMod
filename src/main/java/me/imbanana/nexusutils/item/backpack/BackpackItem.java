@@ -8,16 +8,8 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class BackpackItem extends Item {
-    public static final int SLOT_ID = 41;
-    public static final int X_POS = 77;
-    public static final int Y_POS = 44;
-//    public static final int CREATIVE_X_POS = 127;
-//    public static final int CREATIVE_Y_POS = 20;
-
-    public static final int CREATIVE_X_POS = -2000;
-    public static final int CREATIVE_Y_POS = -2000;
-
     public static final int INVENTORY_SIZE = 9*3;
+    public static final long CAPACITY = 4000;
 
     public BackpackItem(Settings settings) {
         super(settings);
@@ -32,12 +24,10 @@ public class BackpackItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
-        ItemStack previousStack = user.getInventory().getStack(SLOT_ID);
-
-        if(previousStack.isEmpty()) {
+        if(!user.getInventory().nexusUtils$isBackapckEquipped()) {
             ItemStack newStack = stack.copy();
-            user.nexusutils$onEquipBackpack(newStack, previousStack);
-            user.getInventory().setStack(SLOT_ID, newStack.copy());
+            user.getInventory().nexusUtils$setBackpackItemStack(newStack);
+            user.nexusutils$onEquipBackpack(newStack, ItemStack.EMPTY);
 
             stack.setCount(0);
         }

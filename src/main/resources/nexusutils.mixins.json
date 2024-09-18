@@ -1,47 +1,38 @@
 {
-    "required": true,
-    "package": "me.imbanana.nexusutils.mixin",
-    "compatibilityLevel": "JAVA_17",
-    "mixins": [
-        "AnvilScreenHandlerMixin",
-        "BoneMealMixin",
-        "BucketItemMixin",
-        "HopperScreenHandlerAccessor",
-        "ItemMixin",
-        "LivingEntityMixin",
-        "MinecartMixin",
-        "PlayerEntityMixin",
-        "PlayerInventoryMixin",
-        "PlayerScreenHandlerMixin",
-        "PlayerVoidTotemMixin",
-        "ScreenHandlerMixin",
-        "ServerLoginNetworkHandlerMixin",
-        "ServerPlayerEntityMixin",
-        "ServerPlayerInteractionManagerMixin",
-        "ServerWorldMixin",
-        "ShulkerBoxScreenHandlerMixin",
-        "VillagerEntityMixin",
-        "WolfEntityMixin",
-        "WorldMixin",
-        "enchantments.EnchantmentBlockMixin",
-        "enchantments.EnchantmentHelperMixin",
-        "enchantments.EnchantmentLivingEntityMixin",
-        "enchantments.EnchantmentMilkBucketItemMixin",
-        "enchantments.EnchantmentTridentEntityMixin",
-        "sit.SitLivingEntityAccessor",
-        "sit.SitLivingEntityDismountMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    },
-    "client": [
-        "AnvilScreenMixin",
-        "BuiltinModelItemRendererMixin",
-        "ClientPlayerInteractionManagerMixin",
-        "CreativeInventoryScreenMixin",
-        "HandledScreenAccessor",
-        "InventoryScreenMixin",
-        "WolfEntityRendererMixin",
-        "WorldRenderMixin"
-    ]
+  "required": true,
+  "package": "me.imbanana.nexusutils.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AnvilScreenHandlerMixin",
+    "BlockMixin",
+    "BoneMealMixin",
+    "BucketItemMixin",
+    "HopperScreenHandlerAccessor",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "PlayerInventoryMixin",
+    "ScreenHandlerMixin",
+    "ServerPlayerEntityMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "ServerWorldMixin",
+    "ShulkerBoxScreenHandlerMixin",
+    "SitLivingEntityAccessor",
+    "TridentEntityMixin",
+    "VillagerEntityMixin",
+    "WolfEntityMixin",
+    "WorldMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "AnvilScreenMixin",
+    "ClientPlayerEntityMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "HandledScreenAccessor",
+    "WolfEntityRendererMixin"
+  ],
+  "server": [
+    "ServerLoginNetworkHandlerMixin"
+  ]
 }

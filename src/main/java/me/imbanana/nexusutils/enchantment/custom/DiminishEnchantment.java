@@ -1,66 +1,44 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.tags.ModItemTags;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
+import net.minecraft.enchantment.effect.entity.ApplyMobEffectEnchantmentEffect;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.provider.number.EnchantmentLevelLootNumberProvider;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntryList;
 
-import java.util.Random;
-
-public class DiminishEnchantment extends Enchantment implements TradableEnchantment {
-    public DiminishEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
-    }
-
-    @Override
-    public void onTargetDamaged(LivingEntity user, Entity target, int level) {
-        if(target instanceof LivingEntity livingTarget) {
-            if(new Random().nextInt(1, 6) == 1) {
-                livingTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 200));
-            }
-        }
-
-        super.onTargetDamaged(user, target, level);
-    }
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() instanceof AxeItem;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 45;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 25;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
+public class DiminishEnchantment extends NexusEnchantment {
+    public DiminishEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ModItemTags.AXES_ENCHANTABLE),
+                                2,
+                                1,
+                                Enchantment.constantCost(5),
+                                Enchantment.constantCost(20),
+                                2,
+                                AttributeModifierSlot.MAINHAND
+                        )
+                ).addEffect(
+                        EnchantmentEffectComponentTypes.POST_ATTACK,
+                        EnchantmentEffectTarget.ATTACKER,
+                        EnchantmentEffectTarget.VICTIM,
+                        new ApplyMobEffectEnchantmentEffect(
+                                RegistryEntryList.of(StatusEffects.MINING_FATIGUE),
+                                EnchantmentLevelBasedValue.constant(5),
+                                EnchantmentLevelBasedValue.constant(10),
+                                EnchantmentLevelBasedValue.constant(0),
+                                EnchantmentLevelBasedValue.constant(0)
+                        ),
+                        RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.20f)))
+                )
+        );
     }
 }

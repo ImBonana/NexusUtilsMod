@@ -1,64 +1,38 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.ModEnchantments;
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
+import me.imbanana.nexusutils.tags.ModEnchantmentTags;
+import me.imbanana.nexusutils.tags.ModItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
+import net.minecraft.registry.RegistryKey;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OreExcavationEnchantment extends Enchantment implements TradableEnchantment {
-    public OreExcavationEnchantment(Rarity rarity, EnchantmentTarget target, EquipmentSlot... slotTypes) {
-        super(rarity, target, slotTypes);
+public class OreExcavationEnchantment extends NexusEnchantment {
+    public OreExcavationEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ModItemTags.PICKAXES_ENCHANTABLE),
+                                1,
+                                2,
+                                Enchantment.leveledCost(15, 9),
+                                Enchantment.leveledCost(65, 9),
+                                8,
+                                AttributeModifierSlot.MAINHAND
+                        )
+                ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.MULTIMINING_EXCLUSIVE_SET))
+                .addEffect(
+                    ModEnchantmentEffectComponentTypes.ORE_EXCAVATION
+                )
+        );
     }
 
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() instanceof PickaxeItem;
-    }
-
-    @Override
-    protected boolean canAccept(Enchantment other) {
-        return super.canAccept(other) && other != ModEnchantments.BLAST;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 2;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 64;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 45;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
-    }
-
-    private final static List<Block> whitelistedBlocks = new ArrayList<>(){{
+    private static final List<Block> whitelistedBlocks = new ArrayList<>(){{
         add(Blocks.IRON_ORE);
         add(Blocks.DEEPSLATE_IRON_ORE);
         add(Blocks.COAL_ORE);

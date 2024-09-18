@@ -11,10 +11,11 @@ import net.minecraft.client.render.entity.model.WolfEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 
 @Environment(EnvType.CLIENT)
 public class WolfBombBeltFeatureRenderer extends FeatureRenderer<WolfEntity, WolfEntityModel<WolfEntity>> {
-    private static final Identifier BOMB_BELT_TEXTURE = new Identifier(NexusUtils.MOD_ID, "textures/entity/wolf/wolf_bomb_belt.png");
+    private static final Identifier BOMB_BELT_TEXTURE = NexusUtils.idOf("textures/entity/wolf/wolf_bomb_belt.png");
 
     public WolfBombBeltFeatureRenderer(FeatureRendererContext<WolfEntity, WolfEntityModel<WolfEntity>> context) {
         super(context);
@@ -25,6 +26,6 @@ public class WolfBombBeltFeatureRenderer extends FeatureRenderer<WolfEntity, Wol
         ITerroristable terrorist = (ITerroristable) entity;
         if(!terrorist.nexusUtils$hasBombBelt() || entity.isInvisible()) return;
 
-        WolfBombBeltFeatureRenderer.renderModel(this.getContextModel(), BOMB_BELT_TEXTURE, matrices, vertexConsumers, light, entity, 1, 1, 1);
+        WolfBombBeltFeatureRenderer.renderModel(this.getContextModel(), BOMB_BELT_TEXTURE, matrices, vertexConsumers, light, entity, ColorHelper.Argb.fromFloats(1f, 1f, 1f, 1f));
     }
 }

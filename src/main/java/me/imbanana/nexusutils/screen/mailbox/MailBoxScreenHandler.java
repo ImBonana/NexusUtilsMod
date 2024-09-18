@@ -1,20 +1,20 @@
 package me.imbanana.nexusutils.screen.mailbox;
 
+import me.imbanana.nexusutils.networking.packets.screens.BlockEntityScreenOpeningData;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class MailBoxScreenHandler extends ScreenHandler {
     private final Inventory inventory;
 
-    public MailBoxScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(buf.readBlockPos()));
+    public MailBoxScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntityScreenOpeningData data) {
+        this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(data.pos()));
     }
 
     public MailBoxScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity) {

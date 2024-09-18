@@ -1,49 +1,27 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
-import me.imbanana.nexusutils.enchantment.MultipleTargetsEnchantment;
-import me.imbanana.nexusutils.enchantment.TradableEnchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShearsItem;
+import me.imbanana.nexusutils.enchantment.NexusEnchantment;
+import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
+import me.imbanana.nexusutils.tags.ModItemTags;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.registry.RegistryKey;
 
-public class TelepathyEnchantment extends MultipleTargetsEnchantment implements TradableEnchantment {
-    public TelepathyEnchantment(Rarity rarity, EnchantmentTarget[] targets, EquipmentSlot... slotTypes) {
-        super(rarity, targets, slotTypes);
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
-
-    @Override
-    public boolean isAvailableForRandomSelection() {
-        return false;
-    }
-
-    @Override
-    public boolean isAvailableForEnchantedBookOffer() {
-        return false;
-    }
-
-    @Override
-    public int getMaxPrice() {
-        return 45;
-    }
-
-    @Override
-    public int getMinPrice() {
-        return 27;
-    }
-
-    @Override
-    public int getMaxLevelToGet() {
-        return this.getMaxLevel();
-    }
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return super.isAcceptableItem(stack) || stack.getItem() instanceof ShearsItem;
+public class TelepathyEnchantment extends NexusEnchantment {
+    public TelepathyEnchantment(RegistryKey<Enchantment> key) {
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+                Enchantment.definition(
+                        itemLookup.getOrThrow(ModItemTags.TELEPATHY_ENCHANTABLE),
+                        1,
+                        1,
+                        Enchantment.constantCost(15),
+                        Enchantment.constantCost(65),
+                        8,
+                        AttributeModifierSlot.HAND
+                )
+            ).addEffect(
+                    ModEnchantmentEffectComponentTypes.TELEPARHY
+            )
+        );
     }
 }

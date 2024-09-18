@@ -10,14 +10,13 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(ScreenHandler.class)
-public class ScreenHandlerMixin {
+public abstract class ScreenHandlerMixin {
 
     @Shadow @Final public DefaultedList<Slot> slots;
 
-    @Inject(method = "insertItem", at = @At(value = "HEAD"), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "insertItem", at = @At(value = "HEAD"), cancellable = true)
     public void InjectInsetItem(ItemStack stack, int startIndex, int endIndex, boolean fromLast, CallbackInfoReturnable<Boolean> cir) {
         ItemStack itemStack;
         Slot slot;
@@ -30,7 +29,7 @@ public class ScreenHandlerMixin {
             while (!stack.isEmpty() && (fromLast ? i >= startIndex : i < endIndex)) {
                 slot = this.slots.get(i);
                 itemStack = slot.getStack();
-                if (!itemStack.isEmpty() && ItemStack.canCombine(stack, itemStack)) {
+                if (!itemStack.isEmpty() && ItemStack.areItemsAndComponentsEqual(stack, itemStack)) {
                     int j = itemStack.getCount() + stack.getCount();
                     if (j <= stack.getMaxCount() && j <= slot.getMaxItemCount()) {
                         stack.setCount(0);
