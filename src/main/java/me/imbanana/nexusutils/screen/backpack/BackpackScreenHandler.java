@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.screen.backpack;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.components.ModComponents;
 import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import me.imbanana.nexusutils.fluids.ModFluids;

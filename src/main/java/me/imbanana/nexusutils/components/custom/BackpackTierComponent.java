@@ -2,9 +2,6 @@ package me.imbanana.nexusutils.components.custom;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.imbanana.nexusutils.item.backpack.BackpackItem;
-import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.StringIdentifiable;
 
 import java.util.Arrays;

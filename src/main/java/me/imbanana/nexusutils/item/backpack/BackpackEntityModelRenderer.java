@@ -1,13 +1,10 @@
 package me.imbanana.nexusutils.item.backpack;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.components.ModComponents;
 import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;

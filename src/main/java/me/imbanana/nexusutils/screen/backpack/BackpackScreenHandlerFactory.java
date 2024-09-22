@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.screen.backpack;
 
-import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.networking.packets.screens.ItemInventoryOpeningData;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.player.PlayerEntity;

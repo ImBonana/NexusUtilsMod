@@ -4,7 +4,6 @@ import io.wispforest.owo.network.ServerAccess;
 import me.imbanana.nexusutils.block.custom.SleepingBagBlock;
 import me.imbanana.nexusutils.block.enums.SleepingBagPart;
 import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
-import me.imbanana.nexusutils.screen.backpack.BackpackScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.AutomaticItemPlacementContext;
 import net.minecraft.item.BlockItem;

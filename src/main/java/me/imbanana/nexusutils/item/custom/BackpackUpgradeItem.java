@@ -1,7 +1,6 @@
 package me.imbanana.nexusutils.item.custom;
 
 import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
-import me.imbanana.nexusutils.item.backpack.BackpackItem;
 import net.minecraft.item.Item;
 
 public class BackpackUpgradeItem extends Item {
