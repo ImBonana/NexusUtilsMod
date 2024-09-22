@@ -18,6 +18,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/mining",
+  "supported_items": "#nexusutils:enchantable/hoes",
   "weight": 1
 }

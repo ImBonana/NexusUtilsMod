@@ -10,6 +10,7 @@ public class ModItemTags {
     public static final TagKey<Item> RANGED_PROJECTILE_ENCHANTABLE = register("enchantable/ranged_projectile");
     public static final TagKey<Item> RANGED_WEAPON_ENCHANTABLE = register("enchantable/ranged_weapon");
     public static final TagKey<Item> AXES_ENCHANTABLE = register("enchantable/axes");
+    public static final TagKey<Item> HOES_ENCHANTABLE = register("enchantable/hoes");
     public static final TagKey<Item> PICKAXES_ENCHANTABLE = register("enchantable/pickaxes");
     public static final TagKey<Item> EXPERIENCE_ENCHANTABLE = register("enchantable/experience");
     public static final TagKey<Item> ICE_ASPECT_ENCHANTABLE = register("enchantable/ice_aspect");

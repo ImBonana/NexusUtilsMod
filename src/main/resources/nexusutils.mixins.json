@@ -8,6 +8,7 @@
     "BoneMealMixin",
     "BucketItemMixin",
     "HopperScreenHandlerAccessor",
+    "ItemEnchantmentsComponentMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "PlayerInventoryMixin",
@@ -29,6 +30,7 @@
     "AnvilScreenMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayerInteractionManagerMixin",
+    "EnchantmentScreenMixin",
     "HandledScreenAccessor",
     "WolfEntityRendererMixin"
   ],
