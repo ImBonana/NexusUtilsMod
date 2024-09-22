@@ -36,7 +36,7 @@ public class LightningEnchantment extends NexusEnchantment {
                         EnchantmentEffectComponentTypes.POST_ATTACK,
                         EnchantmentEffectTarget.ATTACKER,
                         EnchantmentEffectTarget.VICTIM,
-                new SummonEntityEnchantmentEffect(RegistryEntryList.of(EntityType.LIGHTNING_BOLT.getRegistryEntry()), false),
+                        new SummonEntityEnchantmentEffect(RegistryEntryList.of(EntityType.LIGHTNING_BOLT.getRegistryEntry()), false),
                         AllOfLootCondition.builder(
                                 EntityPropertiesLootCondition.builder(
                                         LootContext.EntityTarget.THIS, EntityPredicate.Builder.create().location(LocationPredicate.Builder.create().canSeeSky(true))

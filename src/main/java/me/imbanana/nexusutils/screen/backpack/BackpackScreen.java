@@ -3,6 +3,8 @@ package me.imbanana.nexusutils.screen.backpack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.NexusUtilsClient;
+import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
+import me.imbanana.nexusutils.item.backpack.BackpackItem;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes;
@@ -27,11 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
-    private static final Identifier TEXTURE = NexusUtils.idOf("textures/gui/container/backpack.png");
-
     public BackpackScreen(BackpackScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.backgroundHeight = 166;
+        this.backgroundHeight = 148 + (handler.getTier().asNumber() * 18);
         this.backgroundWidth = 256;
         this.playerInventoryTitleY = this.backgroundHeight - 94;
         this.playerInventoryTitleX = 48;
@@ -44,12 +44,12 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionProgram);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderTexture(0, this.getTexture());
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        context.drawTexture(this.getTexture(), x, y, 0, 0, backgroundWidth, backgroundHeight);
     }
 
     @Override
@@ -66,12 +66,14 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
         renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
 
+        int tankY = this.getTanksY();
+
         if(!this.handler.getLeftTank().isResourceBlank()) {
-            drawTank(context, this.handler.getLeftTank(), 25);
+            drawTank(context, this.handler.getLeftTank(), 25, tankY + this.getLeftTankHeight(), 16, this.getLeftTankHeight());
         }
 
         if(!this.handler.getRightTank().isResourceBlank()) {
-            drawTank(context, this.handler.getRightTank(), 215);
+            drawTank(context, this.handler.getRightTank(), 215, tankY + this.getRightTankHeight(), 16, this.getRightTankHeight());
         }
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -83,13 +85,15 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
     protected void drawMouseoverTooltip(DrawContext context, int x, int y) {
         super.drawMouseoverTooltip(context, x, y);
 
+        int tankY = this.getTanksY();
+
         // left tank
-        if(inTank(25, 66 - 44, 16, 44, x, y)) {
+        if(inTank(25, tankY, 16, this.getLeftTankHeight(), x, y)) {
             context.drawTooltip(textRenderer, this.getTankTooltip(this.getScreenHandler().getLeftTank()), x, y);
         }
 
         // right tank
-        if(inTank(215, 66 - 44, 16, 44, x, y)) {
+        if(inTank(215, tankY, 16, this.getRightTankHeight(), x, y)) {
             context.drawTooltip(textRenderer, this.getTankTooltip(this.getScreenHandler().getRightTank()), x, y);
         }
     }
@@ -123,15 +127,15 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
         return tankTips;
     }
 
-    private void drawTank(DrawContext context, FluidTank fluidTank, int x) {
+    private void drawTank(DrawContext context, FluidTank fluidTank, int x, int y, int width, int height) {
         renderFluid(
                 context,
                 fluidTank.variant,
                 this.x + x,
-                this.y + 66,
+                this.y + y,
                 0,
-                (int) Math.floor(((double) fluidTank.amount / fluidTank.getCapacity()) * 44),
-                16
+                (int) Math.floor(((double) fluidTank.amount / fluidTank.getCapacity()) * height),
+                width
         );
 
     }
@@ -178,5 +182,25 @@ public class BackpackScreen extends HandledScreen<BackpackScreenHandler> {
         }
 
         context.getMatrices().pop();
+    }
+
+    private Identifier getTexture() {
+        return NexusUtils.idOf("textures/gui/container/backpack_tier_%s.png".formatted(this.handler.getTier().asNumber()));
+    }
+
+    private boolean isTierZero() {
+        return this.handler.getTier() == BackpackTierComponent.Tier.TIER_0;
+    }
+
+    private int getLeftTankHeight() {
+        return (int) (this.handler.getInventory().getLeftTank().getCapacity() / 1000f * 11);
+    }
+
+    private int getRightTankHeight() {
+        return (int) (this.handler.getInventory().getRightTank().getCapacity() / 1000f * 11);
+    }
+
+    private int getTanksY() {
+        return isTierZero() ? 18 : (15 + (7 * this.handler.getTier().asNumber()));
     }
 }

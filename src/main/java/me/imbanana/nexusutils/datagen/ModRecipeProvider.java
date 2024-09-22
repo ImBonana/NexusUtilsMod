@@ -2,14 +2,16 @@ package me.imbanana.nexusutils.datagen;
 
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.ModBlocks;
+import me.imbanana.nexusutils.components.ModComponents;
+import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -181,6 +183,54 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.COPPER_INGOT), conditionsFromItem(Items.COPPER_INGOT))
                 .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
                 .offerTo(exporter, NexusUtils.idOf("terrorist_dog_remote"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.BACKPACK_IRON_UPGRADE, 1)
+                .pattern("ILI")
+                .pattern("ICI")
+                .pattern("III")
+                .input('I', Items.IRON_INGOT)
+                .input('L', Items.LEATHER)
+                .input('C', Items.CHEST)
+                .criterion(hasItem(Items.CHEST), conditionsFromItem(Items.CHEST))
+                .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                .offerTo(exporter, NexusUtils.idOf("backpack_iron_upgrade"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.BACKPACK_GOLD_UPGRADE, 1)
+                .pattern("ILI")
+                .pattern("IUI")
+                .pattern("III")
+                .input('I', Items.GOLD_INGOT)
+                .input('L', Items.LEATHER)
+                .input('U', ModItems.BACKPACK_IRON_UPGRADE)
+                .criterion(hasItem(ModItems.BACKPACK_IRON_UPGRADE), conditionsFromItem(ModItems.BACKPACK_IRON_UPGRADE))
+                .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
+                .offerTo(exporter, NexusUtils.idOf("backpack_gold_upgrade"));
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.BACKPACK_DIAMOND_UPGRADE, 1)
+                .pattern("ILI")
+                .pattern("IUI")
+                .pattern("III")
+                .input('I', Items.DIAMOND)
+                .input('L', Items.LEATHER)
+                .input('U', ModItems.BACKPACK_GOLD_UPGRADE)
+                .criterion(hasItem(ModItems.BACKPACK_GOLD_UPGRADE), conditionsFromItem(ModItems.BACKPACK_GOLD_UPGRADE))
+                .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
+                .offerTo(exporter, NexusUtils.idOf("backpack_diamond_upgrade"));
+
+        SmithingTransformRecipeJsonBuilder.create(
+                Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                Ingredient.ofItems(ModItems.BACKPACK_DIAMOND_UPGRADE),
+                Ingredient.ofItems(Items.NETHERITE_INGOT),
+                RecipeCategory.MISC,
+                ModItems.BACKPACK_NETHERITE_UPGRADE
+        )
+                .criterion(hasItem(Items.NETHERITE_INGOT), conditionsFromItem(Items.NETHERITE_INGOT))
+                .criterion(hasItem(ModItems.BACKPACK_DIAMOND_UPGRADE), conditionsFromItem(ModItems.BACKPACK_DIAMOND_UPGRADE))
+                .criterion(hasItem(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), conditionsFromItem(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE))
+                .offerTo(exporter, NexusUtils.idOf("backpack_netherite_upgrade"));
     }
 
     private void registerSleepingBags(RecipeExporter exporter) {

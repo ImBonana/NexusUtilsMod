@@ -21,6 +21,10 @@ public class FluidTank extends SingleVariantStorage<FluidVariant> {
         return new FluidTank(tank.capacity(), tank.fluidVariant(), tank.amount());
     }
 
+    public static FluidTank of(FluidTanksComponent.Tank tank, long capacity) {
+        return new FluidTank(capacity, tank.fluidVariant(), tank.amount());
+    }
+
     @Override
     public FluidVariant getBlankVariant() {
         return FluidVariant.blank();

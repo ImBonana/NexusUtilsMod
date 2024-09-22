@@ -53,7 +53,7 @@ public record PlaceSleepingBagBackpackPacket() {
                     player.setPos(newPos.getX(), newPos.getY(), newPos.getZ());
 
                     if(!player.isCreative()) {
-                        ItemStack stack = backpackInventory.getStack(BackpackScreenHandler.SLEEPING_BAG_SLOT_ID);
+                        ItemStack stack = backpackInventory.getSleepingBag();
                         stack.decrement(1);
                         backpackInventory.markDirty();
                     }

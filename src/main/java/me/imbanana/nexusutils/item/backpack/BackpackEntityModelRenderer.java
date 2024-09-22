@@ -1,5 +1,8 @@
 package me.imbanana.nexusutils.item.backpack;
 
+import me.imbanana.nexusutils.NexusUtils;
+import me.imbanana.nexusutils.components.ModComponents;
+import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.render.VertexConsumer;
@@ -21,13 +24,13 @@ public class BackpackEntityModelRenderer implements BuiltinItemRendererRegistry.
     @Override
     public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         BackpackInventory backpackInventory = new BackpackInventory(stack);
+        BackpackTierComponent.Tier tier = stack.getOrDefault(ModComponents.BACKPACK_TIER, BackpackTierComponent.createDefaultBackpackTier()).tier();
         ItemStack sleepingBagItem = backpackInventory.getSleepingBag();
         matrices.push();
         matrices.scale(1.0f, -1.0f, -1.0f);
-        matrices.translate(0.5f, -1.5f, -0.5f);
+        matrices.translate(0.5f, -1.47f, -0.65f);
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180));
-        VertexConsumer vertexConsumer2 = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, this.backpackModel.getLayer(BackpackEntityModel.TEXTURE), false, stack.hasGlint());
-        this.backpackModel.render(matrices, vertexConsumer2, light, overlay, ColorHelper.Argb.fromFloats(1f, 1f, 1f, 1f), sleepingBagItem != null && !sleepingBagItem.isEmpty());
+        this.backpackModel.render(tier, matrices, vertexConsumers, light, overlay, ColorHelper.Argb.fromFloats(1f, 1f, 1f, 1f), stack.hasGlint(), sleepingBagItem != null && !sleepingBagItem.isEmpty());
         matrices.pop();
     }
 }

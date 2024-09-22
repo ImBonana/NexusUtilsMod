@@ -10,26 +10,26 @@ import net.minecraft.util.collection.DefaultedList;
 public class ItemInventory implements ISimpleInventory {
     private final DefaultedList<ItemStack> inventory;
 
-    protected final ItemStack item;
+    protected final ItemStack stack;
 
     protected boolean canUse = true;
 
-    public ItemInventory(ItemStack item, int inventorySize) {
+    public ItemInventory(ItemStack stack, int inventorySize) {
         this.inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
-        this.item = item;
+        this.stack = stack;
 
        this.init();
     }
 
     protected void init() {
-        ContainerComponent containerComponent = this.item.get(DataComponentTypes.CONTAINER);
+        ContainerComponent containerComponent = this.stack.get(DataComponentTypes.CONTAINER);
         if(containerComponent == null) return;
         containerComponent.copyTo(this.inventory);
     }
 
     @Override
     public void markDirty() {
-        this.item.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(this.inventory));
+        this.stack.set(DataComponentTypes.CONTAINER, ContainerComponent.fromStacks(this.inventory));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ItemInventory implements ISimpleInventory {
 
     @Override
     public void onOpen(PlayerEntity player) {
-        if(this.item.isEmpty()) {
+        if(this.stack.isEmpty()) {
             this.canUse = false;
             return;
         }
@@ -53,7 +53,7 @@ public class ItemInventory implements ISimpleInventory {
 
     @Override
     public ItemStack getStack(int slot) {
-        if(this.item.isEmpty()) {
+        if(this.stack.isEmpty()) {
             this.canUse = false;
             return ItemStack.EMPTY;
         }
@@ -62,7 +62,7 @@ public class ItemInventory implements ISimpleInventory {
 
     @Override
     public ItemStack removeStack(int slot, int count) {
-        if(this.item.isEmpty()) {
+        if(this.stack.isEmpty()) {
             this.canUse = false;
             return ItemStack.EMPTY;
         }
@@ -71,7 +71,7 @@ public class ItemInventory implements ISimpleInventory {
 
     @Override
     public ItemStack removeStack(int slot) {
-        if(this.item.isEmpty()) {
+        if(this.stack.isEmpty()) {
             this.canUse = false;
             return ItemStack.EMPTY;
         }
@@ -80,7 +80,7 @@ public class ItemInventory implements ISimpleInventory {
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-        if(this.item.isEmpty()) {
+        if(this.stack.isEmpty()) {
             this.canUse = false;
             return;
         }
@@ -89,7 +89,7 @@ public class ItemInventory implements ISimpleInventory {
 
     @Override
     public void clear() {
-        if(this.item.isEmpty()) {
+        if(this.stack.isEmpty()) {
             this.canUse = false;
             return;
         }

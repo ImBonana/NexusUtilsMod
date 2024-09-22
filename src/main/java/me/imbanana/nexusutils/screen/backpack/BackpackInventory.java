@@ -1,25 +1,33 @@
 package me.imbanana.nexusutils.screen.backpack;
 
 import me.imbanana.nexusutils.components.ModComponents;
+import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import me.imbanana.nexusutils.components.custom.FluidTanksComponent;
 import me.imbanana.nexusutils.item.ItemInventory;
-import me.imbanana.nexusutils.item.backpack.BackpackItem;
 import net.minecraft.item.ItemStack;
 
 public class BackpackInventory extends ItemInventory {
+    public static final int INVENTORY_OFFSET = 5;
+
     private FluidTank leftTank;
     private FluidTank rightTank;
 
-    public BackpackInventory(ItemStack backpackItem) {
-        super(backpackItem, BackpackItem.INVENTORY_SIZE + 5);
+    private final BackpackTierComponent.Tier tier;
+
+    public BackpackInventory(ItemStack backpackStack, BackpackTierComponent.Tier tier) {
+        super(backpackStack, getInventorySize(tier));
+
+        this.tier = tier;
+        this.readData();
     }
 
-    @Override
-    protected void init() {
-        super.init();
+    public BackpackInventory(ItemStack backpackStack) {
+        this(backpackStack, backpackStack.getOrDefault(ModComponents.BACKPACK_TIER, BackpackTierComponent.createDefaultBackpackTier()).tier());
+    }
 
-        this.leftTank = new FluidTank(BackpackItem.CAPACITY);
-        this.rightTank = new FluidTank(BackpackItem.CAPACITY);
+    private void readData() {
+        this.leftTank = new FluidTank(this.getCapacity());
+        this.rightTank = new FluidTank(this.getCapacity());
 
         readTanks();
     }
@@ -30,13 +38,21 @@ public class BackpackInventory extends ItemInventory {
         writeTanks();
     }
 
+    private int getSleepingBagSlotId() {
+        return BackpackScreenHandler.UtilSlots.SLEEPING_BAG.getId();
+    }
+
     public ItemStack getSleepingBag() {
-        return this.getItems().get(BackpackScreenHandler.SLEEPING_BAG_SLOT_ID);
+        return this.getItems().get(this.getSleepingBagSlotId());
     }
 
     public void setSleepingBag(ItemStack itemStack) {
-        this.getItems().set(BackpackScreenHandler.SLEEPING_BAG_SLOT_ID, itemStack);
+        this.getItems().set(this.getSleepingBagSlotId(), itemStack);
         this.markDirty();
+    }
+
+    public long getCapacity() {
+        return getCapacity(this.tier);
     }
 
     public FluidTank getLeftTank() {
@@ -48,7 +64,7 @@ public class BackpackInventory extends ItemInventory {
     }
 
     private void writeTanks() {
-        this.item.set(ModComponents.FLUID_TANKS,
+        this.stack.set(ModComponents.FLUID_TANKS,
                 new FluidTanksComponent(
                         FluidTanksComponent.Tank.of(this.leftTank),
                         FluidTanksComponent.Tank.of(this.rightTank)
@@ -57,9 +73,18 @@ public class BackpackInventory extends ItemInventory {
     }
 
     private void readTanks() {
-        FluidTanksComponent fluidTanks = this.item.getOrDefault(ModComponents.FLUID_TANKS, FluidTanksComponent.createTanks(BackpackItem.CAPACITY));
+        long capacity = this.getCapacity();
+        FluidTanksComponent fluidTanks = this.stack.getOrDefault(ModComponents.FLUID_TANKS, FluidTanksComponent.createTanks(capacity));
 
-        this.leftTank = FluidTank.of(fluidTanks.leftTank());
-        this.rightTank = FluidTank.of(fluidTanks.rightTank());
+        this.leftTank = FluidTank.of(fluidTanks.leftTank(), capacity);
+        this.rightTank = FluidTank.of(fluidTanks.rightTank(), capacity);
+    }
+
+    public static int getInventorySize(BackpackTierComponent.Tier tier) {
+        return (9*2) + (tier.asNumber() * 9) + INVENTORY_OFFSET;
+    }
+
+    public static long getCapacity(BackpackTierComponent.Tier tier) {
+        return 3000L + (tier.asNumber() * 1000L);
     }
 }
