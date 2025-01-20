@@ -1,8 +1,11 @@
 package me.imbanana.nexusutils;
 
 import me.imbanana.nexusutils.datagen.*;
+import me.imbanana.nexusutils.trim.ModTrimMaterials;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.registry.RegistryBuilder;
+import net.minecraft.registry.RegistryKeys;
 
 public class NexusUtilsDataGenerator implements DataGeneratorEntrypoint {
 	@Override
@@ -13,6 +16,11 @@ public class NexusUtilsDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
-		pack.addProvider(ModEnchantmentProvider::new);
+		pack.addProvider(ModRegisteryDataGenerator::new);
+	}
+
+	@Override
+	public void buildRegistry(RegistryBuilder registryBuilder) {
+		registryBuilder.addRegistry(RegistryKeys.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
 	}
 }
