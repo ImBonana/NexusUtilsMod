@@ -1,17 +1,8 @@
 package me.imbanana.nexusutils.entity.client.models;
 
-import me.imbanana.nexusutils.entity.custom.SnailEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.QuadrupedEntityModel;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ModelTransformationMode;
-
-import java.util.Optional;
 
 // Made with Blockbench 4.8.3
 // Exported for Minecraft version 1.17+ for Yarn

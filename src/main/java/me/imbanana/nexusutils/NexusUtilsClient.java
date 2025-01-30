@@ -10,7 +10,6 @@ import me.imbanana.nexusutils.events.KeyInputHandler;
 import me.imbanana.nexusutils.events.ModClientEvents;
 import me.imbanana.nexusutils.fluids.ModFluids;
 import me.imbanana.nexusutils.fluids.custom.milk.MilkFluidVariantAttributeHandler;
-import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.backpack.BackpackEntityModel;
 import me.imbanana.nexusutils.item.backpack.BackpackEntityModelRenderer;
 import me.imbanana.nexusutils.item.backpack.PlayerBackpackFeatureRenderer;

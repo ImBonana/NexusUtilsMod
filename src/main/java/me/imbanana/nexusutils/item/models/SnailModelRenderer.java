@@ -3,26 +3,16 @@ package me.imbanana.nexusutils.item.models;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.imbanana.nexusutils.NexusUtils;
-import me.imbanana.nexusutils.block.entity.renderer.SleepingBagBlockEntityRenderer;
-import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.entity.client.ModModelLayers;
-import me.imbanana.nexusutils.entity.client.ModTexturedRenderLayers;
-import me.imbanana.nexusutils.entity.client.SnailRenderer;
 import me.imbanana.nexusutils.entity.client.models.SnailModel;
-import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.item.model.special.SimpleSpecialModelRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ModelTransformationMode;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 public class SnailModelRenderer implements SimpleSpecialModelRenderer {
     private final SnailModel snailModel;

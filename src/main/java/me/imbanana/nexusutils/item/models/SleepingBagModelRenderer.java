@@ -14,7 +14,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 public class SleepingBagModelRenderer implements SimpleSpecialModelRenderer {
     private final SleepingBagBlockEntityRenderer blockEntityRenderer;

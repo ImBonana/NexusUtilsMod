@@ -25,9 +25,7 @@ public class InventorySorter {
         try {
             ScreenHandler screenHandler = player.currentScreenHandler;
             switch (screenHandler) {
-                case null -> {
-                    NexusUtils.LOGGER.error("Sorting failed, because screenHandler is null.");
-                }
+                case null -> NexusUtils.LOGGER.error("Sorting failed, because screenHandler is null.");
 
                 case GenericContainerScreenHandler genericContainerScreenHandler -> {
                     if (canPlayerUse(player, screenHandler)) return;

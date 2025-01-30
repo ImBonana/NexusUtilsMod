@@ -31,8 +31,6 @@ public record AirJumpPacket(int playerId) {
                 1f
         );
 
-        NexusUtils.LOGGER.info("Effexct!");
-
         ModNetwork.NETWORK_CHANNEL.serverHandle(access.runtime()).send(new AirJumpPacket(message.playerId()));
     }
 

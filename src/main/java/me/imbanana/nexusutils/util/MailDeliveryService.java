@@ -2,7 +2,6 @@ package me.imbanana.nexusutils.util;
 
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.entity.MailBoxBlockEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;

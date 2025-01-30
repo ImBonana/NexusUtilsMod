@@ -2,7 +2,6 @@ package me.imbanana.nexusutils.item.custom;
 
 import me.imbanana.nexusutils.entity.ModEntities;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

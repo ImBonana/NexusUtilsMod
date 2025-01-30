@@ -27,7 +27,7 @@ public class FrozenLavaBlock extends Block {
 
     public FrozenLavaBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(AGE, Integer.valueOf(0)));
+        this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
     }
 
     @Override

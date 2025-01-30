@@ -12,7 +12,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 
 public class ModEntities {

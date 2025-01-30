@@ -1,6 +1,5 @@
 package me.imbanana.nexusutils.enchantment;
 
-import kotlin.jvm.functions.Function4;
 import kotlin.jvm.functions.Function5;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;

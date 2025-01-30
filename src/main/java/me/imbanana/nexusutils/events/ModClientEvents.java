@@ -2,8 +2,6 @@ package me.imbanana.nexusutils.events;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
-import me.imbanana.nexusutils.NexusUtils;
-import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.block.entity.ItemDisplayBlockEntity;
 import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
 import me.imbanana.nexusutils.enchantment.custom.OreExcavationEnchantment;
@@ -39,7 +37,6 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Unit;
-import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;

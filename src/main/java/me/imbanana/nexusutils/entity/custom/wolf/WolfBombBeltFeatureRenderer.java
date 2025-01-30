@@ -1,7 +1,6 @@
 package me.imbanana.nexusutils.entity.custom.wolf;
 
 import me.imbanana.nexusutils.NexusUtils;
-import me.imbanana.nexusutils.util.ITerroristable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -10,7 +9,6 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.WolfEntityModel;
 import net.minecraft.client.render.entity.state.WolfEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 

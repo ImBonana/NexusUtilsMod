@@ -1,7 +1,6 @@
 package me.imbanana.nexusutils.item.backpack;
 
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.imbanana.nexusutils.components.ModComponents;
 import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import me.imbanana.nexusutils.screen.backpack.BackpackInventory;
@@ -9,15 +8,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
-import net.minecraft.client.render.item.model.special.SimpleSpecialModelRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ModelTransformationMode;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.Nullable;
 
 public class BackpackEntityModelRenderer implements SpecialModelRenderer<BackpackEntityModelRenderer.BackpackState> {
     private final BackpackEntityModel backpackModel;

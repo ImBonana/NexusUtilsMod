@@ -16,7 +16,6 @@ import net.minecraft.client.gui.widget.EditBoxWidget;
 import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
