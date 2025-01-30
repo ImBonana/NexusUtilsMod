@@ -14,7 +14,7 @@ import net.minecraft.registry.tag.ItemTags;
 
 public class ExtraHealthEnchantment extends NexusEnchantment {
     public ExtraHealthEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                                 3,
@@ -28,7 +28,7 @@ public class ExtraHealthEnchantment extends NexusEnchantment {
                         EnchantmentEffectComponentTypes.ATTRIBUTES,
                         new AttributeEnchantmentEffect(
                                 NexusUtils.idOf("enchantment.extra_health"),
-                                EntityAttributes.GENERIC_MAX_HEALTH,
+                                EntityAttributes.MAX_HEALTH,
                                 EnchantmentLevelBasedValue.linear(1f),
                                 EntityAttributeModifier.Operation.ADD_VALUE
                         )

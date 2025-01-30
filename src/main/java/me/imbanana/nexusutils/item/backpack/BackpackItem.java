@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class BackpackItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
         if(!user.getInventory().nexusUtils$isBackapckEquipped()) {
@@ -43,6 +43,6 @@ public class BackpackItem extends Item {
             stack.setCount(0);
         }
 
-        return TypedActionResult.success(stack);
+        return ActionResult.SUCCESS;
     }
 }

@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "nexusutils:item/red_sleeping_bag",
+    "model": {
+      "type": "nexusutils:sleeping_bag",
+      "texture": "minecraft:red"
+    }
+  }
+}

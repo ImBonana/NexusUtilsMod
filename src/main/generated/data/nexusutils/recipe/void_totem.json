@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:crying_obsidian",
+    "E": "minecraft:ender_eye",
+    "T": "minecraft:totem_of_undying"
+  },
+  "pattern": [
+    "ECE",
+    "CTC",
+    "ECE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nexusutils:void_totem"
+  }
+}

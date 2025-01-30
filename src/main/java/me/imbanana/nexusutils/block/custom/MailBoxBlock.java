@@ -22,11 +22,14 @@ import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
@@ -37,12 +40,14 @@ public class MailBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
     private static final VoxelShape NORMAL_SHAPE = VoxelShapes.combineAndSimplify(Block.createCuboidShape(7, 0, 7, 9, 12, 9), Block.createCuboidShape(5, 12, 2, 11, 18, 14), BooleanBiFunction.OR);
     private static final VoxelShape SIDE_SHAPE = VoxelShapes.combineAndSimplify(Block.createCuboidShape(7, 0, 7, 9, 12, 9), Block.createCuboidShape(2, 12, 5, 14, 18, 11), BooleanBiFunction.OR);
 
-    private static final BooleanProperty THING = BooleanProperty.of("thing_up");
+    public static final BooleanProperty THING = BooleanProperty.of("thing_up");
 
     public MailBoxBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING ,Direction.NORTH).with(THING, false));
     }
+
+
 
     @Override
     protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
@@ -83,15 +88,14 @@ public class MailBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if(world.getBlockEntity(pos) instanceof MailBoxBlockEntity mailBoxBlockEntity) {
             if(mailBoxBlockEntity.isEmpty()) {
                 return state.with(THING, false);
             }
             return state.with(THING, true);
         }
-
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     public void updateThing(World world, BlockPos pos) {
@@ -132,12 +136,13 @@ public class MailBoxBlock extends HorizontalFacingBlock implements BlockEntityPr
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof MailBoxBlockEntity mailBoxBlock) {
-            Text customName = itemStack.getComponents().get(DataComponentTypes.CUSTOM_NAME) != null ? itemStack.getComponents().get(DataComponentTypes.CUSTOM_NAME) : Text.translatable("block.nexusutils.mail_box.player", placer.getName());
+            Text itemCustomName = itemStack.get(DataComponentTypes.CUSTOM_NAME);
+            Text customName = itemCustomName != null ? itemCustomName : Text.translatable("item.nexusutils.mail_box.player", placer != null ? placer.getName() : "Unknown");
             mailBoxBlock.setCustomName(customName);
             if(!world.isClient && placer instanceof PlayerEntity) {
                 ServerWorld serverWorld = (ServerWorld) world;
                 MailDeliveryService mailDeliveryService = serverWorld.nexusUtils$getMailDeliveryService();
-                MailBox mailBox = new MailBox(UUID.randomUUID(), pos, placer.getUuid(), customName.getLiteralString());
+                MailBox mailBox = new MailBox(UUID.randomUUID(), pos, placer.getUuid(), customName.getString());
 
                 mailDeliveryService.createMailBox(mailBox);
             }

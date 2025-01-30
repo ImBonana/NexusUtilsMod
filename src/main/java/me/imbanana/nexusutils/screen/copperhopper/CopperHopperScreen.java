@@ -5,12 +5,14 @@ import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.NexusUtilsClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -37,14 +39,14 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderTexture(0, TEXTURE);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         if(handler.getSlot(0).getStack().isEmpty()) renderSortIcon(context);
 
@@ -60,7 +62,7 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
     }
 
     private void renderSortIcon(DrawContext context) {
-        context.drawTexture(TEXTURE, x + 16, y + 20, backgroundWidth, 0, 16, 16);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 16, y + 20, backgroundWidth, 0, 16, 16, 256, 256);
     }
 
     @Override
@@ -85,15 +87,15 @@ public class CopperHopperScreen extends HandledScreen<CopperHopperScreenHandler>
                 firstRender = false;
                 updateTooltip();
             }
-            if(this.isHovered()) context.drawTexture(TEXTURE, this.getX(), this.getY(), CopperHopperScreen.this.backgroundWidth, 38, this.width, this.height);
-            else context.drawTexture(TEXTURE, this.getX(), this.getY(), CopperHopperScreen.this.backgroundWidth, 16, this.width, this.height);
+            if(this.isHovered()) context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.getX(), this.getY(), CopperHopperScreen.this.backgroundWidth, 38, this.width, this.height, 256, 256);
+            else context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.getX(), this.getY(), CopperHopperScreen.this.backgroundWidth, 16, this.width, this.height, 256, 256);
 
             this.renderExtra(context);
         }
 
         public void renderExtra(DrawContext context) {
-            if(CopperHopperScreen.this.handler.isWhitelist()) context.drawTexture(TEXTURE, this.getX()+3, this.getY()+3, CopperHopperScreen.this.backgroundWidth + 16, 0, 16, 16);
-            else context.drawTexture(TEXTURE, this.getX()+3, this.getY()+3, CopperHopperScreen.this.backgroundWidth + 32, 0, 16, 16);
+            if(CopperHopperScreen.this.handler.isWhitelist()) context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.getX()+3, this.getY()+3, CopperHopperScreen.this.backgroundWidth + 16, 0, 16, 16, 256, 256);
+            else context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.getX()+3, this.getY()+3, CopperHopperScreen.this.backgroundWidth + 32, 0, 16, 16, 256, 256);
         }
 
         @Override

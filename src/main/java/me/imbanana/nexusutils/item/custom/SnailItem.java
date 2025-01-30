@@ -4,7 +4,6 @@ import me.imbanana.nexusutils.entity.ModEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.item.Equipment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -16,7 +15,7 @@ import net.minecraft.world.event.GameEvent;
 
 import java.util.Objects;
 
-public class SnailItem extends Item implements Equipment {
+public class SnailItem extends Item {
     public SnailItem(Settings settings) {
         super(settings);
     }
@@ -31,16 +30,12 @@ public class SnailItem extends Item implements Equipment {
             Direction direction = context.getSide();
             BlockPos blockPos2 = state.getCollisionShape(context.getWorld(), blockPos).isEmpty() ? blockPos : blockPos.offset(direction);
 
-            if(ModEntities.SNAIL.spawnFromItemStack((ServerWorld) context.getWorld(), itemStack, context.getPlayer(), blockPos2, SpawnReason.SPAWN_EGG, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
+            if(ModEntities.SNAIL.spawnFromItemStack((ServerWorld) context.getWorld(), itemStack, context.getPlayer(), blockPos2, SpawnReason.SPAWN_ITEM_USE, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
                 itemStack.decrement(1);
                 context.getWorld().emitGameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
             }
+            return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
-    }
-
-    @Override
-    public EquipmentSlot getSlotType() {
-        return EquipmentSlot.HEAD;
     }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "nexusutils:item/sleeping_bag_template",
+  "textures": {
+    "particle": "minecraft:block/lime_wool"
+  }
+}

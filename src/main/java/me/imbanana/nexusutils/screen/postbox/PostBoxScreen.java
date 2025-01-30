@@ -6,6 +6,7 @@ import me.imbanana.nexusutils.NexusUtilsClient;
 import me.imbanana.nexusutils.networking.ModNetwork;
 import me.imbanana.nexusutils.networking.packets.mail.SendMailPacket;
 import me.imbanana.nexusutils.util.MailBox;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.PlayerSkinDrawer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -16,6 +17,7 @@ import net.minecraft.client.gui.widget.PressableWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.sound.SoundEvents;
@@ -92,7 +94,7 @@ public class PostBoxScreen extends HandledScreen<PostBoxScreenHandler> {
 
         this.messageEditBox = new EditBoxWidget(this.textRenderer, this.x + 137, this.y + 18, 93, 52, Text.translatable("screen.nexusutils.postbox.textbox.placeholder"), Text.translatable("screen.nexusutils.postbox.textbox.message")) {
             @Override
-            protected void drawBox(DrawContext context, int x, int y, int width, int height) { }
+            protected void drawBox(DrawContext context) { }
 
             @Override
             protected int getPadding() {
@@ -130,14 +132,14 @@ public class PostBoxScreen extends HandledScreen<PostBoxScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderTexture(0, TEXTURE);
 
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 512, 256);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 512, 256);
 
         context.enableScissor(this.x + CONTAINER_X, this.y + CONTAINER_Y, this.x + CONTAINER_X + CONTAINER_WIDTH, this.y + CONTAINER_Y + CONTAINER_HEIGHT);
         int scroll = this.clampScroll(this.scroll + this.getDeltaScroll(mouseY));
@@ -151,7 +153,7 @@ public class PostBoxScreen extends HandledScreen<PostBoxScreenHandler> {
             MailBox mailBox = this.mailBoxes.get(entryIndex);
             boolean selected = this.selected == mailBox;
 
-            context.drawTexture(TEXTURE, entryX, entryY, 0, selected ? 184 : 169, MAILBOX_ENTRY_WIDTH, MAILBOX_ENTRY_HEIGHT, 512, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, entryX, entryY, 0, selected ? 184 : 169, MAILBOX_ENTRY_WIDTH, MAILBOX_ENTRY_HEIGHT, 512, 256);
 
             if(this.client != null && this.client.getNetworkHandler() != null) {
                 PlayerListEntry playerInfo = this.client.getNetworkHandler().getPlayerListEntry(mailBox.owner());
@@ -171,13 +173,13 @@ public class PostBoxScreen extends HandledScreen<PostBoxScreenHandler> {
         context.disableScissor();
 
         if(MAX_VISIBLE_ITEMS < this.mailBoxes.size()) {
-            context.drawTexture(TEXTURE, this.x + CONTAINER_X + CONTAINER_WIDTH + 1, this.y + CONTAINER_Y + getScrollBarOffset(mouseY), 109, this.canScroll() ? 169 : 169 + SCROLL_BAR_HEIGHT, SCROLBAR_WIDTH, SCROLL_BAR_HEIGHT, 512, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x + CONTAINER_X + CONTAINER_WIDTH + 1, this.y + CONTAINER_Y + getScrollBarOffset(mouseY), 109, this.canScroll() ? 169 : 169 + SCROLL_BAR_HEIGHT, SCROLBAR_WIDTH, SCROLL_BAR_HEIGHT, 512, 256);
         } else {
-            context.drawTexture(TEXTURE, this.x + CONTAINER_X + CONTAINER_WIDTH + 1, this.y + CONTAINER_Y, 109, 169 + SCROLL_BAR_HEIGHT, SCROLBAR_WIDTH, SCROLL_BAR_HEIGHT, 512, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x + CONTAINER_X + CONTAINER_WIDTH + 1, this.y + CONTAINER_Y, 109, 169 + SCROLL_BAR_HEIGHT, SCROLBAR_WIDTH, SCROLL_BAR_HEIGHT, 512, 256);
         }
 
         if(statusRenderTicks > 0) {
-            context.drawTexture(TEXTURE, this.x + 288, this.y + 3, this.sendStatus ?  185 : 171, 169, 14, 13, 512, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.x + 288, this.y + 3, this.sendStatus ?  185 : 171, 169, 14, 13, 512, 256);
 
             if(this.isPointWithinBounds(288, 3, 14, 13, mouseX, mouseY)) {
                 context.drawTooltip(this.textRenderer, this.sendStatusMessage, mouseX, mouseY);
@@ -318,9 +320,9 @@ public class PostBoxScreen extends HandledScreen<PostBoxScreenHandler> {
         protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
             int textureX = !this.active ? 157 : (this.isFocused() ? 143 : (this.isHovered() ? 129 : 115));
 
-            context.drawTexture(TEXTURE, this.getX(), this.getY(), textureX, 169, this.getWidth(), this.getHeight(), 512, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.getX(), this.getY(), textureX, 169, this.getWidth(), this.getHeight(), 512, 256);
 
-            context.drawTexture(TEXTURE, this.getX() + 2, this.getY() + 3, 115, 183, 10, 9, 512, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, this.getX() + 2, this.getY() + 3, 115, 183, 10, 9, 512, 256);
         }
 
         @Override

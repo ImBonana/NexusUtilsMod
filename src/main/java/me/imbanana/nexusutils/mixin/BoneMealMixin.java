@@ -5,6 +5,7 @@ import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import net.minecraft.world.event.GameEvent;
@@ -39,7 +40,7 @@ public abstract class BoneMealMixin {
                 context.getPlayer().emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
                 world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, blockPos, 0);
             }
-            info.setReturnValue(ActionResult.success(world.isClient));
+            info.setReturnValue(ActionResult.SUCCESS);
         }
     }
 
@@ -53,7 +54,7 @@ public abstract class BoneMealMixin {
 
     @Unique
     private BlockPos getHighestBlockFromType(World world, BlockPos pos) {
-        for (int i = 0; i < (world.getTopY() - pos.getY()); i++) {
+        for (int i = 0; i < (world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.getX(), pos.getZ()) - pos.getY()); i++) {
             if(world.getBlockState(pos.up(i)).getBlock() != world.getBlockState(pos).getBlock())
                 return pos.up(i);
         }

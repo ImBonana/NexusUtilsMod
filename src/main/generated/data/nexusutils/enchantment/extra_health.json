@@ -11,7 +11,7 @@
           "base": 1.0,
           "per_level_above_first": 1.0
         },
-        "attribute": "minecraft:generic.max_health",
+        "attribute": "minecraft:max_health",
         "id": "nexusutils:enchantment.extra_health",
         "operation": "add_value"
       }

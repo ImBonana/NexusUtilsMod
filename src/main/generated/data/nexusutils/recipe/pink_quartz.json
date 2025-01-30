@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:quartz"
-    },
-    {
-      "item": "minecraft:amethyst_shard"
-    }
+    "minecraft:quartz",
+    "minecraft:amethyst_shard"
   ],
   "result": {
     "count": 1,

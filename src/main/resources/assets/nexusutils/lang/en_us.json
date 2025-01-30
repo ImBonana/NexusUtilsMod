@@ -1,30 +1,6 @@
 {
   "attribute.name.generic.jump_count": "Jump Count",
 
-  "block.nexusutils.black_sleeping_bag": "Black Sleeping Bag",
-  "block.nexusutils.blue_sleeping_bag": "Blue Sleeping Bag",
-  "block.nexusutils.brown_sleeping_bag": "Brown Sleeping Bag",
-  "block.nexusutils.copper_hopper": "Copper Hopper",
-  "block.nexusutils.cyan_sleeping_bag": "Cyan Sleeping Bag",
-  "block.nexusutils.frozen_lava": "Frozen Lava",
-  "block.nexusutils.gray_sleeping_bag": "Gray Sleeping Bag",
-  "block.nexusutils.green_sleeping_bag": "Green Sleeping Bag",
-  "block.nexusutils.item_display": "Item Display",
-  "block.nexusutils.light_blue_sleeping_bag": "Light Blue Sleeping Bag",
-  "block.nexusutils.light_gray_sleeping_bag": "Gray Sleeping Bag",
-  "block.nexusutils.lime_sleeping_bag": "Lime Sleeping Bag",
-  "block.nexusutils.magenta_sleeping_bag": "Magenta Sleeping Bag",
-  "block.nexusutils.mail_box": "Mail Box",
-  "block.nexusutils.mail_box.player": "%1$s's Mail Box",
-  "block.nexusutils.orange_sleeping_bag": "Orange Sleeping Bag",
-  "block.nexusutils.pink_sleeping_bag": "Pink Sleeping Bag",
-  "block.nexusutils.post_box": "Post Box",
-  "block.nexusutils.purple_sleeping_bag": "Purple Sleeping Bag",
-  "block.nexusutils.red_sleeping_bag": "Red Sleeping Bag",
-  "block.nexusutils.sleeping_bag.occupied": "This sleeping_bag is occupied",
-  "block.nexusutils.white_sleeping_bag": "White Sleeping Bag",
-  "block.nexusutils.yellow_sleeping_bag": "Yellow Sleeping Bag",
-
   "death.attack.bleed": "%1$s bled to death",
   "death.attack.bleed.player": "%1$s bled to death",
 
@@ -136,7 +112,7 @@
   "enchantment.minecraft.mending.desc": "Repairs the durability of armor and tools with XP.",
   "enchantment.minecraft.binding_curse.desc": "Prevents the cursed item from being removed from an armor slot.",
   "enchantment.minecraft.vanishing_curse.desc": "Destroys the cursed item if you die with it in your inventory.",
-  "enchantment.minecraft.sweeping.desc": "Increases the damage of sweeping attacks.",
+  "enchantment.minecraft.sweeping_edge.desc": "Increases the damage of sweeping attacks.",
   "enchantment.minecraft.loyalty.desc": "Allows the trident to automatically return after being thrown.",
   "enchantment.minecraft.impaling.desc": "Increases damage to aquatic mobs.",
   "enchantment.minecraft.riptide.desc": "Using the trident while in rain or water will launch the user forward.",
@@ -157,6 +133,30 @@
   "gui.nexusutils.item_display": "Item Display",
   "gui.nexusutils.mail_box": "Mail Box",
   "gui.nexusutils.post_box": "Post Box",
+
+  "item.nexusutils.black_sleeping_bag": "Black Sleeping Bag",
+  "item.nexusutils.blue_sleeping_bag": "Blue Sleeping Bag",
+  "item.nexusutils.brown_sleeping_bag": "Brown Sleeping Bag",
+  "item.nexusutils.copper_hopper": "Copper Hopper",
+  "item.nexusutils.cyan_sleeping_bag": "Cyan Sleeping Bag",
+  "item.nexusutils.frozen_lava": "Frozen Lava",
+  "item.nexusutils.gray_sleeping_bag": "Gray Sleeping Bag",
+  "item.nexusutils.green_sleeping_bag": "Green Sleeping Bag",
+  "item.nexusutils.item_display": "Item Display",
+  "item.nexusutils.light_blue_sleeping_bag": "Light Blue Sleeping Bag",
+  "item.nexusutils.light_gray_sleeping_bag": "Gray Sleeping Bag",
+  "item.nexusutils.lime_sleeping_bag": "Lime Sleeping Bag",
+  "item.nexusutils.magenta_sleeping_bag": "Magenta Sleeping Bag",
+  "item.nexusutils.mail_box": "Mail Box",
+  "item.nexusutils.mail_box.player": "%1$s's Mail Box",
+  "item.nexusutils.orange_sleeping_bag": "Orange Sleeping Bag",
+  "item.nexusutils.pink_sleeping_bag": "Pink Sleeping Bag",
+  "item.nexusutils.post_box": "Post Box",
+  "item.nexusutils.purple_sleeping_bag": "Purple Sleeping Bag",
+  "item.nexusutils.red_sleeping_bag": "Red Sleeping Bag",
+  "item.nexusutils.sleeping_bag.occupied": "This sleeping_bag is occupied",
+  "item.nexusutils.white_sleeping_bag": "White Sleeping Bag",
+  "item.nexusutils.yellow_sleeping_bag": "Yellow Sleeping Bag",
 
   "item.nexusutils.backpack": "Backpack",
   "item.nexusutils.backpack.desc": "Tier: %s",
@@ -226,5 +226,7 @@
 
   "trim_material.nexusutils.pink_quartz": "Pink Quartz Material",
 
-  "trinkets.slot.chest.backpack": "Backpack"
+  "trinkets.slot.chest.backpack": "Backpack",
+
+  "tooltip.nexusutils.expend_key": "Press §eAlt§r for more information!"
 }

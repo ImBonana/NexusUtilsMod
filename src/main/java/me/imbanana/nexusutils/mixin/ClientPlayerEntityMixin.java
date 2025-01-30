@@ -10,9 +10,10 @@ import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ElytraItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,11 +42,11 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     public void injectTickMovement(CallbackInfo ci) {
         if(this.isOnGround() || this.isClimbing()) {
             this.nexusutils$resetJumps();
-        } else if(this.input.jumping && !this.getAbilities().flying && this.nexusutils$canJump()) {
+        } else if(this.input.playerInput.jump() && !this.getAbilities().flying && this.nexusutils$canJump()) {
             this.nexusutils$jump();
         }
 
-        jumpedLastTick = this.input.jumping;
+        jumpedLastTick = this.input.playerInput.jump();
     }
 
     @Unique
@@ -68,13 +69,12 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
     @Unique
     private boolean nexusutils$wearingUsableElytra() {
-        ItemStack chestItemStack = this.getEquippedStack(EquipmentSlot.CHEST);
-        return chestItemStack.getItem() == Items.ELYTRA && ElytraItem.isUsable(chestItemStack);
+        return LivingEntity.canGlideWith(this.getEquippedStack(EquipmentSlot.CHEST), EquipmentSlot.CHEST);
     }
 
     @Unique
     private boolean nexusutils$canJump() {
-        boolean canJumpBasedOnState = !nexusutils$wearingUsableElytra() && !isFallFlying() && !this.hasVehicle() && !this.isTouchingWater() && !this.hasStatusEffect(StatusEffects.LEVITATION);
+        boolean canJumpBasedOnState = !nexusutils$wearingUsableElytra() && !isGliding() && !this.hasVehicle() && !this.isTouchingWater() && !this.hasStatusEffect(StatusEffects.LEVITATION);
         return canJumpBasedOnState && jumpLeft > 0 && !jumpedLastTick;
     }
 }

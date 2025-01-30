@@ -14,7 +14,7 @@ import net.minecraft.registry.tag.ItemTags;
 
 public class ShockwaveEnchantment extends NexusEnchantment {
     public ShockwaveEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE),
                                 1,

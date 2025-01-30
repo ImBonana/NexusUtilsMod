@@ -16,6 +16,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
@@ -23,14 +24,18 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 
 public class SleepingBagBlockEntityRenderer implements BlockEntityRenderer<SleepingBagBlockEntity> {
-    private final ModelPart sleepingBagHead;
-    private final ModelPart sleepingBagFoot;
-    private final ModelPart sleepingBagFull;
+    private final Model sleepingBagHead;
+    private final Model sleepingBagFoot;
+    private final Model sleepingBagFull;
 
     public SleepingBagBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
-        this.sleepingBagHead = context.getLayerModelPart(ModModelLayers.SLEEPING_BAG_HEAD);
-        this.sleepingBagFoot = context.getLayerModelPart(ModModelLayers.SLEEPING_BAG_FOOT);
-        this.sleepingBagFull = context.getLayerModelPart(ModModelLayers.SLEEPING_BAG_FULL);
+        this(context.getLoadedEntityModels());
+    }
+
+    public SleepingBagBlockEntityRenderer(LoadedEntityModels models) {
+        this.sleepingBagHead = new Model.SinglePartModel(models.getModelPart(ModModelLayers.SLEEPING_BAG_HEAD), RenderLayer::getEntitySolid);
+        this.sleepingBagFoot = new Model.SinglePartModel(models.getModelPart(ModModelLayers.SLEEPING_BAG_FOOT), RenderLayer::getEntitySolid);
+        this.sleepingBagFull = new Model.SinglePartModel(models.getModelPart(ModModelLayers.SLEEPING_BAG_FULL), RenderLayer::getEntitySolid);
     }
 
     public static TexturedModelData getHeadTexturedModelData() {
@@ -60,7 +65,7 @@ public class SleepingBagBlockEntityRenderer implements BlockEntityRenderer<Sleep
     public void render(SleepingBagBlockEntity sleepingBagBlockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         SpriteIdentifier spriteIdentifier = ModTexturedRenderLayers.SLEEPING_BAG_TEXTURES[sleepingBagBlockEntity.getColor().getId()];
         World world2 = sleepingBagBlockEntity.getWorld();
-        if(sleepingBagBlockEntity.isShouldRenderFull()) {
+        if(sleepingBagBlockEntity.shouldRenderFull()) {
             this.renderPart(matrices, vertexConsumers, this.sleepingBagFull, Direction.SOUTH, spriteIdentifier, light, overlay);
             return;
         }
@@ -75,13 +80,17 @@ public class SleepingBagBlockEntityRenderer implements BlockEntityRenderer<Sleep
         }
     }
 
-    private void renderPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ModelPart part, Direction direction, SpriteIdentifier sprite, int light, int overlay) {
+    private void renderPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, Model part, Direction direction, SpriteIdentifier sprite, int light, int overlay) {
         matrices.push();
         matrices.translate(0.5f, 1.5f, 0.5f);
         matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0f));
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(direction.asRotation()));
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(direction.getPositiveHorizontalDegrees()));
         VertexConsumer vertexConsumer = sprite.getVertexConsumer(vertexConsumers, RenderLayer::getEntitySolid);
         part.render(matrices, vertexConsumer, light, overlay);
         matrices.pop();
+    }
+
+    public void renderAsItem(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, SpriteIdentifier textureId) {
+        this.renderPart(matrices, vertexConsumers, this.sleepingBagFull, Direction.SOUTH, textureId, light, overlay);
     }
 }

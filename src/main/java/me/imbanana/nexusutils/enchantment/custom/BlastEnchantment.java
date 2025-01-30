@@ -10,7 +10,7 @@ import net.minecraft.registry.tag.ItemTags;
 
 public class BlastEnchantment extends NexusEnchantment {
     public BlastEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                 Enchantment.definition(
                         itemLookup.getOrThrow(ItemTags.MINING_ENCHANTABLE),
                         1,

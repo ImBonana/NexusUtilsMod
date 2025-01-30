@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:magenta_wool",
+    "W": "minecraft:white_wool"
+  },
+  "pattern": [
+    "   ",
+    "   ",
+    "WCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nexusutils:magenta_sleeping_bag"
+  }
+}

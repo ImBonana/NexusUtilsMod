@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "nexusutils:item/snail_item",
+    "model": {
+      "type": "nexusutils:snail",
+      "texture": "nexusutils:snail"
+    }
+  }
+}

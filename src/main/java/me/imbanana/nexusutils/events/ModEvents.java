@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.block.CropBlock;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -18,19 +19,20 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 
 public class ModEvents {
     public static void registerEvents() {
         UseItemCallback.EVENT.register((player, world, hand) -> {
             ItemStack itemStack = player.getStackInHand(hand);
-            if(itemStack == null) return TypedActionResult.pass(ItemStack.EMPTY);
+            if(itemStack == null) return ActionResult.PASS;
             if(itemStack.isOf(Items.ENDER_CHEST)) { // open ender chest
                 if(!world.isClient()) {
                     player.openHandledScreen(
@@ -39,7 +41,7 @@ public class ModEvents {
                                     Text.translatable("container.enderchest")
                             )
                     );
-                    return TypedActionResult.success(itemStack, true);
+                    return ActionResult.SUCCESS;
                 }
             }
 
@@ -47,7 +49,7 @@ public class ModEvents {
                 ModEnchantmentHelper.applyEntityEffects(serverWorld, player, player.getPos(), itemStack, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND, ModEnchantmentEffectComponentTypes.ON_RIGHT_CLICK);
             }
 
-            return TypedActionResult.pass(itemStack);
+            return ActionResult.PASS;
         });
 
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
@@ -81,9 +83,11 @@ public class ModEvents {
                             .alwaysEdible()
                             .nutrition(2)
                             .saturationModifier(1)
-                            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
                             .build()
                     )
+                    .add(DataComponentTypes.CONSUMABLE, ConsumableComponent.builder()
+                            .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f))
+                            .build())
         ));
     }
 }

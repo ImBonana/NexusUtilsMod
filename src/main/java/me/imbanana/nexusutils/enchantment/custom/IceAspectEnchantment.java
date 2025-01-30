@@ -17,7 +17,7 @@ import net.minecraft.registry.entry.RegistryEntryList;
 
 public class IceAspectEnchantment extends NexusEnchantment {
     public IceAspectEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                     Enchantment.definition(
                             itemLookup.getOrThrow(ModItemTags.ICE_ASPECT_ENCHANTABLE),
                             2,

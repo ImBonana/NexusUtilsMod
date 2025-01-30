@@ -39,7 +39,10 @@
 			"net/minecraft/item/BucketItem": ["me/imbanana/nexusutils/util/accessors/IBucketItem"],
 			"net/minecraft/screen/ShulkerBoxScreenHandler": ["me/imbanana/nexusutils/util/accessors/IShulkerBoxScreenHandler"],
 			"net/minecraft/entity/player/PlayerInventory": ["me/imbanana/nexusutils/util/accessors/IPlayerInventory"],
-			"net/minecraft/server/world/ServerWorld": ["me/imbanana/nexusutils/util/accessors/IServerWorld"]
+			"net/minecraft/server/world/ServerWorld": ["me/imbanana/nexusutils/util/accessors/IServerWorld"],
+			"net/minecraft/entity/passive/WolfEntity": ["me/imbanana/nexusutils/util/ITerroristable"],
+			"net/minecraft/client/render/entity/state/WolfEntityRenderState": ["me/imbanana/nexusutils/util/accessors/IWolfEntityRenderState"],
+			"net/minecraft/client/render/entity/state/PlayerEntityRenderState": ["me/imbanana/nexusutils/util/accessors/IPlayerEntityRenderState"]
 		}
 	},
 	"depends": {

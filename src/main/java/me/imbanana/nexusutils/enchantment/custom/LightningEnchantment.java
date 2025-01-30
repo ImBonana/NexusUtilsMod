@@ -22,7 +22,7 @@ import net.minecraft.registry.tag.EntityTypeTags;
 
 public class LightningEnchantment extends NexusEnchantment {
     public LightningEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ModItemTags.RANGED_PROJECTILE_ENCHANTABLE),
                                 1,
@@ -42,7 +42,7 @@ public class LightningEnchantment extends NexusEnchantment {
                                         LootContext.EntityTarget.THIS, EntityPredicate.Builder.create().location(LocationPredicate.Builder.create().canSeeSky(true))
                                 ),
                                 RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.linear(0.05f))),
-                                EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(EntityTypeTags.ARROWS))
+                                EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(entityTypeLookup, EntityTypeTags.ARROWS))
                         )
                 )
         );

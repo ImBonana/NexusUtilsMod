@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "nexusutils:item/light_blue_sleeping_bag",
+    "model": {
+      "type": "nexusutils:sleeping_bag",
+      "texture": "minecraft:light_blue"
+    }
+  }
+}

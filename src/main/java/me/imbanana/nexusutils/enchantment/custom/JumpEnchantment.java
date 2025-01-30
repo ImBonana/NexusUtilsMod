@@ -15,7 +15,7 @@ import net.minecraft.registry.tag.ItemTags;
 public class JumpEnchantment extends NexusEnchantment {
 
     public JumpEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE),
                                 2,

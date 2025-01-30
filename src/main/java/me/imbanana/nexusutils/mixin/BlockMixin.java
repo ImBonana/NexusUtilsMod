@@ -44,11 +44,12 @@ public abstract class BlockMixin extends AbstractBlock implements ItemConvertibl
 
             if(EnchantmentHelper.hasAnyEnchantmentsWith(tool, ModEnchantmentEffectComponentTypes.AUTO_SMELT)) {
                 drops = drops.stream().map(itemStack -> {
-                    Optional<RecipeEntry<SmeltingRecipe>> recipeEntry = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, new SingleStackRecipeInput(itemStack), world);
+                    SingleStackRecipeInput recipe = new SingleStackRecipeInput(itemStack);
+                    Optional<RecipeEntry<SmeltingRecipe>> recipeEntry = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, recipe, world);
                     if(recipeEntry.isPresent()) {
-                        ItemStack result = recipeEntry.get().value().getResult(world.getRegistryManager()).copyWithCount(itemStack.getCount());
+                        ItemStack result = recipeEntry.get().value().craft(recipe, world.getRegistryManager());
                         if(result != null && !result.isEmpty()) {
-                            return result;
+                            return result.copyWithCount(itemStack.getCount());
                         }
                     }
 

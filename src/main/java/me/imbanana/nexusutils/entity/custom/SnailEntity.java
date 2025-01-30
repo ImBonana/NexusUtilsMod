@@ -41,9 +41,9 @@ public class SnailEntity extends AnimalEntity {
     }
 
     public static DefaultAttributeContainer.Builder createSnailAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 3)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.1f);
+        return AnimalEntity.createAnimalAttributes()
+                .add(EntityAttributes.MAX_HEALTH, 3)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.1f);
     }
 
     @Override
@@ -68,6 +68,6 @@ public class SnailEntity extends AnimalEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntities.SNAIL.create(world);
+        return ModEntities.SNAIL.create(world, SpawnReason.BREEDING);
     }
 }

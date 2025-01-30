@@ -18,6 +18,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 public class FrozenLavaBlock extends Block {
@@ -71,11 +72,11 @@ public class FrozenLavaBlock extends Block {
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
         if (sourceBlock.getDefaultState().isOf(this) && this.canMelt(world, pos, 2)) {
             this.melt(world, pos);
         }
-        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
+        super.neighborUpdate(state, world, pos, sourceBlock, wireOrientation, notify);
     }
 
     private boolean canMelt(BlockView world, BlockPos pos, int maxNeighbors) {
@@ -95,7 +96,7 @@ public class FrozenLavaBlock extends Block {
     }
 
     @Override
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
         return ItemStack.EMPTY;
     }
 
@@ -105,7 +106,7 @@ public class FrozenLavaBlock extends Block {
 
     protected void melt(World world, BlockPos pos) {
         world.setBlockState(pos, FrozenLavaBlock.getMeltedState());
-        world.updateNeighbor(pos, FrozenLavaBlock.getMeltedState().getBlock(), pos);
+        world.updateNeighbor(pos, FrozenLavaBlock.getMeltedState().getBlock(), null);
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.imbanana.nexusutils.block.entity;
 
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.block.ModBlocks;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -9,18 +10,18 @@ import net.minecraft.registry.Registry;
 public class ModBlockEntities {
     public static final BlockEntityType<ItemDisplayBlockEntity> ITEM_DISPLAY_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("item_display_be"),
-                    BlockEntityType.Builder.create(ItemDisplayBlockEntity::new, ModBlocks.ITEM_DISPLAY).build());
+                    FabricBlockEntityTypeBuilder.create(ItemDisplayBlockEntity::new, ModBlocks.ITEM_DISPLAY).build());
 
     public static final BlockEntityType<CopperHopperBlockEntity> COPPER_HOPPER_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("copper_hopper_be"),
-                    BlockEntityType.Builder.create(CopperHopperBlockEntity::new, ModBlocks.COPPER_HOPPER).build());
+                    FabricBlockEntityTypeBuilder.create(CopperHopperBlockEntity::new, ModBlocks.COPPER_HOPPER).build());
     public static final BlockEntityType<MailBoxBlockEntity> MAIL_BOX_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("mail_box_be"),
-                    BlockEntityType.Builder.create(MailBoxBlockEntity::new, ModBlocks.MAIL_BOX).build());
+                    FabricBlockEntityTypeBuilder.create(MailBoxBlockEntity::new, ModBlocks.MAIL_BOX).build());
 
     public static final BlockEntityType<SleepingBagBlockEntity> SLEEPING_BAG_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, NexusUtils.idOf("sleeping_bag_be"),
-                    BlockEntityType.Builder.create(
+                    FabricBlockEntityTypeBuilder.create(
                             SleepingBagBlockEntity::new,
 
                             ModBlocks.BLACK_SLEEPING_BAG,

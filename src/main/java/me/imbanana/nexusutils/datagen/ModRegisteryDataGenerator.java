@@ -17,7 +17,7 @@ public class ModRegisteryDataGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.TRIM_MATERIAL));
+        entries.addAll(registries.getOrThrow(RegistryKeys.TRIM_MATERIAL));
 
         registerEnchantment(entries, registries, ModEnchantments.AEGIS);
         registerEnchantment(entries, registries, ModEnchantments.ATTRACTION);
@@ -61,7 +61,7 @@ public class ModRegisteryDataGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return "nexusutils";
+        return "nexusutilsRegisteryDataGenerator";
     }
 
     private void registerEnchantment(Entries entries, RegistryWrapper.WrapperLookup registries, NexusEnchantment enchantment, ResourceCondition... resourceConditions) {

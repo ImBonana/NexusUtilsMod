@@ -14,7 +14,7 @@ public class BackpackEntityModel extends Model {
 	private final ModelPart sleepingBag;
 
 	public BackpackEntityModel(ModelPart root) {
-		super(RenderLayer::getEntitySolid);
+		super(root, RenderLayer::getEntitySolid);
 		this.backpack = root.getChild("backpack");
 		this.sleepingBag = root.getChild("sleeping_bag");
 	}
@@ -55,12 +55,6 @@ public class BackpackEntityModel extends Model {
 		return TexturedModelData.of(modelData, 64, 64);
 	}
 
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-		this.backpack.render(matrices, vertexConsumer, light, overlay, color);
-		this.sleepingBag.render(matrices, vertexConsumer, light, overlay, color);
-	}
-
 	public void render(BackpackTierComponent.Tier tier, MatrixStack matrices, VertexConsumerProvider vertexConsumer, int light, int overlay, int color, boolean hasGlint, boolean showSleepingBag) {
 		VertexConsumer vc = vertexConsumer.getBuffer(this.getLayer(TEXTURE));
 		matrices.translate(0, 0.05, -0.02);
@@ -78,7 +72,7 @@ public class BackpackEntityModel extends Model {
 	}
 
 	private void renderGlint( MatrixStack matrices, VertexConsumerProvider provider, int light) {
-		VertexConsumer vc = VertexConsumers.union(provider.getBuffer(RenderLayer.getDirectEntityGlint()), provider.getBuffer(this.getLayer(TEXTURE)));
+		VertexConsumer vc = VertexConsumers.union(provider.getBuffer(RenderLayer.getArmorEntityGlint()), provider.getBuffer(this.getLayer(TEXTURE)));
 		this.backpack.render(matrices, vc, light, OverlayTexture.DEFAULT_UV);
 	}
 

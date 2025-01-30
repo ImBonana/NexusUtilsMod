@@ -9,7 +9,7 @@ import net.minecraft.registry.RegistryKey;
 
 public class TelepathyEnchantment extends NexusEnchantment {
     public TelepathyEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                 Enchantment.definition(
                         itemLookup.getOrThrow(ModItemTags.TELEPATHY_ENCHANTABLE),
                         1,

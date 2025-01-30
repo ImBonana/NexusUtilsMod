@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "nexusutils:item/backpack",
+    "model": {
+      "type": "nexusutils:backpack"
+    }
+  }
+}

@@ -16,9 +16,9 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -30,11 +30,11 @@ public class PackageItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         user.playSoundToPlayer(SoundEvents.ITEM_BOOK_PUT, SoundCategory.PLAYERS, 1.5f, 1f);
         user.incrementStat(Stats.USED.getOrCreateStat(this));
 
-        if(world.isClient) return TypedActionResult.pass(user.getStackInHand(hand));
+        if(world.isClient) return ActionResult.PASS;
 
         ItemStack itemStack = user.getStackInHand(hand);
 

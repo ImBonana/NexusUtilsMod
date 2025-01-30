@@ -4,8 +4,8 @@ import me.imbanana.nexusutils.screen.hopperfilter.HopperFilterScreenHandlerFacto
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class HopperFilterItem extends Item {
@@ -16,11 +16,11 @@ public class HopperFilterItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack filter = user.getStackInHand(hand);
 
         user.openHandledScreen(new HopperFilterScreenHandlerFactory(filter));
 
-        return TypedActionResult.pass(filter);
+        return ActionResult.PASS;
     }
 }

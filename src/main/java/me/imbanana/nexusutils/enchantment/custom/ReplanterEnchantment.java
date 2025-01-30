@@ -9,7 +9,7 @@ import net.minecraft.registry.RegistryKey;
 
 public class ReplanterEnchantment extends NexusEnchantment {
     public ReplanterEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                     Enchantment.definition(
                             itemLookup.getOrThrow(ModItemTags.HOES_ENCHANTABLE),
                             1,

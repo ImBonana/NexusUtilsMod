@@ -15,7 +15,7 @@ import java.util.List;
 
 public class TimberEnchantment extends NexusEnchantment  {
     public TimberEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ModItemTags.AXES_ENCHANTABLE),
                                 1,

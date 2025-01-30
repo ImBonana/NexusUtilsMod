@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "nexusutils:item/terrorist_dog_remote"
+  }
+}

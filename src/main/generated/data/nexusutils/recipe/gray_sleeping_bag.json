@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:gray_wool",
+    "W": "minecraft:white_wool"
+  },
+  "pattern": [
+    "   ",
+    "   ",
+    "WCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nexusutils:gray_sleeping_bag"
+  }
+}

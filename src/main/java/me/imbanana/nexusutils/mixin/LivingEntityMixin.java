@@ -9,6 +9,7 @@ import me.imbanana.nexusutils.util.accessors.ILivingEntity;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.DeathProtectionComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -20,9 +21,9 @@ import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
@@ -43,6 +44,7 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.Consumer;
 
@@ -52,21 +54,11 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Shadow public abstract long getLootTableSeed();
 
-    @Shadow public abstract RegistryKey<LootTable> getLootTable();
-
     @Shadow public abstract boolean isExperienceDroppingDisabled();
-
-    @Shadow public abstract int getXpToDrop(ServerWorld world, @Nullable Entity attacker);
-
-    @Shadow protected abstract void dropInventory();
 
     @Shadow protected abstract void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer);
 
     @Shadow protected abstract boolean shouldDropLoot();
-
-    @Shadow protected abstract boolean shouldAlwaysDropXp();
-
-    @Shadow public abstract boolean shouldDropXp();
 
     @Shadow protected int playerHitTimer;
 
@@ -81,6 +73,14 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Shadow public abstract ItemStack getStackInHand(Hand hand);
 
     @Shadow protected abstract void setPositionInBed(BlockPos pos);
+
+    @Shadow protected abstract void dropInventory(ServerWorld world);
+
+    @Shadow protected abstract boolean shouldAlwaysDropExperience();
+
+    @Shadow public abstract int getExperienceToDrop(ServerWorld world, @Nullable Entity attacker);
+
+    @Shadow public abstract boolean shouldDropExperience();
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -169,28 +169,16 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
-    @Inject(method = "tryUseTotem", at = @At(value = "TAIL"), cancellable = true)
+    @Inject(method = "tryUseDeathProtector", at = @At(value = "TAIL"), cancellable = true)
     private void InjectTryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> info) {
         ItemStack helmet = this.getEquippedStack(EquipmentSlot.HEAD);
 
-        ItemStack itemStack = null;
-        for (Hand hand : Hand.values()) {
-            ItemStack itemStack2 = this.getStackInHand(hand);
-            if (!itemStack2.isOf(Items.TOTEM_OF_UNDYING)) continue;
-            itemStack = itemStack2.copy();
-            itemStack2.decrement(1);
-            break;
-        }
-
-        if(itemStack == null && helmet != null) {
+        if(!info.getReturnValue() && helmet != null) {
 
             if(EnchantmentHelper.hasAnyEnchantmentsWith(helmet, ModEnchantmentEffectComponentTypes.PHOENIX)) {
                 if(new Random().nextInt(1, 11) == 1) {
                     this.setHealth(1.0f);
-                    this.clearStatusEffects();
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
-                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
+                    DeathProtectionComponent.TOTEM_OF_UNDYING.applyDeathEffects(ItemStack.EMPTY, (LivingEntity) (Object) this);
                     this.getWorld().sendEntityStatus(this, EntityStatuses.USE_TOTEM_OF_UNDYING);
 
                     info.setReturnValue(true);
@@ -220,14 +208,14 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
             }
 
             if (hasTelepathy) {
-                if (this.shouldDropLoot() && this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
+                if (this.shouldDropLoot() && world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
                     getDropLoot(source, bl, (item) -> player.getInventory().offerOrDrop(item));
                     this.dropEquipment(world, source, bl);
                 }
 
-                this.dropInventory();
-                if (this.getWorld() instanceof ServerWorld && !this.isExperienceDroppingDisabled() && (this.shouldAlwaysDropXp() || this.playerHitTimer > 0 && this.shouldDropXp() && this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_LOOT))) {
-                    player.addExperience(this.getXpToDrop(world, source.getAttacker()));
+                this.dropInventory(world);
+                if (!this.isExperienceDroppingDisabled() && (this.shouldAlwaysDropExperience() || this.playerHitTimer > 0 && this.shouldDropExperience() && world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT))) {
+                    player.addExperience(this.getExperienceToDrop(world, source.getAttacker()));
                 }
 
                 info.cancel();
@@ -250,22 +238,24 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Unique
     private void getDropLoot(DamageSource damageSource, boolean causedByPlayer, Consumer<ItemStack> loot) {
-        RegistryKey<LootTable> lootTableRegistryKey = this.getLootTable();
-        MinecraftServer server = this.getWorld().getServer();
-        if(server == null) return;
-        LootTable lootTable = server.getReloadableRegistries().getLootTable(lootTableRegistryKey);
-        LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder((ServerWorld)this.getWorld())
-                .add(LootContextParameters.THIS_ENTITY, this)
-                .add(LootContextParameters.ORIGIN, this.getPos())
-                .add(LootContextParameters.DAMAGE_SOURCE, damageSource)
-                .addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker())
-                .addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
+        Optional<RegistryKey<LootTable>> lootTableRegistryKey = this.getLootTableKey();
+        if(lootTableRegistryKey.isPresent()) {
+            MinecraftServer server = this.getWorld().getServer();
+            if(server == null) return;
+            LootTable lootTable = server.getReloadableRegistries().getLootTable(lootTableRegistryKey.get());
+            LootWorldContext.Builder builder = new LootWorldContext.Builder((ServerWorld)this.getWorld())
+                    .add(LootContextParameters.THIS_ENTITY, this)
+                    .add(LootContextParameters.ORIGIN, this.getPos())
+                    .add(LootContextParameters.DAMAGE_SOURCE, damageSource)
+                    .addOptional(LootContextParameters.ATTACKING_ENTITY, damageSource.getAttacker())
+                    .addOptional(LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
 
-        if (causedByPlayer && this.attackingPlayer != null) {
-            builder = builder.add(LootContextParameters.LAST_DAMAGE_PLAYER, this.attackingPlayer).luck(this.attackingPlayer.getLuck());
+            if (causedByPlayer && this.attackingPlayer != null) {
+                builder = builder.add(LootContextParameters.LAST_DAMAGE_PLAYER, this.attackingPlayer).luck(this.attackingPlayer.getLuck());
+            }
+            LootWorldContext lootWorldContext = builder.build(LootContextTypes.ENTITY);
+            lootTable.generateLoot(lootWorldContext, this.getLootTableSeed(), loot);
         }
-        LootContextParameterSet lootContextParameterSet = builder.build(LootContextTypes.ENTITY);
-        lootTable.generateLoot(lootContextParameterSet, this.getLootTableSeed(), loot);
     }
 
     @Unique

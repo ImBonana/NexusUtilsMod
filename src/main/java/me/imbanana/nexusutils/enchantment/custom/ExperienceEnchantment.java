@@ -11,7 +11,7 @@ import net.minecraft.registry.RegistryKey;
 
 public class ExperienceEnchantment extends NexusEnchantment {
     public ExperienceEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                     Enchantment.definition(
                             itemLookup.getOrThrow(ModItemTags.EXPERIENCE_ENCHANTABLE),
                             2,

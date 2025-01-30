@@ -164,7 +164,7 @@ public class BackpackScreenHandler extends ScreenHandler {
                 } else {
                     transferFluid(inputSlot, outputSlot, fluidTank, fluid);
                 }
-            } else if (inputSlot.getStack().getItem() instanceof MilkBucketItem) {
+            } else if (inputSlot.getStack().getItem() == Items.MILK_BUCKET) {
                 transferFluid(inputSlot, outputSlot, fluidTank, ModFluids.MILK);
             }
         }
@@ -217,7 +217,7 @@ public class BackpackScreenHandler extends ScreenHandler {
 
         @Override
         public boolean canInsert(ItemStack stack) {
-            return (stack.getItem() instanceof BucketItem && !(stack.getItem() instanceof EntityBucketItem)) || stack.getItem() instanceof MilkBucketItem;
+            return (stack.getItem() instanceof BucketItem && !(stack.getItem() instanceof EntityBucketItem)) || stack.getItem() == Items.MILK_BUCKET;
         }
 
         @Override

@@ -10,8 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameter;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.util.context.ContextParameter;
 
 import java.util.Set;
 
@@ -29,7 +29,7 @@ public record ItemCooldownLootCondition(boolean onCooldown, LootContext.EntityTa
     }
 
     @Override
-    public Set<LootContextParameter<?>> getRequiredParameters() {
+    public Set<ContextParameter<?>> getAllowedParameters() {
         return ImmutableSet.of(LootContextParameters.TOOL);
     }
 
@@ -39,7 +39,7 @@ public record ItemCooldownLootCondition(boolean onCooldown, LootContext.EntityTa
         if(!(entity instanceof PlayerEntity player)) return false;
         ItemStack itemStack = lootContext.get(LootContextParameters.TOOL);
         if(itemStack == null) return false;
-        return player.getItemCooldownManager().isCoolingDown(itemStack.getItem()) == this.onCooldown;
+        return player.getItemCooldownManager().isCoolingDown(itemStack) == this.onCooldown;
     }
 
     public static LootCondition.Builder builder(LootContext.EntityTarget entity, boolean onCooldown) {

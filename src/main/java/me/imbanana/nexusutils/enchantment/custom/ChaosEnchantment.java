@@ -23,7 +23,7 @@ import net.minecraft.registry.tag.ItemTags;
 
 public class ChaosEnchantment extends NexusEnchantment {
     public ChaosEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                 Enchantment.definition(
                         itemLookup.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
                         2,
@@ -55,7 +55,7 @@ public class ChaosEnchantment extends NexusEnchantment {
                     ),
                     AllOfLootCondition.builder(
                             RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.10f))),
-                            EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(EntityType.TRIDENT))
+                            EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(entityTypeLookup, EntityType.TRIDENT))
                     )
             ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.CHAOS_EXCLUSIVE_SET))
         );

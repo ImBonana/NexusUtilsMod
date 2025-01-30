@@ -20,7 +20,7 @@ public record ItemCooldownEnchantmentEffect(EnchantmentLevelBasedValue cooldown)
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity target, Vec3d pos) {
         if(context.owner() instanceof PlayerEntity player) {
-            player.getItemCooldownManager().set(context.stack().getItem(), (int) this.cooldown.getValue(level));
+            player.getItemCooldownManager().set(context.stack(), (int) this.cooldown.getValue(level));
         }
     }
 

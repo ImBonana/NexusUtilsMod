@@ -13,6 +13,7 @@ import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -75,9 +76,10 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 
     @Override
     public void nexusUtils$goBoom() {
-        if(this.getWorld().isClient) return;
-        this.dead = true;
-        this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, World.ExplosionSourceType.MOB);
-        this.kill();
+        if(this.getWorld() instanceof ServerWorld world) {
+            this.dead = true;
+            world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, World.ExplosionSourceType.MOB);
+            this.kill(world);
+        }
     }
 }

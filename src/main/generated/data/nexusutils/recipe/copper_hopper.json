@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "S": "minecraft:chest"
+  },
+  "pattern": [
+    "C C",
+    "CSC",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nexusutils:copper_hopper"
+  }
+}

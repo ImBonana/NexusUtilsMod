@@ -33,7 +33,7 @@ public record DamageMobsFallBasedEnchantmentEffect(EnchantmentLevelBasedValue ra
 
             for (LivingEntity mobEntity : entitiyList) {
                 if(mobEntity.getId() == context.owner().getId()) continue;
-                mobEntity.damage(world.getDamageSources().mobAttack(context.owner()), damage);
+                mobEntity.damage(world, world.getDamageSources().mobAttack(context.owner()), damage);
             }
         }
 

@@ -27,9 +27,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
+import net.minecraft.world.tick.ScheduledTickView;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,14 +54,16 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     protected static final VoxelShape EAST_SHAPE = VoxelShapes.union(BOTTOM_SHAPE, TOP_SHAPE_EAST);
 
     private final DyeColor color;
+    private final Block particleSource;
 
     public SleepingBagBlock(Settings settings) {
-        this(DyeColor.RED, settings);
+        this(DyeColor.RED, Blocks.RED_WOOL, settings);
     }
 
-    public SleepingBagBlock(DyeColor dyeColor, Settings settings) {
+    public SleepingBagBlock(DyeColor dyeColor, Block particleSource, Settings settings) {
         super(settings);
         this.color = dyeColor;
+        this.particleSource = particleSource;
         this.setDefaultState(this.stateManager.getDefaultState().with(PART, SleepingBagPart.FOOT).with(OCCUPIED, false));
     }
 
@@ -139,14 +143,14 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if (direction == SleepingBagBlock.getDirectionTowardsOtherPart(state.get(PART), state.get(FACING))) {
             if (neighborState.isOf(this) && neighborState.get(PART) != state.get(PART)) {
                 return state.with(OCCUPIED, neighborState.get(OCCUPIED));
             }
             return Blocks.AIR.getDefaultState();
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     private static Direction getDirectionTowardsOtherPart(SleepingBagPart part, Direction direction) {
@@ -264,7 +268,7 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
+        return BlockRenderType.MODEL;
     }
 
     @Override
@@ -290,6 +294,10 @@ public class SleepingBagBlock extends HorizontalFacingBlock implements BlockEnti
 
     public DyeColor getColor() {
         return this.color;
+    }
+
+    public Block getParticleSource() {
+        return this.particleSource;
     }
 
     @Override

@@ -19,7 +19,6 @@
     "ShulkerBoxScreenHandlerMixin",
     "SitLivingEntityAccessor",
     "TridentEntityMixin",
-    "VillagerEntityMixin",
     "WolfEntityMixin",
     "WorldMixin"
   ],
@@ -32,7 +31,10 @@
     "ClientPlayerInteractionManagerMixin",
     "EnchantmentScreenMixin",
     "HandledScreenAccessor",
-    "WolfEntityRendererMixin"
+    "PlayerEntityRendererMixin",
+    "PlayerEntityRenderStateMixin",
+    "WolfEntityRendererMixin",
+    "WolfEntityRenderStateMixin"
   ],
   "server": [
     "ServerLoginNetworkHandlerMixin"

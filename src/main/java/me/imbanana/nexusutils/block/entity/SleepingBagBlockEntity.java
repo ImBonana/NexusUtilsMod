@@ -38,7 +38,7 @@ public class SleepingBagBlockEntity extends BlockEntity {
         this.color = color;
     }
 
-    public boolean isShouldRenderFull() {
+    public boolean shouldRenderFull() {
         return this.shouldRenderFull;
     }
 }

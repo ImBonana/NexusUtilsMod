@@ -27,7 +27,7 @@ public class TerroristDogItem extends Item {
 
             user.swingHand(hand, !user.getWorld().isClient);
 
-            return ActionResult.CONSUME_PARTIAL;
+            return ActionResult.CONSUME;
         }
 
         return ActionResult.PASS;

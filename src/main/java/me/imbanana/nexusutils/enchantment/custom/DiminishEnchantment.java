@@ -16,7 +16,7 @@ import net.minecraft.registry.entry.RegistryEntryList;
 
 public class DiminishEnchantment extends NexusEnchantment {
     public DiminishEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ModItemTags.AXES_ENCHANTABLE),
                                 2,

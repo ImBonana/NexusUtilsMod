@@ -5,12 +5,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.mixin.HandledScreenAccessor;
 import me.imbanana.nexusutils.util.Position2;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
@@ -98,13 +100,12 @@ public abstract class InventoryManagementButton extends ButtonWidget {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA,
                 GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.applyModelViewMatrix();
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.enableDepthTest();
 
         int u = iconOffset.x() * width;
         int v = iconOffset.y() * height + (isHovered() || isFocused() ? height : 0);
 
-        drawContext.drawTexture(TEXTURE, getX(), getY(), u, v, WIDTH, HEIGHT);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, getX(), getY(), u, v, WIDTH, HEIGHT, 256, 256);
     }
 }

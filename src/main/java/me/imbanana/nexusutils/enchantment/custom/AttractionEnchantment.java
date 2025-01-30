@@ -17,7 +17,7 @@ import net.minecraft.registry.tag.EntityTypeTags;
 
 public class AttractionEnchantment extends NexusEnchantment {
     public AttractionEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                 Enchantment.definition(
                         itemLookup.getOrThrow(ModItemTags.RANGED_PROJECTILE_ENCHANTABLE),
                         2,
@@ -32,7 +32,7 @@ public class AttractionEnchantment extends NexusEnchantment {
                 EnchantmentEffectTarget.ATTACKER,
                 EnchantmentEffectTarget.VICTIM,
                 new LaunchEntityToEntityEnchantmentEffect(EnchantmentLevelBasedValue.linear(0.5F)),
-                EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(EntityTypeTags.ARROWS).build())
+                EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(entityTypeLookup, EntityTypeTags.ARROWS).build())
             ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.ATTRACTION_EXCLUSIVE_SET))
         );
     }

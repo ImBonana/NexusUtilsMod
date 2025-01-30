@@ -11,7 +11,7 @@ import net.minecraft.registry.tag.ItemTags;
 
 public class PoseidonEnchantment extends NexusEnchantment {
     public PoseidonEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                     Enchantment.definition(
                             itemLookup.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
                             2,

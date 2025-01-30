@@ -7,6 +7,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.world.ServerWorld;
 
 public class BleedStatusEffect extends StatusEffect {
     public BleedStatusEffect() {
@@ -14,13 +15,13 @@ public class BleedStatusEffect extends StatusEffect {
     }
 
     @Override
-    public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
+    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
         if(!entity.getWorld().isClient() && !entity.getType().isIn(ModEntityTypeTags.NO_BLEEDING_APPLY_MOBS)) {
-            DamageSource damageSource = new DamageSource(entity.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(ModDamageSources.BLEED));
-            entity.damage(damageSource, 1.0f);
+            DamageSource damageSource = new DamageSource(entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.DAMAGE_TYPE).getOrThrow(ModDamageSources.BLEED));
+            entity.damage(world, damageSource, 1.0f);
         }
 
-        return super.applyUpdateEffect(entity, amplifier);
+        return super.applyUpdateEffect(world, entity, amplifier);
     }
 
     @Override

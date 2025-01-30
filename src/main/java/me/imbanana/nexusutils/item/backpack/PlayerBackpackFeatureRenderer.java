@@ -9,23 +9,23 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.ColorHelper;
 
-public class PlayerBackpackFeatureRenderer<T extends PlayerEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
+public class PlayerBackpackFeatureRenderer<T extends PlayerEntityRenderState, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private final BackpackEntityModel backpack;
 
-    public PlayerBackpackFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader) {
+    public PlayerBackpackFeatureRenderer(FeatureRendererContext<T, M> context, LoadedEntityModels loader) {
         super(context);
         this.backpack = new BackpackEntityModel(loader.getModelPart(ModModelLayers.BACKPACK));
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        ItemStack itemStack = entity.getInventory().nexusUtils$getBackpackItemStack();
+    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T state, float limbAngle, float limbDistance) {
+        ItemStack itemStack = state.nexusUtils$getBackpack();
         if(!(itemStack.getItem() instanceof BackpackItem)) return;
 
         BackpackInventory backpackInventory = new BackpackInventory(itemStack);
@@ -36,7 +36,7 @@ public class PlayerBackpackFeatureRenderer<T extends PlayerEntity, M extends Ent
         matrices.translate(0f, -0.8f, 0.35f);
         boolean shouldRenderSleepingBag = sleepingBagItem != null && !sleepingBagItem.isEmpty();
 
-        this.backpack.render(tier, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, ColorHelper.Argb.fromFloats(1f, 1f, 1f, 1f), itemStack.hasGlint(), shouldRenderSleepingBag);
+        this.backpack.render(tier, matrices, vertexConsumers, light, OverlayTexture.DEFAULT_UV, ColorHelper.fromFloats(1f, 1f, 1f, 1f), itemStack.hasGlint(), shouldRenderSleepingBag);
 
         matrices.pop();
     }

@@ -66,11 +66,9 @@ public class MailDeliveryService extends PersistentState {
 
     public MailSendResult sendMail(MailBox mailBox, ItemStack stack) {
         if(this.world.getBlockEntity(mailBox.pos()) instanceof MailBoxBlockEntity mailBoxBlockEntity) {
-            Inventory mailBoxInventory = mailBoxBlockEntity;
-
             int emptySlotId = -1;
-            for (int i = 0; i < mailBoxInventory.size(); i++) {
-                if(mailBoxInventory.getStack(i).isEmpty()) {
+            for (int i = 0; i < mailBoxBlockEntity.size(); i++) {
+                if(mailBoxBlockEntity.getStack(i).isEmpty()) {
                     emptySlotId = i;
                     break;
                 }
@@ -78,7 +76,7 @@ public class MailDeliveryService extends PersistentState {
 
             if(emptySlotId == -1) return MailSendResult.FULL;
 
-            mailBoxInventory.setStack(emptySlotId, stack);
+            mailBoxBlockEntity.setStack(emptySlotId, stack);
             mailBox.updateMailBoxBlock(this.world);
 
             return MailSendResult.SUCCESS;

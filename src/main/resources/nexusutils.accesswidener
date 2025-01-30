@@ -1,6 +1,8 @@
 accessWidener v2 named
 
 accessible class net/minecraft/server/network/ServerLoginNetworkHandler$State
-accessible method net/minecraft/client/render/WorldRenderer drawCuboidShapeOutline (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;Lnet/minecraft/util/shape/VoxelShape;DDDFFFF)V
 accessible method net/minecraft/enchantment/Enchantment createEnchantedItemLootContext (Lnet/minecraft/server/world/ServerWorld;ILnet/minecraft/item/ItemStack;)Lnet/minecraft/loot/context/LootContext;
 accessible field net/minecraft/loot/context/LootContextTypes MAP Lcom/google/common/collect/BiMap;
+accessible field net/minecraft/client/data/ItemModelGenerator TRIM_MATERIALS Ljava/util/List;
+accessible class net/minecraft/client/data/ItemModelGenerator$TrimMaterial
+accessible field net/minecraft/item/ItemStack OPERATOR_WARNINGS Ljava/util/List;

@@ -22,7 +22,7 @@ import net.minecraft.registry.entry.RegistryEntryList;
 
 public class PerishEnchantment extends NexusEnchantment {
     public PerishEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ModItemTags.RANGED_WEAPON_ENCHANTABLE),
                                 3,
@@ -46,7 +46,7 @@ public class PerishEnchantment extends NexusEnchantment {
                         ),
                         AllOfLootCondition.builder(
                                 RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.10f))),
-                                EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(EntityType.TRIDENT))
+                                EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(entityTypeLookup, EntityType.TRIDENT))
                         )
                 )
         );

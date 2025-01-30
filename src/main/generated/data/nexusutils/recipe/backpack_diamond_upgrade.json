@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "minecraft:diamond"
-    },
-    "L": {
-      "item": "minecraft:leather"
-    },
-    "U": {
-      "item": "nexusutils:backpack_gold_upgrade"
-    }
+    "I": "minecraft:diamond",
+    "L": "minecraft:leather",
+    "U": "nexusutils:backpack_gold_upgrade"
   },
   "pattern": [
     "ILI",

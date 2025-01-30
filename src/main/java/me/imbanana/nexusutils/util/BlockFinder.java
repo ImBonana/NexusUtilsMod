@@ -1,6 +1,7 @@
 package me.imbanana.nexusutils.util;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -23,7 +24,7 @@ public class BlockFinder {
         // collect information on camera
         Vec3d cameraPos = playerEntity.getCameraPosVec(1);
         Vec3d rotation = playerEntity.getRotationVec(1);
-        double reachDistance = getReachDistance(playerEntity);
+        double reachDistance = playerEntity.getAttributeValue(EntityAttributes.BLOCK_INTERACTION_RANGE);
         Vec3d combined = cameraPos.add(rotation.x * reachDistance, rotation.y * reachDistance, rotation.z * reachDistance);
 
         // find block the player is currently looking at
@@ -106,9 +107,5 @@ public class BlockFinder {
     public static Stream<BlockPos> getSameBlocksConnectedToPos(Block block, BlockPos pos, World world) {
         return BlockPos.stream(pos.add(-1, -1, -1), pos.add(1, 1, 1))
                 .filter(bpos -> !bpos.equals(pos) && world.getBlockState(bpos).getBlock() == block);
-    }
-
-    public static double getReachDistance(PlayerEntity playerEntity) {
-        return playerEntity.isCreative() ? 5.0F : 4.5F;
     }
 }

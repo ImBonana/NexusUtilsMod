@@ -18,7 +18,7 @@ import net.minecraft.registry.tag.ItemTags;
 
 public class ProjectileDeflectEnchantment extends NexusEnchantment {
     public ProjectileDeflectEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                 Enchantment.definition(
                         itemLookup.getOrThrow(ItemTags.LEG_ARMOR_ENCHANTABLE),
                         5,

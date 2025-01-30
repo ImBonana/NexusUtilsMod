@@ -1,8 +1,5 @@
 {
   "parent": "minecraft:builtin/entity",
-  "textures": {
-    "particle": "minecraft:block/white_wool"
-  },
   "display": {
     "thirdperson_righthand": {
       "rotation": [ 30, 160, 0 ],

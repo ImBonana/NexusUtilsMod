@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "CSC",
+    "SSS",
+    "CSC"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nexusutils:hopper_filter"
+  }
+}

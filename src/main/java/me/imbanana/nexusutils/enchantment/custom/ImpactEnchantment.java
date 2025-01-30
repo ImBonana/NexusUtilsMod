@@ -18,7 +18,7 @@ import net.minecraft.registry.tag.ItemTags;
 
 public class ImpactEnchantment extends NexusEnchantment {
     public ImpactEnchantment(RegistryKey<Enchantment> key) {
-        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup) -> Enchantment.builder(
+        super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                     Enchantment.definition(
                             itemLookup.getOrThrow(ItemTags.TRIDENT_ENCHANTABLE),
                             2,
@@ -33,7 +33,7 @@ public class ImpactEnchantment extends NexusEnchantment {
                 new MultiplyEnchantmentEffect(EnchantmentLevelBasedValue.constant(2)),
                 AllOfLootCondition.builder(
                         RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.10f))),
-                        EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(EntityType.TRIDENT))
+                        EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(entityTypeLookup, EntityType.TRIDENT))
                 )
             )
         );

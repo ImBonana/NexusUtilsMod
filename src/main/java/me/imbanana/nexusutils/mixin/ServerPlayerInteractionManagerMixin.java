@@ -54,7 +54,7 @@ public abstract class ServerPlayerInteractionManagerMixin {
             if(this.nexusutils$isMining) cir.setReturnValue(true);
         }
 
-        Pair<Unit, Integer> timberEnchantment = EnchantmentHelper.getEffectListAndLevel(heldStack, ModEnchantmentEffectComponentTypes.TIMBER);
+        Pair<Unit, Integer> timberEnchantment = EnchantmentHelper.getHighestLevelEffect(heldStack, ModEnchantmentEffectComponentTypes.TIMBER);
 
         if(timberEnchantment != null && TimberEnchantment.canBreak(blockState.getBlock())) {
             if(!this.nexusutils$isMining) {
@@ -66,7 +66,7 @@ public abstract class ServerPlayerInteractionManagerMixin {
             if(this.nexusutils$isMining) cir.setReturnValue(true);
         }
 
-        Pair<Unit, Integer> oreExcavation = EnchantmentHelper.getEffectListAndLevel(heldStack, ModEnchantmentEffectComponentTypes.ORE_EXCAVATION);
+        Pair<Unit, Integer> oreExcavation = EnchantmentHelper.getHighestLevelEffect(heldStack, ModEnchantmentEffectComponentTypes.ORE_EXCAVATION);
 
         if(oreExcavation != null) {
             if(!this.nexusutils$isMining) {

@@ -71,7 +71,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    protected void InjectPlayerDeath(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
+    protected void InjectPlayerDeath(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if((player.getHealth() - amount) <= 0f) {
             if(canActiveVoidTotem()) {

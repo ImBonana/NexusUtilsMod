@@ -14,6 +14,7 @@ import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.item.backpack.BackpackEntityModel;
 import me.imbanana.nexusutils.item.backpack.BackpackEntityModelRenderer;
 import me.imbanana.nexusutils.item.backpack.PlayerBackpackFeatureRenderer;
+import me.imbanana.nexusutils.item.models.SnailModelRenderer;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
 import me.imbanana.nexusutils.screen.backpack.BackpackScreen;
 import me.imbanana.nexusutils.screen.copperhopper.CopperHopperScreen;
@@ -37,6 +38,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -71,13 +73,14 @@ public class NexusUtilsClient implements ClientModInitializer {
 
         registerFluids();
 
-        LivingEntityFeatureRendererRegistrationCallback.EVENT.register(((entityType, entityRenderer, registrationHelper, context) -> {
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             if (entityRenderer instanceof PlayerEntityRenderer renderer) {
-                registrationHelper.register(new PlayerBackpackFeatureRenderer<>(renderer, context.getModelLoader()));
+                registrationHelper.register(new PlayerBackpackFeatureRenderer<>(renderer, context.getEntityModels()));
             }
-        }));
-
-        BuiltinItemRendererRegistry.INSTANCE.register(ModItems.BACKPACK, new BackpackEntityModelRenderer());
+        });
+        SpecialModelTypes.ID_MAPPER.put(NexusUtils.idOf("backpack"), BackpackEntityModelRenderer.Unbaked.CODEC);
+        SpecialModelTypes.ID_MAPPER.put(NexusUtils.idOf("snail"), SnailModelRenderer.Unbaked.CODEC);
+//        BuiltinItemRendererRegistry.INSTANCE.register(ModItems.BACKPACK, new BackpackEntityModelRenderer());
 
         FabricLoader.getInstance()
                 .getModContainer(NexusUtils.MOD_ID)
