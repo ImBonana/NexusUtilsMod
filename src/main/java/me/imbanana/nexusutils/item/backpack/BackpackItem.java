@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.item.backpack;
 
+import dev.emi.trinkets.api.TrinketItem;
 import me.imbanana.nexusutils.components.ModComponents;
 import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class BackpackItem extends Item {
+public class BackpackItem extends TrinketItem {
     public BackpackItem(Settings settings) {
         super(settings);
     }
@@ -35,14 +36,13 @@ public class BackpackItem extends Item {
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
-        if(!user.getInventory().nexusUtils$isBackapckEquipped()) {
-            ItemStack newStack = stack.copy();
-            user.getInventory().nexusUtils$setBackpackItemStack(newStack);
-            user.nexusutils$onEquipBackpack(newStack, ItemStack.EMPTY);
-
-            stack.setCount(0);
+        if(user.getInventory().nexusUtils$isBackapckEquipped()) {
+            user.setStackInHand(hand, user.getInventory().nexusUtils$getBackpackItemStack());
         }
 
-        return ActionResult.SUCCESS;
+        user.getInventory().nexusUtils$setBackpackItemStack(stack.copy());
+        stack.decrement(1);
+
+        return super.use(world, user, hand);
     }
 }
