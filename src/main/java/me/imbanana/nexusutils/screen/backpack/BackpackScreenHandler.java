@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.screen.backpack;
 
+import me.imbanana.nexusutils.NexusUtils;
 import me.imbanana.nexusutils.components.ModComponents;
 import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
 import me.imbanana.nexusutils.fluids.ModFluids;
@@ -72,16 +73,27 @@ public class BackpackScreenHandler extends ScreenHandler {
                 if (!this.insertItem(originalStack, UtilSlots.SLEEPING_BAG.getId(), UtilSlots.SLEEPING_BAG.getId() + 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if(originalStack.getItem() instanceof BucketItem bucketItem) {
-                Fluid fluid =  bucketItem.nexusutils$getFluid();
-                if(fluid != Fluids.EMPTY) {
-                    if(this.getLeftTank().isResourceBlank() || (this.getLeftTank().variant.getFluid() == fluid && this.getLeftTank().getAmount() < this.getLeftTank().getCapacity())) {
-                        if (!this.insertItem(originalStack, UtilSlots.LEFT_TANK_INPUT.getId(), UtilSlots.LEFT_TANK_INPUT.getId() + 1, true)) {
-                            return ItemStack.EMPTY;
+            } else if(originalStack.getItem() instanceof BucketItem || originalStack.getItem() == Items.MILK_BUCKET) {
+                if(invSlot >= this.inventory.size() && invSlot != UtilSlots.LEFT_TANK_INPUT.getId() && invSlot != UtilSlots.RIGHT_TANK_INPUT.getId() && invSlot != UtilSlots.LEFT_TANK_OUTPUT.getId() && invSlot != UtilSlots.RIGHT_TANK_OUTPUT.getId()) {
+                    Fluid fluid = originalStack.getItem() instanceof BucketItem bucket ? bucket.nexusutils$getFluid() : ModFluids.MILK;
+                    if(fluid != Fluids.EMPTY) {
+                        if(this.getLeftTank().isResourceBlank() || (this.getLeftTank().variant.getFluid() == fluid && this.getLeftTank().getAmount() < this.getLeftTank().getCapacity())) {
+                            if (!this.insertItem(originalStack, UtilSlots.LEFT_TANK_INPUT.getId(), UtilSlots.LEFT_TANK_INPUT.getId() + 1, true)) {
+                                return ItemStack.EMPTY;
+                            }
                         }
-                    } else if (this.getRightTank().isResourceBlank() || this.getRightTank().variant.getFluid() == fluid) {
-                        if (!this.insertItem(originalStack, UtilSlots.RIGHT_TANK_INPUT.getId(), UtilSlots.RIGHT_TANK_INPUT.getId() + 1, true)) {
-                            return ItemStack.EMPTY;
+                        if (this.getRightTank().isResourceBlank() || this.getRightTank().variant.getFluid() == fluid) {
+                            if (!this.insertItem(originalStack, UtilSlots.RIGHT_TANK_INPUT.getId(), UtilSlots.RIGHT_TANK_INPUT.getId() + 1, true)) {
+                                return ItemStack.EMPTY;
+                            }
+                        }
+                    } else {
+                        if(!this.getLeftTank().isResourceBlank()) {
+                            this.insertItem(originalStack, UtilSlots.LEFT_TANK_INPUT.getId(), UtilSlots.LEFT_TANK_INPUT.getId() + 1, true);
+                        }
+
+                        if(!this.getRightTank().isResourceBlank()) {
+                            this.insertItem(originalStack, UtilSlots.RIGHT_TANK_INPUT.getId(), UtilSlots.RIGHT_TANK_INPUT.getId() + 1, true);
                         }
                     }
                 }
