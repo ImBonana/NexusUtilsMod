@@ -22,7 +22,7 @@ public class TerroristDogRemoteItem extends Item {
     @Override
     public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        Box myBox = new Box(user.getBlockPos()).expand(35);
+        Box myBox = new Box(user.getBlockPos()).expand(100);
         List<WolfEntity> wolfTerrorits = world.getEntitiesByClass(WolfEntity.class, myBox, wolfEntity -> wolfEntity.isAlive() && user.getUuid().equals(wolfEntity.getOwnerUuid()) && wolfEntity.nexusUtils$hasBombBelt());
 
         for(WolfEntity wolfEntity : wolfTerrorits) wolfEntity.nexusUtils$goBoom();
