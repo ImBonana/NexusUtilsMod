@@ -86,20 +86,24 @@ public class ModClientEvents {
 
             BlockEntity blockEntity = world.getBlockEntity(blockHitResult.getBlockPos());
 
-            if(blockEntity instanceof ItemDisplayBlockEntity itemDisplayBlockEntity) {
-                ItemStack itemStack = itemDisplayBlockEntity.getRenderStack();
-                TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-                boolean advancedItemTooltips = MinecraftClient.getInstance().options.advancedItemTooltips;
-                Vec3d screenPos = RendererUtils.worldSpaceToScreenSpace(itemDisplayBlockEntity.getPos().toCenterPos()).add(7, 0, 0);
-                int x =(int) screenPos.x;
-                int y = (int) screenPos.y;
-                if(Screen.hasAltDown()) {
-                    drawContext.drawItemTooltip(textRenderer, itemStack, x, y);
-                } else {
-                    List<Text> toolTips = getSimpleTooltip(itemStack, player, advancedItemTooltips);
-                    toolTips.add(Text.translatable("tooltip.nexusutils.expend_key"));
-                    drawContext.drawTooltip(textRenderer, toolTips, Optional.empty(), x, y);
-                }
+            if(!(blockEntity instanceof ItemDisplayBlockEntity itemDisplayBlockEntity)) return;
+
+            ItemStack itemStack = itemDisplayBlockEntity.getRenderStack();
+            if(itemStack == null || itemStack.isEmpty()) return;
+
+            TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+            boolean advancedItemTooltips = MinecraftClient.getInstance().options.advancedItemTooltips;
+
+            Vec3d screenPos = RendererUtils.worldSpaceToScreenSpace(itemDisplayBlockEntity.getPos().toCenterPos()).add(7, 0, 0);
+            int x =(int) screenPos.x;
+            int y = (int) screenPos.y;
+
+            if(Screen.hasAltDown()) {
+                drawContext.drawItemTooltip(textRenderer, itemStack, x, y);
+            } else {
+                List<Text> toolTips = getSimpleTooltip(itemStack, player, advancedItemTooltips);
+                toolTips.add(Text.translatable("tooltip.nexusutils.expend_key"));
+                drawContext.drawTooltip(textRenderer, toolTips, Optional.empty(), x, y);
             }
         });
 
