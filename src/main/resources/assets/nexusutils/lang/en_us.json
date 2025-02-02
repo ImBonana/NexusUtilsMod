@@ -217,12 +217,14 @@
 
   "tag.item.nexusutils.enchantable.axes": "Axes",
   "tag.item.nexusutils.enchantable.experience": "Experience",
+  "tag.item.nexusutils.enchantable.hoes": "Hoes",
   "tag.item.nexusutils.enchantable.ice_aspect": "Ice Aspect",
   "tag.item.nexusutils.enchantable.pickaxes": "Pickaxes",
   "tag.item.nexusutils.enchantable.ranged_projectile": "Ranged Projectile",
   "tag.item.nexusutils.enchantable.ranged_weapon": "Ranged Weapon",
   "tag.item.nexusutils.enchantable.telepathy": "Telepathy",
   "tag.item.nexusutils.sleeping_bags": "Sleeping Bags",
+  "tag.item.trinkets.chest.backpack": "Backpack",
 
   "trim_material.nexusutils.pink_quartz": "Pink Quartz Material",
 
