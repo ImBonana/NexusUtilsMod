@@ -1,0 +1,92 @@
+{
+  "parent": "nexusutils:nexus/obtained_backpack",
+  "criteria": {
+    "obtained_upgraded_backpack_tier_1": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "nexusutils:backpack_tier": {
+                "tier": "tier_1"
+              }
+            },
+            "items": "nexusutils:backpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_upgraded_backpack_tier_2": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "nexusutils:backpack_tier": {
+                "tier": "tier_2"
+              }
+            },
+            "items": "nexusutils:backpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_upgraded_backpack_tier_3": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "nexusutils:backpack_tier": {
+                "tier": "tier_3"
+              }
+            },
+            "items": "nexusutils:backpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "obtained_upgraded_backpack_tier_4": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "nexusutils:backpack_tier": {
+                "tier": "tier_4"
+              }
+            },
+            "items": "nexusutils:backpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.backpack_upgrade.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "components": {
+        "nexusutils:backpack_tier": {
+          "tier": "tier_3"
+        }
+      },
+      "count": 1,
+      "id": "nexusutils:backpack"
+    },
+    "title": {
+      "translate": "advancements.nexus.backpack_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_upgraded_backpack_tier_1",
+      "obtained_upgraded_backpack_tier_2",
+      "obtained_upgraded_backpack_tier_3",
+      "obtained_upgraded_backpack_tier_4"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

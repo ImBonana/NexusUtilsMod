@@ -1,0 +1,8 @@
+// 1.21.4	-999999999-01-01T00:00:00	Nexus Utils/Tags for minecraft:enchantment
+3bf83858ebf9a6644f8201a8ad3533cead44459f data/minecraft/tags/enchantment/non_treasure.json
+bdcff28de2ba9c55d257d5b487e8c72d7b9e19c8 data/nexusutils/tags/enchantment/exclusive/attraction.json
+ec5ae89a990801279ac1772a93821303c44a1690 data/nexusutils/tags/enchantment/exclusive/auto_smelt.json
+99c9118c51e853aeabc8af3309e80450d917a9c7 data/nexusutils/tags/enchantment/exclusive/chaos.json
+d0685acdea98e2dc539760003639177e586251a9 data/nexusutils/tags/enchantment/exclusive/ice_aspect.json
+700f5cf68fcaa13b62c721344a5e0d29a3530d11 data/nexusutils/tags/enchantment/exclusive/lava_walker.json
+a68efdd924f8f061d62749c454937733b6b097a3 data/nexusutils/tags/enchantment/exclusive/multimining.json

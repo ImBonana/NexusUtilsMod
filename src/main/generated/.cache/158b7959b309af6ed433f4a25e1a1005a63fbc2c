@@ -1,2 +1,11 @@
 // 1.21.4	-999999999-01-01T00:00:00	Nexus Utils/Tags for minecraft:item
 c6982aa556345be481fe65d48e57aa623476cbaa data/minecraft/tags/item/trim_materials.json
+ba9125aa546790a0582445879c658b228dbb763c data/nexusutils/tags/item/enchantable/axes.json
+d72ddd0627acfe3781238513b4d652cb53653d47 data/nexusutils/tags/item/enchantable/experience.json
+1feebc4d4dfb8dd4b39ea79e961a1b31359e0ff3 data/nexusutils/tags/item/enchantable/hoes.json
+a9395727898b233076d0998353242ce55742c8a4 data/nexusutils/tags/item/enchantable/ice_aspect.json
+bdb4053d28def340c591bb6cd77b677cfe510db6 data/nexusutils/tags/item/enchantable/pickaxes.json
+86dc4ffc82b4786c8bdd468c22ed3440d1548cd5 data/nexusutils/tags/item/enchantable/ranged_projectile.json
+62f5d2ea843f10995832685540f51abdd3bb2771 data/nexusutils/tags/item/enchantable/ranged_weapon.json
+7110448d6fba247fd3e55f88a7a083be447daa30 data/nexusutils/tags/item/enchantable/telepathy.json
+7b960a0f8cc910fce9bb5f1b110e36880d6ff508 data/nexusutils/tags/item/sleeping_bags.json

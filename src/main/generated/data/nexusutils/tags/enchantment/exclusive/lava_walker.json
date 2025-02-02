@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:frost_walker",
+    {
+      "id": "nexusutils:lava_walker",
+      "required": false
+    }
+  ]
+}

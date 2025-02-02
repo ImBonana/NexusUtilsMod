@@ -80,6 +80,13 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
 
     @Shadow public abstract boolean shouldDropExperience();
 
+    @Shadow private int jumpingCooldown;
+
+    @Shadow public abstract void remove(RemovalReason reason);
+
+    @Unique
+    private int jumpLeft;
+
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -221,6 +228,11 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
+    @Inject(method = "jump", at = @At(value = "HEAD"))
+    private void injectJump(CallbackInfo ci) {
+        this.nexusUtils$decrementJumpLeft();
+    }
+
     @Override
     public void nexusutils$onEquipBackpack(ItemStack stack, ItemStack previousStack) {
         if ((stack.isEmpty() && previousStack.isEmpty()) || ItemStack.areItemsAndComponentsEqual(stack, previousStack) || this.firstUpdate) {
@@ -259,5 +271,30 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Unique
     private void setPositionInSleepingBag(BlockPos pos) {
         this.setPosition((double)pos.getX() + 0.5, (double)pos.getY() + 0.325, (double)pos.getZ() + 0.5);
+    }
+
+    @Override
+    public int nexusUtils$getJumpingCooldown() {
+        return this.jumpingCooldown;
+    }
+
+    @Override
+    public void nexusUtils$setJumpingCooldown(int cooldown) {
+        this.jumpingCooldown = cooldown;
+    }
+
+    @Override
+    public int nexusUtils$getJumpLeft() {
+        return this.jumpLeft;
+    }
+
+    @Override
+    public void nexusUtils$setJumpLeft(int jumps) {
+        this.jumpLeft = jumps;
+    }
+
+    @Override
+    public void nexusUtils$decrementJumpLeft() {
+        this.jumpLeft--;
     }
 }

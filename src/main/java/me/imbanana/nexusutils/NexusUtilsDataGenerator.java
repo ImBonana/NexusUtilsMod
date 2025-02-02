@@ -12,12 +12,18 @@ public class NexusUtilsDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-		pack.addProvider(ModLootTableProvider::new);
+		pack.addProvider(ModBlockLootTableProvider::new);
+		pack.addProvider(ModEntityLootTableGenerator::new);
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
+		pack.addProvider(ModBiomeTagProvider::new);
+		pack.addProvider(ModEntityTypeTagProvider::new);
 		pack.addProvider(ModRegisteryDataGenerator::new);
+		pack.addProvider(ModAdvancementProvider::new);
 		pack.addProvider(ModModelProvider::new);
+		pack.addProvider(ModDamageTypeTagProvider::new);
+		pack.addProvider(ModEnchantmentTagProvider::new);
 	}
 
 	@Override

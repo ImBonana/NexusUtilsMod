@@ -6,6 +6,7 @@ import me.imbanana.nexusutils.commands.ModCommands;
 import me.imbanana.nexusutils.components.ModComponents;
 import me.imbanana.nexusutils.configs.DiscordBotConfig;
 import me.imbanana.nexusutils.configs.RealPlayersConfig;
+import me.imbanana.nexusutils.damageSources.ModDamageTypes;
 import me.imbanana.nexusutils.effect.ModEffects;
 import me.imbanana.nexusutils.enchantment.ModEnchantments;
 import me.imbanana.nexusutils.entity.ModEntities;
@@ -57,6 +58,7 @@ public class NexusUtils implements ModInitializer {
 		ModCommands.registerModCommands();
 
 		ModRecipes.registerModRecipes();
+		ModDamageTypes.registerModDamageTypes();
 
 		FabricDefaultAttributeRegistry.register(ModEntities.SNAIL, SnailEntity.createSnailAttributes());
 //		FabricDefaultAttributeRegistry.register(ModEntities.TRIDENT_OF_FIRE, TridentOfFireEntity);

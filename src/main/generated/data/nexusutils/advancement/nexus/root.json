@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "obtained_crafting_on_a_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:crafting_on_a_stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/oak_planks.png",
+    "description": {
+      "translate": "advancements.nexus.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:crafting_on_a_stick"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.nexus.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_crafting_on_a_stick"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

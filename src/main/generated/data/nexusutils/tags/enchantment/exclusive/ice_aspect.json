@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:fire_aspect",
+    {
+      "id": "nexusutils:ice_aspect",
+      "required": false
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 package me.imbanana.nexusutils.effect.custom;
 
-import me.imbanana.nexusutils.damageSources.ModDamageSources;
-import me.imbanana.nexusutils.tags.ModEntityTypeTags;
+import me.imbanana.nexusutils.damageSources.ModDamageTypes;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
@@ -16,8 +16,8 @@ public class BleedStatusEffect extends StatusEffect {
 
     @Override
     public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        if(!entity.getWorld().isClient() && !entity.getType().isIn(ModEntityTypeTags.NO_BLEEDING_APPLY_MOBS)) {
-            DamageSource damageSource = new DamageSource(entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.DAMAGE_TYPE).getOrThrow(ModDamageSources.BLEED));
+        if(!entity.getWorld().isClient() && !entity.getType().isIn(ModTags.EntityTypes.NO_BLEEDING)) {
+            DamageSource damageSource = new DamageSource(entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.DAMAGE_TYPE).getOrThrow(ModDamageTypes.BLEED));
             entity.damage(world, damageSource, 1.0f);
         }
 

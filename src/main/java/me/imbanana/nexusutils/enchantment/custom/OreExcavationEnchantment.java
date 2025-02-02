@@ -2,8 +2,7 @@ package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
 import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
-import me.imbanana.nexusutils.tags.ModItemTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -17,7 +16,7 @@ public class OreExcavationEnchantment extends NexusEnchantment {
     public OreExcavationEnchantment(RegistryKey<Enchantment> key) {
         super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
-                                itemLookup.getOrThrow(ModItemTags.PICKAXES_ENCHANTABLE),
+                                itemLookup.getOrThrow(ModTags.Items.PICKAXES_ENCHANTABLE),
                                 1,
                                 2,
                                 Enchantment.leveledCost(15, 9),
@@ -25,7 +24,7 @@ public class OreExcavationEnchantment extends NexusEnchantment {
                                 8,
                                 AttributeModifierSlot.MAINHAND
                         )
-                ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.MULTIMINING_EXCLUSIVE_SET))
+                ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.MULTIMINING_EXCLUSIVE_SET))
                 .addEffect(
                     ModEnchantmentEffectComponentTypes.ORE_EXCAVATION
                 )

@@ -1,8 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
-import me.imbanana.nexusutils.tags.ModItemTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -24,7 +23,7 @@ public class PerishEnchantment extends NexusEnchantment {
     public PerishEnchantment(RegistryKey<Enchantment> key) {
         super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
-                                itemLookup.getOrThrow(ModItemTags.RANGED_WEAPON_ENCHANTABLE),
+                                itemLookup.getOrThrow(ModTags.Items.RANGED_WEAPON_ENCHANTABLE),
                                 3,
                                 1,
                                 Enchantment.constantCost(5),
@@ -32,7 +31,7 @@ public class PerishEnchantment extends NexusEnchantment {
                                 2,
                                 AttributeModifierSlot.MAINHAND
                         )
-                ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.CHAOS_EXCLUSIVE_SET))
+                ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.CHAOS_EXCLUSIVE_SET))
                 .addEffect(
                         EnchantmentEffectComponentTypes.POST_ATTACK,
                         EnchantmentEffectTarget.ATTACKER,

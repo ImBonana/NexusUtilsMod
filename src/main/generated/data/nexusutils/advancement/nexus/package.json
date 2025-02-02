@@ -1,0 +1,42 @@
+{
+  "parent": "nexusutils:nexus/mail_box",
+  "criteria": {
+    "use_package": {
+      "conditions": {
+        "item": {
+          "items": "nexusutils:package"
+        },
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "minecraft:player"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.package.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:package"
+    },
+    "title": {
+      "translate": "advancements.nexus.package.title"
+    }
+  },
+  "requirements": [
+    [
+      "use_package"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

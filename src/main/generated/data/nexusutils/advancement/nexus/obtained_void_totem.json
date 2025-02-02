@@ -1,0 +1,33 @@
+{
+  "parent": "nexusutils:nexus/root",
+  "criteria": {
+    "obtained_void_totem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:void_totem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.void_totem.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:void_totem"
+    },
+    "title": {
+      "translate": "advancements.nexus.void_totem.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_void_totem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

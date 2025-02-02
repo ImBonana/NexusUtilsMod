@@ -1,0 +1,156 @@
+{
+  "values": [
+    {
+      "id": "nexusutils:aegis",
+      "required": false
+    },
+    {
+      "id": "nexusutils:attraction",
+      "required": false
+    },
+    {
+      "id": "nexusutils:auto_smelt",
+      "required": false
+    },
+    {
+      "id": "nexusutils:blast",
+      "required": false
+    },
+    {
+      "id": "nexusutils:blind",
+      "required": false
+    },
+    {
+      "id": "nexusutils:chaos",
+      "required": false
+    },
+    {
+      "id": "nexusutils:devour",
+      "required": false
+    },
+    {
+      "id": "nexusutils:diminish",
+      "required": false
+    },
+    {
+      "id": "nexusutils:disappear",
+      "required": false
+    },
+    {
+      "id": "nexusutils:double_strike",
+      "required": false
+    },
+    {
+      "id": "nexusutils:ender_slayer",
+      "required": false
+    },
+    {
+      "id": "nexusutils:experience",
+      "required": false
+    },
+    {
+      "id": "nexusutils:extra_health",
+      "required": false
+    },
+    {
+      "id": "nexusutils:famine",
+      "required": false
+    },
+    {
+      "id": "nexusutils:headlight",
+      "required": false
+    },
+    {
+      "id": "nexusutils:ice_aspect",
+      "required": false
+    },
+    {
+      "id": "nexusutils:impact",
+      "required": false
+    },
+    {
+      "id": "nexusutils:jump",
+      "required": false
+    },
+    {
+      "id": "nexusutils:launch",
+      "required": false
+    },
+    {
+      "id": "nexusutils:lava_walker",
+      "required": false
+    },
+    {
+      "id": "nexusutils:lifesteal",
+      "required": false
+    },
+    {
+      "id": "nexusutils:lightning",
+      "required": false
+    },
+    {
+      "id": "nexusutils:nether_slayer",
+      "required": false
+    },
+    {
+      "id": "nexusutils:night_owl",
+      "required": false
+    },
+    {
+      "id": "nexusutils:ore_excavation",
+      "required": false
+    },
+    {
+      "id": "nexusutils:perish",
+      "required": false
+    },
+    {
+      "id": "nexusutils:phoenix",
+      "required": false
+    },
+    {
+      "id": "nexusutils:plummet",
+      "required": false
+    },
+    {
+      "id": "nexusutils:poison",
+      "required": false
+    },
+    {
+      "id": "nexusutils:poseidon",
+      "required": false
+    },
+    {
+      "id": "nexusutils:projectile_deflect",
+      "required": false
+    },
+    {
+      "id": "nexusutils:replanter",
+      "required": false
+    },
+    {
+      "id": "nexusutils:rocket_escape",
+      "required": false
+    },
+    {
+      "id": "nexusutils:shockwave",
+      "required": false
+    },
+    {
+      "id": "nexusutils:telepathy",
+      "required": false
+    },
+    {
+      "id": "nexusutils:timber",
+      "required": false
+    },
+    {
+      "id": "nexusutils:twinge",
+      "required": false
+    },
+    {
+      "id": "nexusutils:voodoo",
+      "required": false
+    }
+  ]
+}

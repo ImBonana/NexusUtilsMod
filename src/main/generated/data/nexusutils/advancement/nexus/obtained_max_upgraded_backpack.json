@@ -1,0 +1,44 @@
+{
+  "parent": "nexusutils:nexus/obtained_upgraded_backpack",
+  "criteria": {
+    "obtained_max_upgraded_backpack": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "nexusutils:backpack_tier": {
+                "tier": "tier_4"
+              }
+            },
+            "items": "nexusutils:backpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.backpack_max_upgrade.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "nexusutils:backpack_tier": {
+          "tier": "tier_4"
+        }
+      },
+      "count": 1,
+      "id": "nexusutils:backpack"
+    },
+    "title": {
+      "translate": "advancements.nexus.backpack_max_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_max_upgraded_backpack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

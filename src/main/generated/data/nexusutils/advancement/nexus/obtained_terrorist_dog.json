@@ -1,0 +1,34 @@
+{
+  "parent": "nexusutils:nexus/root",
+  "criteria": {
+    "obtained_terrorist_dog": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:terrorist_dog"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.terrorist_dog.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:terrorist_dog"
+    },
+    "title": {
+      "translate": "advancements.nexus.terrorist_dog.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_terrorist_dog"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

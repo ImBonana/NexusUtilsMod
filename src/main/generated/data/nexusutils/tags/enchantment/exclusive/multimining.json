@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "nexusutils:blast",
+      "required": false
+    },
+    {
+      "id": "nexusutils:timber",
+      "required": false
+    },
+    {
+      "id": "nexusutils:ore_excavation",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "nexusutils:perish",
+      "required": false
+    },
+    {
+      "id": "nexusutils:chaos",
+      "required": false
+    }
+  ]
+}

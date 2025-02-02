@@ -1,8 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
-import me.imbanana.nexusutils.tags.ModItemTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -19,7 +18,7 @@ public class IceAspectEnchantment extends NexusEnchantment {
     public IceAspectEnchantment(RegistryKey<Enchantment> key) {
         super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                     Enchantment.definition(
-                            itemLookup.getOrThrow(ModItemTags.ICE_ASPECT_ENCHANTABLE),
+                            itemLookup.getOrThrow(ModTags.Items.ICE_ASPECT_ENCHANTABLE),
                             2,
                             2,
                             Enchantment.leveledCost(10, 20),
@@ -39,7 +38,7 @@ public class IceAspectEnchantment extends NexusEnchantment {
                                 EnchantmentLevelBasedValue.constant(0)
                         ),
                         RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.20f)))
-            ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.ICE_ASPECT_EXCLUSIVE_SET))
+            ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.ICE_ASPECT_EXCLUSIVE_SET))
         );
     }
 }

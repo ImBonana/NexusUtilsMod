@@ -2,7 +2,7 @@ package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.block.ModBlocks;
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -36,7 +36,7 @@ public class LavaWalkerEnchantment extends NexusEnchantment {
                             4,
                             AttributeModifierSlot.FEET
                     )
-                ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.LAVA_WALKER_EXCLUSIVE_SET))
+                ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.LAVA_WALKER_EXCLUSIVE_SET))
                 .addEffect(
                         EnchantmentEffectComponentTypes.LOCATION_CHANGED,
                         new ReplaceDiskEnchantmentEffect(

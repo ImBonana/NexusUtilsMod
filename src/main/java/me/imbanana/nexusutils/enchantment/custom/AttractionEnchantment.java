@@ -2,8 +2,7 @@ package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
 import me.imbanana.nexusutils.enchantment.effects.LaunchEntityToEntityEnchantmentEffect;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
-import me.imbanana.nexusutils.tags.ModItemTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -19,7 +18,7 @@ public class AttractionEnchantment extends NexusEnchantment {
     public AttractionEnchantment(RegistryKey<Enchantment> key) {
         super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                 Enchantment.definition(
-                        itemLookup.getOrThrow(ModItemTags.RANGED_PROJECTILE_ENCHANTABLE),
+                        itemLookup.getOrThrow(ModTags.Items.RANGED_PROJECTILE_ENCHANTABLE),
                         2,
                         2,
                         Enchantment.leveledCost(1, 10),
@@ -33,7 +32,7 @@ public class AttractionEnchantment extends NexusEnchantment {
                 EnchantmentEffectTarget.VICTIM,
                 new LaunchEntityToEntityEnchantmentEffect(EnchantmentLevelBasedValue.linear(0.5F)),
                 EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(entityTypeLookup, EntityTypeTags.ARROWS).build())
-            ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.ATTRACTION_EXCLUSIVE_SET))
+            ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.ATTRACTION_EXCLUSIVE_SET))
         );
     }
 }

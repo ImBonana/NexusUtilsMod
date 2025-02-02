@@ -2,7 +2,7 @@ package me.imbanana.nexusutils.entity.custom;
 
 import me.imbanana.nexusutils.entity.ModEntities;
 import me.imbanana.nexusutils.item.ModItems;
-import me.imbanana.nexusutils.tags.ModEntitySpawnTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
@@ -51,7 +51,7 @@ public class SnailEntity extends AnimalEntity {
     }
 
     public static boolean canSpawn(EntityType<? extends AnimalEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(pos.down()).isIn(ModEntitySpawnTags.SNAIL_SPAWN_BLOCKS) && SnailEntity.isLightLevelValidForNaturalSpawn(world, pos);
+        return world.getBlockState(pos.down()).isIn(ModTags.Blocks.SNAIL_SPAWNABLE) && SnailEntity.isLightLevelValidForNaturalSpawn(world, pos);
     }
 
     @Override

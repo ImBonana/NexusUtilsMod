@@ -1,0 +1,33 @@
+{
+  "parent": "nexusutils:nexus/obtained_terrorist_dog",
+  "criteria": {
+    "obtained_terrorist_dog": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:terrorist_dog_remote"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.terrorist_dog_remote.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:terrorist_dog_remote"
+    },
+    "title": {
+      "translate": "advancements.nexus.terrorist_dog_remote.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_terrorist_dog"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

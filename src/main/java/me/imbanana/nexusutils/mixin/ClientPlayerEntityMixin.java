@@ -25,9 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
     @Shadow public Input input;
 
-
-    @Unique
-    private int jumpLeft;
     @Unique
     private boolean jumpedLastTick = false;
 
@@ -49,14 +46,14 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Unique
     private void nexusutils$jump() {
         this.jump();
-        if(this.nexusutils$getMaximumJumps() != jumpLeft)
+        this.nexusUtils$setJumpingCooldown(10);
+        if(this.nexusutils$getMaximumJumps() != this.nexusUtils$getJumpLeft())
             ModNetwork.NETWORK_CHANNEL.clientHandle().send(new AirJumpPacket(this.getId()));
-        this.jumpLeft--;
     }
 
     @Unique
     private void nexusutils$resetJumps() {
-        this.jumpLeft = nexusutils$getMaximumJumps();
+        this.nexusUtils$setJumpLeft(nexusutils$getMaximumJumps());
     }
 
     @Unique
@@ -72,6 +69,6 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Unique
     private boolean nexusutils$canJump() {
         boolean canJumpBasedOnState = !nexusutils$wearingUsableElytra() && !isGliding() && !this.hasVehicle() && !this.isTouchingWater() && !this.hasStatusEffect(StatusEffects.LEVITATION);
-        return canJumpBasedOnState && jumpLeft > 0 && !jumpedLastTick;
+        return canJumpBasedOnState && this.nexusUtils$getJumpLeft() > 0 && !jumpedLastTick && this.nexusUtils$getJumpingCooldown() <= 0;
     }
 }

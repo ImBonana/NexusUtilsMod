@@ -1,3 +1,4 @@
 // 1.21.4	-999999999-01-01T00:00:00	Nexus Utils/Tags for minecraft:block
 9c18434099c16d9fd20e0d84fd7a08349025cf13 data/minecraft/tags/block/mineable/pickaxe.json
 e31bc5a05f61e9173d9d20ad747557b818bd9674 data/minecraft/tags/block/needs_diamond_tool.json
+60f661a9b26b7f6b1910e5390a40644354fe0919 data/nexusutils/tags/block/snail_spawnable.json

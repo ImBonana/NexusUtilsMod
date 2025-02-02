@@ -1,0 +1,34 @@
+{
+  "parent": "nexusutils:nexus/sleeping_bag",
+  "criteria": {
+    "obtained_snail": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:snail_item"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.pick_snail.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:snail_item"
+    },
+    "title": {
+      "translate": "advancements.nexus.pick_snail.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_snail"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

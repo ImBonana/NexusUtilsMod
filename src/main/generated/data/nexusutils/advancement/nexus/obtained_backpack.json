@@ -1,0 +1,33 @@
+{
+  "parent": "nexusutils:nexus/sleeping_bag",
+  "criteria": {
+    "obtained_backpack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:backpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.backpack.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:backpack"
+    },
+    "title": {
+      "translate": "advancements.nexus.backpack.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_backpack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

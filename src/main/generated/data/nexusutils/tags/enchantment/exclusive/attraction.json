@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:punch",
+    {
+      "id": "nexusutils:attraction",
+      "required": false
+    }
+  ]
+}

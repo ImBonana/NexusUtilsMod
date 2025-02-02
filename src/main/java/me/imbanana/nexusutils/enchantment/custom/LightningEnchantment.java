@@ -1,7 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
-import me.imbanana.nexusutils.tags.ModItemTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -24,7 +24,7 @@ public class LightningEnchantment extends NexusEnchantment {
     public LightningEnchantment(RegistryKey<Enchantment> key) {
         super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
-                                itemLookup.getOrThrow(ModItemTags.RANGED_PROJECTILE_ENCHANTABLE),
+                                itemLookup.getOrThrow(ModTags.Items.RANGED_PROJECTILE_ENCHANTABLE),
                                 1,
                                 2,
                                 Enchantment.leveledCost(25, 9),

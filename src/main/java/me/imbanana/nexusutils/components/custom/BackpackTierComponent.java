@@ -21,7 +21,7 @@ public record BackpackTierComponent(Tier tier) {
         TIER_0("tier_0", 0, 0xC6C6C6),
         TIER_1("tier_1", 1, 0xffffff),
         TIER_2("tier_2", 2, 0xDEB12D),
-        TIER_3("tier_3", 3, 0x2CBAA8),
+        TIER_3("tier_3", 3, 0xB9F2FF),
         TIER_4("tier_4", 4, 0x443A3B),;
 
         public static final StringIdentifiable.EnumCodec<Tier> CODEC = StringIdentifiable.createCodec(Tier::values);

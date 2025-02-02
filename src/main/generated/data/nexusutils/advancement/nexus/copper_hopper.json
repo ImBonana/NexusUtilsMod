@@ -1,0 +1,33 @@
+{
+  "parent": "nexusutils:nexus/root",
+  "criteria": {
+    "obtained_copper_hopper": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:copper_hopper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.copper_hopper.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:copper_hopper"
+    },
+    "title": {
+      "translate": "advancements.nexus.copper_hopper.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_copper_hopper"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

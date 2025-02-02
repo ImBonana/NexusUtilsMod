@@ -1,0 +1,34 @@
+{
+  "parent": "nexusutils:nexus/root",
+  "criteria": {
+    "obtained_sleeping_bag": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#nexusutils:sleeping_bags"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.sleeping_bag.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:red_sleeping_bag"
+    },
+    "title": {
+      "translate": "advancements.nexus.sleeping_bag.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_sleeping_bag"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

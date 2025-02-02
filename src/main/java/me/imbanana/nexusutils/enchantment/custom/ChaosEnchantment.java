@@ -1,7 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -57,7 +57,7 @@ public class ChaosEnchantment extends NexusEnchantment {
                             RandomChanceLootCondition.builder(EnchantmentLevelLootNumberProvider.create(EnchantmentLevelBasedValue.constant(0.10f))),
                             EntityPropertiesLootCondition.builder(LootContext.EntityTarget.DIRECT_ATTACKER, EntityPredicate.Builder.create().type(entityTypeLookup, EntityType.TRIDENT))
                     )
-            ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.CHAOS_EXCLUSIVE_SET))
+            ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.CHAOS_EXCLUSIVE_SET))
         );
     }
 }

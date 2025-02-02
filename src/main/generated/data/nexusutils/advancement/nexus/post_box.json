@@ -1,0 +1,33 @@
+{
+  "parent": "nexusutils:nexus/mail_box",
+  "criteria": {
+    "obtained_post_box": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nexusutils:post_box"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.nexus.post_box.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nexusutils:post_box"
+    },
+    "title": {
+      "translate": "advancements.nexus.post_box.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_post_box"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

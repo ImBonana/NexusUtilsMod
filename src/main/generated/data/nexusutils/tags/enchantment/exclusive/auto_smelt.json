@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:silk_touch",
+    {
+      "id": "nexusutils:auto_smelt",
+      "required": false
+    }
+  ]
+}

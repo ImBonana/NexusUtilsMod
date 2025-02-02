@@ -1,7 +1,7 @@
 package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
-import me.imbanana.nexusutils.tags.ModItemTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
@@ -18,7 +18,7 @@ public class DiminishEnchantment extends NexusEnchantment {
     public DiminishEnchantment(RegistryKey<Enchantment> key) {
         super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
-                                itemLookup.getOrThrow(ModItemTags.AXES_ENCHANTABLE),
+                                itemLookup.getOrThrow(ModTags.Items.AXES_ENCHANTABLE),
                                 2,
                                 1,
                                 Enchantment.constantCost(5),

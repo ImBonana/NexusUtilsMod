@@ -2,8 +2,7 @@ package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
 import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
-import me.imbanana.nexusutils.tags.ModItemTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.AttributeModifierSlot;
@@ -17,7 +16,7 @@ public class TimberEnchantment extends NexusEnchantment  {
     public TimberEnchantment(RegistryKey<Enchantment> key) {
         super(key, (damageLookup, enchantmentLookup, itemLookup, blockLookup, entityTypeLookup) -> Enchantment.builder(
                         Enchantment.definition(
-                                itemLookup.getOrThrow(ModItemTags.AXES_ENCHANTABLE),
+                                itemLookup.getOrThrow(ModTags.Items.AXES_ENCHANTABLE),
                                 1,
                                 2,
                                 Enchantment.leveledCost(15, 9),
@@ -27,7 +26,7 @@ public class TimberEnchantment extends NexusEnchantment  {
                         )
                 ).addEffect(
                         ModEnchantmentEffectComponentTypes.TIMBER
-                ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.MULTIMINING_EXCLUSIVE_SET))
+                ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.MULTIMINING_EXCLUSIVE_SET))
         );
     }
 

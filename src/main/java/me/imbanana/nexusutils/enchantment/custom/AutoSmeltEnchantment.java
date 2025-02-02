@@ -2,7 +2,7 @@ package me.imbanana.nexusutils.enchantment.custom;
 
 import me.imbanana.nexusutils.enchantment.NexusEnchantment;
 import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
-import me.imbanana.nexusutils.tags.ModEnchantmentTags;
+import me.imbanana.nexusutils.tags.ModTags;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.registry.RegistryKey;
@@ -20,7 +20,7 @@ public class AutoSmeltEnchantment extends NexusEnchantment {
                         8,
                         AttributeModifierSlot.MAINHAND
                 )
-            ).exclusiveSet(enchantmentLookup.getOrThrow(ModEnchantmentTags.AUTO_SMELT_EXCLUSIVE_SET))
+            ).exclusiveSet(enchantmentLookup.getOrThrow(ModTags.Enchantments.AUTO_SMELT_EXCLUSIVE_SET))
             .addEffect(
                 ModEnchantmentEffectComponentTypes.AUTO_SMELT
             )
