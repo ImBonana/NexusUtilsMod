@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
+  "group": "sleeping_bag_recolor",
   "ingredients": [
     "minecraft:gray_dye",
     "#nexusutils:sleeping_bags"

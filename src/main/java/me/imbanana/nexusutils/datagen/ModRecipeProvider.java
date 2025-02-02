@@ -7,9 +7,11 @@ import me.imbanana.nexusutils.recipes.ModRecipes;
 import me.imbanana.nexusutils.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Block;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.data.recipe.SmithingTransformRecipeJsonBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
@@ -32,7 +34,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         return new RecipeGenerator(registryLookup, exporter) {
             @Override
             public void generate() {
-                registerSleepingBags(exporter);
+                registerSleepingBags();
 
                 createShaped(RecipeCategory.MISC, ModItems.CRAFTING_ON_A_STICK, 1)
                         .pattern("  C")
@@ -229,279 +231,44 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter, Registries.ITEM.getId(ModItems.BACKPACK_NETHERITE_UPGRADE).getPath() + "_smithing");
             }
 
-            private void registerSleepingBags(RecipeExporter exporter) {
-                createShaped(RecipeCategory.MISC, ModBlocks.BLACK_SLEEPING_BAG, 1)
+            private void registerSleepingBags() {
+                registerSleepingBag(ModBlocks.BLACK_SLEEPING_BAG, Items.BLACK_WOOL, Items.BLACK_DYE);
+                registerSleepingBag(ModBlocks.BLUE_SLEEPING_BAG, Items.BLUE_WOOL, Items.BLUE_DYE);
+                registerSleepingBag(ModBlocks.BROWN_SLEEPING_BAG, Items.BROWN_WOOL, Items.BROWN_DYE);
+                registerSleepingBag(ModBlocks.CYAN_SLEEPING_BAG, Items.CYAN_WOOL, Items.CYAN_DYE);
+                registerSleepingBag(ModBlocks.GRAY_SLEEPING_BAG, Items.GRAY_WOOL, Items.GRAY_DYE);
+                registerSleepingBag(ModBlocks.GREEN_SLEEPING_BAG, Items.GREEN_WOOL, Items.GREEN_DYE);
+                registerSleepingBag(ModBlocks.LIGHT_BLUE_SLEEPING_BAG, Items.LIGHT_BLUE_WOOL, Items.LIGHT_BLUE_DYE);
+                registerSleepingBag(ModBlocks.LIGHT_GRAY_SLEEPING_BAG, Items.LIGHT_GRAY_WOOL, Items.LIGHT_GRAY_DYE);
+                registerSleepingBag(ModBlocks.LIME_SLEEPING_BAG, Items.LIME_WOOL, Items.LIME_DYE);
+                registerSleepingBag(ModBlocks.MAGENTA_SLEEPING_BAG, Items.MAGENTA_WOOL, Items.MAGENTA_DYE);
+                registerSleepingBag(ModBlocks.ORANGE_SLEEPING_BAG, Items.ORANGE_WOOL, Items.ORANGE_DYE);
+                registerSleepingBag(ModBlocks.PINK_SLEEPING_BAG, Items.PINK_WOOL, Items.PINK_DYE);
+                registerSleepingBag(ModBlocks.PURPLE_SLEEPING_BAG, Items.PURPLE_WOOL, Items.PURPLE_DYE);
+                registerSleepingBag(ModBlocks.RED_SLEEPING_BAG, Items.RED_WOOL, Items.RED_DYE);
+                registerSleepingBag(ModBlocks.WHITE_SLEEPING_BAG, Items.WHITE_WOOL, Items.WHITE_DYE);
+                registerSleepingBag(ModBlocks.YELLOW_SLEEPING_BAG, Items.YELLOW_WOOL, Items.YELLOW_DYE);
+            }
+
+            private void registerSleepingBag(Block result, Item wool, Item dye) {
+                createShaped(RecipeCategory.MISC, result, 1)
                         .pattern("   ")
                         .pattern("   ")
                         .pattern("WCC")
                         .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.BLACK_WOOL)
+                        .input('C', wool)
+                        .group("sleeping_bag")
                         .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.BLACK_WOOL), conditionsFromItem(Items.BLACK_WOOL))
+                        .criterion(hasItem(wool), conditionsFromItem(wool))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.MISC, ModBlocks.BLUE_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.BLUE_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.BLUE_WOOL), conditionsFromItem(Items.BLUE_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.BROWN_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.BROWN_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.BROWN_WOOL), conditionsFromItem(Items.BROWN_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.CYAN_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.CYAN_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.CYAN_WOOL), conditionsFromItem(Items.CYAN_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.GRAY_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.GRAY_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.GRAY_WOOL), conditionsFromItem(Items.GRAY_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.GREEN_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.GREEN_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.GREEN_WOOL), conditionsFromItem(Items.GREEN_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.LIGHT_BLUE_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.LIGHT_BLUE_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.LIGHT_BLUE_WOOL), conditionsFromItem(Items.LIGHT_BLUE_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.LIGHT_GRAY_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.LIGHT_GRAY_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.LIGHT_GRAY_WOOL), conditionsFromItem(Items.LIGHT_GRAY_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.LIME_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.LIME_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.LIME_WOOL), conditionsFromItem(Items.LIME_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.MAGENTA_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.MAGENTA_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.MAGENTA_WOOL), conditionsFromItem(Items.MAGENTA_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.ORANGE_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.ORANGE_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.ORANGE_WOOL), conditionsFromItem(Items.ORANGE_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.PINK_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.PINK_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.PINK_WOOL), conditionsFromItem(Items.PINK_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.PURPLE_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.PURPLE_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.PURPLE_WOOL), conditionsFromItem(Items.PURPLE_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.RED_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.RED_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.RED_WOOL), conditionsFromItem(Items.RED_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.WHITE_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.WHITE_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .offerTo(exporter);
-
-                createShaped(RecipeCategory.MISC, ModBlocks.YELLOW_SLEEPING_BAG, 1)
-                        .pattern("   ")
-                        .pattern("   ")
-                        .pattern("WCC")
-                        .input('W', Items.WHITE_WOOL)
-                        .input('C', Items.YELLOW_WOOL)
-                        .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL))
-                        .criterion(hasItem(Items.YELLOW_WOOL), conditionsFromItem(Items.YELLOW_WOOL))
-                        .offerTo(exporter);
-
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.BLACK_SLEEPING_BAG, 1)
-                        .input(Items.BLACK_DYE)
+                createShapeless(RecipeCategory.MISC, result, 1)
+                        .input(dye)
                         .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.BLACK_DYE), conditionsFromItem(Items.BLACK_DYE))
+                        .group("sleeping_bag_recolor")
+                        .criterion(hasItem(dye), conditionsFromItem(dye))
                         .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("black_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.BLUE_SLEEPING_BAG, 1)
-                        .input(Items.BLUE_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.BLUE_DYE), conditionsFromItem(Items.BLUE_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("blue_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.BROWN_SLEEPING_BAG, 1)
-                        .input(Items.BROWN_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.BROWN_DYE), conditionsFromItem(Items.BROWN_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("brown_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.CYAN_SLEEPING_BAG, 1)
-                        .input(Items.CYAN_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.CYAN_DYE), conditionsFromItem(Items.CYAN_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("cyan_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.GRAY_SLEEPING_BAG, 1)
-                        .input(Items.GRAY_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.GRAY_DYE), conditionsFromItem(Items.GRAY_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("gray_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.GREEN_SLEEPING_BAG, 1)
-                        .input(Items.GREEN_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.GREEN_DYE), conditionsFromItem(Items.GREEN_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("green_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.LIGHT_BLUE_SLEEPING_BAG, 1)
-                        .input(Items.LIGHT_BLUE_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.LIGHT_BLUE_DYE), conditionsFromItem(Items.LIGHT_BLUE_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("light_blue_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.LIGHT_GRAY_SLEEPING_BAG, 1)
-                        .input(Items.LIGHT_GRAY_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.LIGHT_GRAY_DYE), conditionsFromItem(Items.LIGHT_GRAY_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("light_gray_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.LIME_SLEEPING_BAG, 1)
-                        .input(Items.LIME_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.LIME_DYE), conditionsFromItem(Items.LIME_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("lime_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.MAGENTA_SLEEPING_BAG, 1)
-                        .input(Items.MAGENTA_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.MAGENTA_DYE), conditionsFromItem(Items.MAGENTA_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("magenta_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.ORANGE_SLEEPING_BAG, 1)
-                        .input(Items.ORANGE_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.ORANGE_DYE), conditionsFromItem(Items.ORANGE_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("orange_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.PINK_SLEEPING_BAG, 1)
-                        .input(Items.PINK_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.PINK_DYE), conditionsFromItem(Items.PINK_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("pink_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.PURPLE_SLEEPING_BAG, 1)
-                        .input(Items.PURPLE_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.PURPLE_DYE), conditionsFromItem(Items.PURPLE_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("purple_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.RED_SLEEPING_BAG, 1)
-                        .input(Items.RED_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.RED_DYE), conditionsFromItem(Items.RED_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("red_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.WHITE_SLEEPING_BAG, 1)
-                        .input(Items.WHITE_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.WHITE_DYE), conditionsFromItem(Items.WHITE_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("white_sleeping_bag_recolor")));
-
-                createShapeless(RecipeCategory.MISC, ModBlocks.YELLOW_SLEEPING_BAG, 1)
-                        .input(Items.YELLOW_DYE)
-                        .input(ModItemTags.SLEEPING_BAGS)
-                        .criterion(hasItem(Items.YELLOW_DYE), conditionsFromItem(Items.YELLOW_DYE))
-                        .criterion("has_sleeping_bag", conditionsFromTag(ModItemTags.SLEEPING_BAGS))
-                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf("yellow_sleeping_bag_recolor")));
+                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, NexusUtils.idOf(getRecipeName(result) + "_recolor")));
             }
         };
     }

@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "sleeping_bag",
   "key": {
     "C": "minecraft:orange_wool",
     "W": "minecraft:white_wool"
