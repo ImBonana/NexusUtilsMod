@@ -3,8 +3,8 @@ package me.imbanana.nexusutils.item.backpack;
 import dev.emi.trinkets.api.TrinketItem;
 import me.imbanana.nexusutils.components.ModComponents;
 import me.imbanana.nexusutils.components.custom.BackpackTierComponent;
+import me.imbanana.nexusutils.item.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Style;
@@ -44,5 +44,11 @@ public class BackpackItem extends TrinketItem {
         stack.decrement(1);
 
         return super.use(world, user, hand);
+    }
+
+    public static ItemStack ofTier(BackpackTierComponent.Tier tier) {
+        ItemStack stack = ModItems.BACKPACK.getDefaultStack().copy();
+        stack.set(ModComponents.BACKPACK_TIER, new BackpackTierComponent(tier));
+        return stack;
     }
 }

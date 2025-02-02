@@ -16,6 +16,7 @@ import me.imbanana.nexusutils.fluids.ModFluids;
 import me.imbanana.nexusutils.item.ModItemGroups;
 import me.imbanana.nexusutils.item.ModItems;
 import me.imbanana.nexusutils.networking.ModNetwork;
+import me.imbanana.nexusutils.recipes.ModRecipes;
 import me.imbanana.nexusutils.screen.ModScreenHandlers;
 import me.imbanana.nexusutils.world.gen.ModWorldGen;
 import net.fabricmc.api.ModInitializer;
@@ -54,6 +55,8 @@ public class NexusUtils implements ModInitializer {
 
 		ModScreenHandlers.registerScreenHandlers();
 		ModCommands.registerModCommands();
+
+		ModRecipes.registerModRecipes();
 
 		FabricDefaultAttributeRegistry.register(ModEntities.SNAIL, SnailEntity.createSnailAttributes());
 //		FabricDefaultAttributeRegistry.register(ModEntities.TRIDENT_OF_FIRE, TridentOfFireEntity);

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ModItems {
-    private static final List<Item> modGroupItems = new ArrayList<>();
+    private static final List<Item> MOD_GROUP_ITEMS = new ArrayList<>();
 
     public static final Item CRAFTING_ON_A_STICK = registerItem("crafting_on_a_stick", CraftingOnAStickItem::new, new Item.Settings().maxCount(1));
     public static final Item VOID_TOTEM = registerItem("void_totem", new Item.Settings().maxCount(1));
@@ -102,12 +102,18 @@ public class ModItems {
     }
 
     public static void addItemToCategory(Item item) {
-        modGroupItems.add(item);
+        MOD_GROUP_ITEMS.add(item);
     }
 
     public static void addItemsToIngredientTabItemGroup(ItemGroup.DisplayContext displayContext, ItemGroup.Entries entries) {
-        for(Item item : modGroupItems) {
+        for(Item item : MOD_GROUP_ITEMS) {
             entries.add(item);
+            if(item instanceof BackpackItem) {
+                entries.add(BackpackItem.ofTier(BackpackTierComponent.Tier.TIER_1));
+                entries.add(BackpackItem.ofTier(BackpackTierComponent.Tier.TIER_2));
+                entries.add(BackpackItem.ofTier(BackpackTierComponent.Tier.TIER_3));
+                entries.add(BackpackItem.ofTier(BackpackTierComponent.Tier.TIER_4));
+            }
         }
     }
 }
