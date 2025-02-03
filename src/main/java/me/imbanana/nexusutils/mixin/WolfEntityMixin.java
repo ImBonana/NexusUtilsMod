@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import me.imbanana.nexusutils.item.custom.TerroristDogItem;
 import me.imbanana.nexusutils.util.ITerroristable;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -13,6 +14,7 @@ import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -60,6 +62,13 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
         if(itemStack.getItem() instanceof TerroristDogItem) {
             ActionResult actionResult = itemStack.useOnEntity(player, this, hand);
             if(actionResult.isAccepted()) cir.setReturnValue(actionResult);
+        }
+    }
+
+    @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/WolfEntity;setSitting(Z)V"))
+    private void injectDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if(source.isIn(DamageTypeTags.IS_EXPLOSION)) {
+            this.nexusUtils$goBoom();
         }
     }
 
