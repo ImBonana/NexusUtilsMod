@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "nexusutils:backpack",
-    "minecraft:stick"
+    "nexusutils:backpack"
   ]
 }

@@ -87,6 +87,9 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Unique
     private int jumpLeft;
 
+    @Unique
+    private boolean isJumped;
+
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -228,9 +231,17 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
         }
     }
 
+    @Inject(method = "tickMovement", at = @At("TAIL"))
+    private void injectTickMovement(CallbackInfo ci) {
+        if(this.isOnGround()) {
+            this.isJumped = false;
+        }
+    }
+
     @Inject(method = "jump", at = @At(value = "HEAD"))
     private void injectJump(CallbackInfo ci) {
         this.nexusUtils$decrementJumpLeft();
+        this.isJumped = true;
     }
 
     @Override
@@ -271,6 +282,11 @@ public abstract class LivingEntityMixin extends Entity implements ILivingEntity 
     @Unique
     private void setPositionInSleepingBag(BlockPos pos) {
         this.setPosition((double)pos.getX() + 0.5, (double)pos.getY() + 0.325, (double)pos.getZ() + 0.5);
+    }
+
+    @Override
+    public boolean nexusUtils$isJumped() {
+        return this.isJumped;
     }
 
     @Override

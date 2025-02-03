@@ -69,6 +69,6 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Unique
     private boolean nexusutils$canJump() {
         boolean canJumpBasedOnState = !nexusutils$wearingUsableElytra() && !isGliding() && !this.hasVehicle() && !this.isTouchingWater() && !this.hasStatusEffect(StatusEffects.LEVITATION);
-        return canJumpBasedOnState && this.nexusUtils$getJumpLeft() > 0 && !jumpedLastTick && this.nexusUtils$getJumpingCooldown() <= 0;
+        return canJumpBasedOnState && this.nexusUtils$isJumped() && this.nexusUtils$getJumpLeft() > 0 && !jumpedLastTick && this.nexusUtils$getJumpingCooldown() <= 0;
     }
 }
