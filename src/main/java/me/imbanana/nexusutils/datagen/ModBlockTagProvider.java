@@ -33,5 +33,23 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.MUD)
                 .add(Blocks.MANGROVE_ROOTS)
                 .add(Blocks.MUDDY_MANGROVE_ROOTS);
+
+        getOrCreateTagBuilder(ModTags.Blocks.SLEEPING_BAGS)
+                .add(ModBlocks.BLACK_SLEEPING_BAG)
+                .add(ModBlocks.BLUE_SLEEPING_BAG)
+                .add(ModBlocks.BROWN_SLEEPING_BAG)
+                .add(ModBlocks.CYAN_SLEEPING_BAG)
+                .add(ModBlocks.GRAY_SLEEPING_BAG)
+                .add(ModBlocks.GREEN_SLEEPING_BAG)
+                .add(ModBlocks.LIGHT_BLUE_SLEEPING_BAG)
+                .add(ModBlocks.LIGHT_GRAY_SLEEPING_BAG)
+                .add(ModBlocks.LIME_SLEEPING_BAG)
+                .add(ModBlocks.MAGENTA_SLEEPING_BAG)
+                .add(ModBlocks.ORANGE_SLEEPING_BAG)
+                .add(ModBlocks.PINK_SLEEPING_BAG)
+                .add(ModBlocks.PURPLE_SLEEPING_BAG)
+                .add(ModBlocks.RED_SLEEPING_BAG)
+                .add(ModBlocks.WHITE_SLEEPING_BAG)
+                .add(ModBlocks.YELLOW_SLEEPING_BAG);
     }
 }

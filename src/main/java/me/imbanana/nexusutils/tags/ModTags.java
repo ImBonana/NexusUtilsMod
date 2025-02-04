@@ -28,6 +28,7 @@ public class ModTags {
 
     public static class Blocks {
         public static final TagKey<Block> SNAIL_SPAWNABLE = register("snail_spawnable");
+        public static final TagKey<Block> SLEEPING_BAGS = register("sleeping_bags");
 
         private static TagKey<Block> register(String id) {
             return TagKey.of(RegistryKeys.BLOCK, NexusUtils.idOf(id));
