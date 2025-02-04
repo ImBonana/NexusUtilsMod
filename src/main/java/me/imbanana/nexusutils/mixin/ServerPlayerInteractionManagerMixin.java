@@ -2,6 +2,7 @@ package me.imbanana.nexusutils.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import me.imbanana.nexusutils.enchantment.componentTypes.ModEnchantmentEffectComponentTypes;
+import me.imbanana.nexusutils.enchantment.custom.OreExcavationEnchantment;
 import me.imbanana.nexusutils.enchantment.custom.TimberEnchantment;
 import me.imbanana.nexusutils.util.BlockBreaker;
 import me.imbanana.nexusutils.util.BlockFinder;
@@ -68,7 +69,7 @@ public abstract class ServerPlayerInteractionManagerMixin {
 
         Pair<Unit, Integer> oreExcavation = EnchantmentHelper.getHighestLevelEffect(heldStack, ModEnchantmentEffectComponentTypes.ORE_EXCAVATION);
 
-        if(oreExcavation != null) {
+        if (oreExcavation != null && OreExcavationEnchantment.canBreak(blockState.getBlock())) {
             if(!this.nexusutils$isMining) {
                 List<BlockPos> posList = BlockFinder.getVeinBlocks(blockState.getBlock(), pos, world, 10 + (5 * oreExcavation.getSecond()));
 
