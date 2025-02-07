@@ -26,6 +26,7 @@ public class TerroristDogItem extends Item {
             terrorist.nexusUtils$setBombBelt(true);
 
             user.swingHand(hand, !user.getWorld().isClient);
+            user.getStackInHand(hand).decrement(1);
 
             return ActionResult.CONSUME;
         }
