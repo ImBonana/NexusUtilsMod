@@ -1,5 +1,6 @@
 package me.imbanana.nexusutils.mixin;
 
+import me.imbanana.nexusutils.NexusUtils;
 import net.minecraft.block.*;
 import net.minecraft.item.BoneMealItem;
 import net.minecraft.item.ItemUsageContext;
@@ -49,12 +50,12 @@ public abstract class BoneMealMixin {
         Block block = world.getBlockState(blockPos).getBlock();
         if(block.getDefaultState().isAir()) return false;
 
-        return block == Blocks.BAMBOO || block == Blocks.SUGAR_CANE || block == Blocks.CACTUS;
+        return block == Blocks.SUGAR_CANE || block == Blocks.CACTUS;
     }
 
     @Unique
     private BlockPos getHighestBlockFromType(World world, BlockPos pos) {
-        for (int i = 0; i < (world.getTopY(Heightmap.Type.WORLD_SURFACE, pos.getX(), pos.getZ()) - pos.getY()); i++) {
+        for (int i = 0; i < (world.getHeight() - pos.getY()); i++) {
             if(world.getBlockState(pos.up(i)).getBlock() != world.getBlockState(pos).getBlock())
                 return pos.up(i);
         }
