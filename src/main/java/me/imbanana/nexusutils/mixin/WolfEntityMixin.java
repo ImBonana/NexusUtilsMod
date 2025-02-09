@@ -34,6 +34,9 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
     @Unique
     private final String bombBeltId = "BombBelt";
 
+    @Unique
+    private boolean shouldExplode = false;
+
     protected WolfEntityMixin(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -67,9 +70,14 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/WolfEntity;setSitting(Z)V"))
     private void injectDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(source.isIn(DamageTypeTags.IS_EXPLOSION)) {
+        if(source.isIn(DamageTypeTags.IS_EXPLOSION) && this.isAlive() && !this.dead && this.nexusUtils$hasBombBelt()) {
             this.nexusUtils$goBoom();
         }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void injectTick(CallbackInfo ci) {
+        if(shouldExplode) this.goKaBoomNow();
     }
 
     @Override
@@ -85,6 +93,11 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 
     @Override
     public void nexusUtils$goBoom() {
+        shouldExplode = true;
+    }
+
+    @Unique
+    private void goKaBoomNow() {
         if(this.getWorld() instanceof ServerWorld world) {
             this.dead = true;
             world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 3, World.ExplosionSourceType.MOB);
